@@ -179,7 +179,7 @@ Public Class MainInventory
             cmd.Parameters("@4").Value = Me.cmbUnit.Text
 
             cmd.ExecuteNonQuery()
-            MsgBox("Employee Information has been Updated!")
+            MsgBox("Ingredient Information has been Updated!")
             Call REFRESHORDERDATAGRID()
 
         Catch ex As Exception
