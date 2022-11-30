@@ -44,6 +44,8 @@ Partial Class MainEmp
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.cmbPosition = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.searchAccID = New System.Windows.Forms.TextBox()
         Me.txtAccID = New System.Windows.Forms.TextBox()
@@ -67,7 +69,6 @@ Partial Class MainEmp
         Me.SupplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmbPosition = New System.Windows.Forms.ComboBox()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -340,6 +341,7 @@ Partial Class MainEmp
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.btnUpdate)
         Me.GroupBox1.Controls.Add(Me.cmbPosition)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.searchAccID)
@@ -364,6 +366,32 @@ Partial Class MainEmp
         Me.GroupBox1.Size = New System.Drawing.Size(1313, 744)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
+        '
+        'btnUpdate
+        '
+        Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.btnUpdate.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUpdate.ForeColor = System.Drawing.Color.White
+        Me.btnUpdate.Location = New System.Drawing.Point(250, 650)
+        Me.btnUpdate.Name = "btnUpdate"
+        Me.btnUpdate.Size = New System.Drawing.Size(121, 41)
+        Me.btnUpdate.TabIndex = 38
+        Me.btnUpdate.Text = "UPDATE"
+        Me.btnUpdate.UseVisualStyleBackColor = True
+        '
+        'cmbPosition
+        '
+        Me.cmbPosition.DisplayMember = "Admin"
+        Me.cmbPosition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbPosition.ForeColor = System.Drawing.SystemColors.WindowFrame
+        Me.cmbPosition.FormattingEnabled = True
+        Me.cmbPosition.Items.AddRange(New Object() {"ADMIN", "ADMIN/MANAGER", "CASHIER", "COOK"})
+        Me.cmbPosition.Location = New System.Drawing.Point(123, 489)
+        Me.cmbPosition.Name = "cmbPosition"
+        Me.cmbPosition.Size = New System.Drawing.Size(330, 33)
+        Me.cmbPosition.TabIndex = 37
+        Me.cmbPosition.Text = "Select"
+        Me.cmbPosition.ValueMember = "Cashier"
         '
         'Label8
         '
@@ -515,11 +543,11 @@ Partial Class MainEmp
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(123, 650)
+        Me.SaveBtn.Location = New System.Drawing.Point(95, 650)
         Me.SaveBtn.Name = "SaveBtn"
         Me.SaveBtn.Size = New System.Drawing.Size(121, 41)
         Me.SaveBtn.TabIndex = 21
-        Me.SaveBtn.Text = "SAVE"
+        Me.SaveBtn.Text = "INSERT"
         Me.SaveBtn.UseVisualStyleBackColor = True
         '
         'DeleteBtn
@@ -527,7 +555,7 @@ Partial Class MainEmp
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(265, 650)
+        Me.DeleteBtn.Location = New System.Drawing.Point(409, 650)
         Me.DeleteBtn.Name = "DeleteBtn"
         Me.DeleteBtn.Size = New System.Drawing.Size(109, 41)
         Me.DeleteBtn.TabIndex = 20
@@ -586,20 +614,6 @@ Partial Class MainEmp
         Me.InventoryToolStripMenuItem.Name = "InventoryToolStripMenuItem"
         Me.InventoryToolStripMenuItem.Size = New System.Drawing.Size(107, 29)
         Me.InventoryToolStripMenuItem.Text = "Inventory"
-        '
-        'cmbPosition
-        '
-        Me.cmbPosition.DisplayMember = "Admin"
-        Me.cmbPosition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbPosition.ForeColor = System.Drawing.SystemColors.WindowFrame
-        Me.cmbPosition.FormattingEnabled = True
-        Me.cmbPosition.Items.AddRange(New Object() {"ADMIN", "ADMIN/MANAGER", "CASHIER", "COOK"})
-        Me.cmbPosition.Location = New System.Drawing.Point(123, 489)
-        Me.cmbPosition.Name = "cmbPosition"
-        Me.cmbPosition.Size = New System.Drawing.Size(330, 33)
-        Me.cmbPosition.TabIndex = 37
-        Me.cmbPosition.Text = "Select"
-        Me.cmbPosition.ValueMember = "Cashier"
         '
         'MainEmp
         '
@@ -674,4 +688,5 @@ Partial Class MainEmp
     Friend WithEvents txtAccID As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents cmbPosition As ComboBox
+    Friend WithEvents btnUpdate As Button
 End Class

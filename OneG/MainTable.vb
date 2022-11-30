@@ -149,8 +149,6 @@ Public Class MainTable
         Dim str As String
         Dim cmd As DB2Command
         Dim param1 As DB2Parameter
-        Dim param2 As DB2Parameter
-
 
         Try
 
@@ -178,8 +176,13 @@ Public Class MainTable
 
 
     Private Sub dgvTable_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTable.MouseUp
-        Me.txtTableNo.Text = Me.dgvTable.CurrentRow.Cells(0).Value
-        Me.cmbNoOfSeat.Text = Me.dgvTable.CurrentRow.Cells(1).Value
+        Try
+            Me.txtTableNo.Text = Me.dgvTable.CurrentRow.Cells(0).Value
+            Me.cmbNoOfSeat.Text = Me.dgvTable.CurrentRow.Cells(1).Value
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -199,7 +202,7 @@ Public Class MainTable
             param1.Direction = ParameterDirection.Input
             cmd.Parameters("@1").Value = Me.txtTableNo.Text
 
-            param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+            param2 = cmd.Parameters.Add("@2", DB2Type.Integer)
             param2.Direction = ParameterDirection.Input
             cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
 

@@ -51,6 +51,12 @@ Public Class SignUp
 
             cmd.ExecuteNonQuery()
             MsgBox("Account Saved Successfully!")
+            Me.txtAccID.Clear()
+            Me.txtFName.Clear()
+            Me.txtLName.Clear()
+            Me.txtMName.Clear()
+            Me.txtPass.Clear()
+            Me.cmbPosition.Text = "Select"
         Catch ex As Exception
             MsgBox("Something went wrong please try again!")
         End Try
