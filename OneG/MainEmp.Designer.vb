@@ -399,16 +399,16 @@ Partial Class MainEmp
         Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
         Me.Label8.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.Transparent
-        Me.Label8.Location = New System.Drawing.Point(783, 98)
+        Me.Label8.Location = New System.Drawing.Point(594, 94)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(104, 23)
+        Me.Label8.Size = New System.Drawing.Size(189, 23)
         Me.Label8.TabIndex = 36
-        Me.Label8.Text = "Search ID"
+        Me.Label8.Text = "Search Last Name"
         '
         'searchAccID
         '
         Me.searchAccID.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.searchAccID.Location = New System.Drawing.Point(893, 94)
+        Me.searchAccID.Location = New System.Drawing.Point(789, 90)
         Me.searchAccID.Name = "searchAccID"
         Me.searchAccID.Size = New System.Drawing.Size(330, 27)
         Me.searchAccID.TabIndex = 35

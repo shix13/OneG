@@ -1,4 +1,5 @@
-﻿Imports IBM.Data.DB2
+﻿Imports System.ComponentModel.Design
+Imports IBM.Data.DB2
 Public Class SignUp
     Private conn As IDbConnection
 
@@ -6,9 +7,20 @@ Public Class SignUp
         Try
             conn = New DB2Connection("server=localhost;database=oneg;" + "uid=db2admin;password=db2admin;")
             conn.Open()
+            Call REFRESHORDERDATAGRID()
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+    End Sub
+    Private Sub REFRESHORDERDATAGRID()
+        Dim value As Integer = CInt(Int((10000 * Rnd()) + 1))
+        txtAccID.Text = "ACC_" + value.ToString
+        txtFName.Clear()
+        txtLName.Clear()
+        txtMName.Clear()
+        txtPass.Clear()
+        cmbPosition.Text = "Select"
+
     End Sub
 
     Private Sub SignUpBtn_Click(sender As Object, e As EventArgs) Handles SignUpBtn.Click
@@ -51,12 +63,7 @@ Public Class SignUp
 
             cmd.ExecuteNonQuery()
             MsgBox("Account Saved Successfully!")
-            Me.txtAccID.Clear()
-            Me.txtFName.Clear()
-            Me.txtLName.Clear()
-            Me.txtMName.Clear()
-            Me.txtPass.Clear()
-            Me.cmbPosition.Text = "Select"
+            Call REFRESHORDERDATAGRID()
         Catch ex As Exception
             MsgBox("Something went wrong please try again!")
         End Try

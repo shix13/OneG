@@ -40,7 +40,7 @@ Public Class MainEmp
         Try
             With Me.dgvEmployeeAcc
                 .ColumnCount = 5
-                .Columns(0).Name = "ACCOUN ID"
+                .Columns(0).Name = "ACCOUNT ID"
                 .Columns(1).Name = "FIRST NAME"
                 .Columns(2).Name = "MIDDLE NAME"
                 .Columns(3).Name = "LAST NAME"
@@ -60,7 +60,8 @@ Public Class MainEmp
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
         Dim rows As String()
-        Me.txtAccID.Clear()
+        Dim value As Integer = CInt(Int((10000 * Rnd()) + 1))
+        txtAccID.Text = "ACC_" + value.ToString
         Me.txtFName.Clear()
         Me.txtLName.Clear()
         Me.txtMName.Clear()
@@ -276,6 +277,31 @@ Public Class MainEmp
             Call REFRESHORDERDATAGRID()
         Catch ex As Exception
             MsgBox("Something went wrong please try again!")
+        End Try
+    End Sub
+
+    Private Sub txtSearch_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub searchAccID_TextChanged(sender As Object, e As EventArgs) Handles searchAccID.TextChanged
+        Dim strsearchkey As String
+        Dim cmdsearch As DB2Command
+        Dim rdr As DB2DataReader
+        Dim rows As String()
+
+        Try
+            strsearchkey = Me.searchAccID.Text + "%"
+            cmdsearch = New DB2Command("select * from employee where lname like '" & strsearchkey & "'", conn)
+            rdr = cmdsearch.ExecuteReader
+
+            Me.dgvEmployeeAcc.Rows.Clear()
+            While rdr.Read
+                rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetString(5)}
+                Me.dgvEmployeeAcc.Rows.Add(rows)
+            End While
+        Catch ex As Exception
+            MsgBox(ex.ToString)
         End Try
     End Sub
 End Class
