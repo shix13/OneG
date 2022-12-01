@@ -398,7 +398,6 @@ Partial Class Order
         Me.searchMenu.Name = "searchMenu"
         Me.searchMenu.Size = New System.Drawing.Size(289, 28)
         Me.searchMenu.TabIndex = 10
-        Me.searchMenu.Text = "Search Menu "
         '
         'AllOrderBtn
         '
@@ -417,11 +416,11 @@ Partial Class Order
         Me.TableOrderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.TableOrderBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TableOrderBtn.ForeColor = System.Drawing.Color.White
-        Me.TableOrderBtn.Location = New System.Drawing.Point(432, 274)
+        Me.TableOrderBtn.Location = New System.Drawing.Point(390, 274)
         Me.TableOrderBtn.Name = "TableOrderBtn"
-        Me.TableOrderBtn.Size = New System.Drawing.Size(120, 41)
+        Me.TableOrderBtn.Size = New System.Drawing.Size(162, 41)
         Me.TableOrderBtn.TabIndex = 12
-        Me.TableOrderBtn.Text = "Table Order"
+        Me.TableOrderBtn.Text = "TABLE ORDER"
         Me.TableOrderBtn.UseVisualStyleBackColor = True
         '
         'CloseBtn

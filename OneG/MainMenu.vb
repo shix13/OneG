@@ -63,7 +63,7 @@ Public Class MainMenu
                 .Columns(3).Name = "QTY USED"
                 .Columns(4).Name = "UNIT"
             End With
-
+            Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
             Call REFRESHORDERDATAGRID()
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -299,9 +299,9 @@ Public Class MainMenu
                 Me.dgvMENUANDUSED.Rows(i).Cells(2).Value = Me.dgvIng.CurrentRow.Cells(0).Value
                 Me.dgvMENUANDUSED.Rows(i).Cells(1).Value = txtMenuNo.Text
                 If dgvIng.CurrentRow.Cells(3).Value = "KILOGRAMS" Then
-                    Me.dgvMENUANDUSED.Rows(i).Cells("Unit").Value = "GRAMS"
+                    Me.dgvMENUANDUSED.Rows(i).Cells("UNIT").Value = "GRAMS"
                 Else
-                    Me.dgvMENUANDUSED.Rows(i).Cells("Unit").Value = dgvIng.CurrentRow.Cells(3).Value
+                    Me.dgvMENUANDUSED.Rows(i).Cells("UNIT").Value = dgvIng.CurrentRow.Cells(3).Value
                 End If
 
                 Dim cmd As DB2Command
