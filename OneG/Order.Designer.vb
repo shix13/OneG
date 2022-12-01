@@ -51,7 +51,7 @@ Partial Class Order
         Me.dgvOrder = New System.Windows.Forms.DataGridView()
         Me.dgvMenu = New System.Windows.Forms.DataGridView()
         Me.searchMenu = New System.Windows.Forms.TextBox()
-        Me.AllOrderBtn = New System.Windows.Forms.Button()
+        Me.REMOVEBTN = New System.Windows.Forms.Button()
         Me.TableOrderBtn = New System.Windows.Forms.Button()
         Me.CloseBtn = New System.Windows.Forms.Button()
         Me.DeleteBtn = New System.Windows.Forms.Button()
@@ -399,24 +399,24 @@ Partial Class Order
         Me.searchMenu.Size = New System.Drawing.Size(289, 28)
         Me.searchMenu.TabIndex = 10
         '
-        'AllOrderBtn
+        'REMOVEBTN
         '
-        Me.AllOrderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AllOrderBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AllOrderBtn.ForeColor = System.Drawing.Color.White
-        Me.AllOrderBtn.Location = New System.Drawing.Point(558, 274)
-        Me.AllOrderBtn.Name = "AllOrderBtn"
-        Me.AllOrderBtn.Size = New System.Drawing.Size(120, 41)
-        Me.AllOrderBtn.TabIndex = 11
-        Me.AllOrderBtn.Text = "All Orders"
-        Me.AllOrderBtn.UseVisualStyleBackColor = True
+        Me.REMOVEBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.REMOVEBTN.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.REMOVEBTN.ForeColor = System.Drawing.Color.White
+        Me.REMOVEBTN.Location = New System.Drawing.Point(118, 756)
+        Me.REMOVEBTN.Name = "REMOVEBTN"
+        Me.REMOVEBTN.Size = New System.Drawing.Size(220, 41)
+        Me.REMOVEBTN.TabIndex = 11
+        Me.REMOVEBTN.Text = "REMOVE SELECTED"
+        Me.REMOVEBTN.UseVisualStyleBackColor = True
         '
         'TableOrderBtn
         '
         Me.TableOrderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.TableOrderBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TableOrderBtn.ForeColor = System.Drawing.Color.White
-        Me.TableOrderBtn.Location = New System.Drawing.Point(390, 274)
+        Me.TableOrderBtn.Location = New System.Drawing.Point(126, 274)
         Me.TableOrderBtn.Name = "TableOrderBtn"
         Me.TableOrderBtn.Size = New System.Drawing.Size(162, 41)
         Me.TableOrderBtn.TabIndex = 12
@@ -479,7 +479,7 @@ Partial Class Order
         Me.Controls.Add(Me.DeleteBtn)
         Me.Controls.Add(Me.CloseBtn)
         Me.Controls.Add(Me.TableOrderBtn)
-        Me.Controls.Add(Me.AllOrderBtn)
+        Me.Controls.Add(Me.REMOVEBTN)
         Me.Controls.Add(Me.searchMenu)
         Me.Controls.Add(Me.dgvMenu)
         Me.Controls.Add(Me.dgvOrder)
@@ -534,7 +534,7 @@ Partial Class Order
     Friend WithEvents dgvOrder As DataGridView
     Friend WithEvents dgvMenu As DataGridView
     Friend WithEvents searchMenu As TextBox
-    Friend WithEvents AllOrderBtn As Button
+    Friend WithEvents REMOVEBTN As Button
     Friend WithEvents TableOrderBtn As Button
     Friend WithEvents CloseBtn As Button
     Friend WithEvents DeleteBtn As Button

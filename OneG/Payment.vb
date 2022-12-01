@@ -89,7 +89,7 @@ Public Class Payment
             Dim dtadapt2 As DB2DataAdapter
             Dim ds2 As DataSet = New DataSet()
 
-            dtadapt2 = New DB2DataAdapter("select * from tables", conn)
+            dtadapt2 = New DB2DataAdapter("select * from tables WHERE AVAILABILITY ='NOT AVAILABLE'", conn)
             dtadapt2.Fill(ds2, "Tables")
             cmbTableNo.DisplayMember = "tableno"
             cmbTableNo.ValueMember = "tableno"
@@ -125,4 +125,7 @@ Public Class Payment
         End If
     End Sub
 
+    Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
+        Me.Close()
+    End Sub
 End Class

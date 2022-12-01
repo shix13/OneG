@@ -478,10 +478,10 @@ Public Class MainMenu
             While count < k
 
                 If dgvMENUANDUSED.Rows(count).Cells(0).Value = True Then
-                    cmd = New DB2Command("select * from ingredients_used where menu_no ='" & dgvMENUANDUSED.Rows(count).Cells(0).Value & "' and ing_no ='" & dgvMENUANDUSED.Rows(count).Cells(1).Value & "'", conn)
+                    cmd = New DB2Command("select * from ingredients_used where menu_no ='" & dgvMENUANDUSED.Rows(count).Cells(0).Value.ToString & "' and ing_id ='" & dgvMENUANDUSED.Rows(count).Cells(1).Value.ToString & "'", conn)
                     rdr = cmd.ExecuteReader
                     If rdr.HasRows Then
-                        cmd = New DB2Command("delete from ingredients_used where menu_no = '" & Me.dgvMENUANDUSED.Rows(count).Cells(0).Value & "' and ing_no='" & Me.dgvMENUANDUSED.Rows(count).Cells(1).Value & "' ", conn)
+                        cmd = New DB2Command("delete from ingredients_used where menu_no = '" & Me.dgvMENUANDUSED.Rows(count).Cells(0).Value.ToString & "' and ing_id='" & Me.dgvMENUANDUSED.Rows(count).Cells(1).Value.ToString & "' ", conn)
                         cmd.ExecuteNonQuery()
                     End If
                     dgvMENUANDUSED.Rows(count).Cells(4).Value = False

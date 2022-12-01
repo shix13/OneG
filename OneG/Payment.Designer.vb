@@ -435,7 +435,7 @@ Partial Class Payment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1382, 853)
         Me.Controls.Add(Me.dgvPayment)
         Me.Controls.Add(Me.leftSideBar)
