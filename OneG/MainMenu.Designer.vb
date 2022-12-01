@@ -44,12 +44,13 @@ Partial Class MainMenu
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.SWITCHBTN = New System.Windows.Forms.Button()
         Me.searchAll = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.dgvIngAndItem = New System.Windows.Forms.DataGridView()
-        Me.dgvIngUsed = New System.Windows.Forms.DataGridView()
+        Me.dgvMENUANDUSED = New System.Windows.Forms.DataGridView()
+        Me.dgvIng = New System.Windows.Forms.DataGridView()
         Me.txtMenuNo = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtPrice = New System.Windows.Forms.TextBox()
@@ -69,8 +70,8 @@ Partial Class MainMenu
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.dgvIngAndItem, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvIngUsed, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvMENUANDUSED, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvIng, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -338,12 +339,13 @@ Partial Class MainMenu
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Button2)
-        Me.GroupBox1.Controls.Add(Me.Button4)
+        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.TextBox1)
+        Me.GroupBox1.Controls.Add(Me.SWITCHBTN)
         Me.GroupBox1.Controls.Add(Me.searchAll)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.dgvIngAndItem)
-        Me.GroupBox1.Controls.Add(Me.dgvIngUsed)
+        Me.GroupBox1.Controls.Add(Me.dgvMENUANDUSED)
+        Me.GroupBox1.Controls.Add(Me.dgvIng)
         Me.GroupBox1.Controls.Add(Me.txtMenuNo)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.txtPrice)
@@ -360,34 +362,42 @@ Partial Class MainMenu
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         '
-        'Button2
+        'Button1
         '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(960, 198)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(178, 41)
-        Me.Button2.TabIndex = 40
-        Me.Button2.Text = "All Ingredients"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.Location = New System.Drawing.Point(693, 645)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(146, 38)
+        Me.Button1.TabIndex = 41
+        Me.Button1.Text = "REMOVE SELECTED ITEM"
+        Me.Button1.UseVisualStyleBackColor = True
         '
-        'Button4
+        'TextBox1
         '
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button4.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.ForeColor = System.Drawing.Color.White
-        Me.Button4.Location = New System.Drawing.Point(1144, 198)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(120, 41)
-        Me.Button4.TabIndex = 39
-        Me.Button4.Text = "All Items"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(422, 212)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(197, 27)
+        Me.TextBox1.TabIndex = 40
+        '
+        'SWITCHBTN
+        '
+        Me.SWITCHBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SWITCHBTN.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SWITCHBTN.ForeColor = System.Drawing.Color.White
+        Me.SWITCHBTN.Location = New System.Drawing.Point(693, 196)
+        Me.SWITCHBTN.Name = "SWITCHBTN"
+        Me.SWITCHBTN.Size = New System.Drawing.Size(120, 41)
+        Me.SWITCHBTN.TabIndex = 39
+        Me.SWITCHBTN.Text = "MENU LIST"
+        Me.SWITCHBTN.UseVisualStyleBackColor = True
         '
         'searchAll
         '
         Me.searchAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.searchAll.Location = New System.Drawing.Point(693, 212)
+        Me.searchAll.Location = New System.Drawing.Point(1031, 206)
         Me.searchAll.Name = "searchAll"
         Me.searchAll.Size = New System.Drawing.Size(197, 27)
         Me.searchAll.TabIndex = 38
@@ -404,25 +414,25 @@ Partial Class MainMenu
         Me.Label2.TabIndex = 37
         Me.Label2.Text = "Ingredient List"
         '
-        'dgvIngAndItem
+        'dgvMENUANDUSED
         '
-        Me.dgvIngAndItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvIngAndItem.Location = New System.Drawing.Point(693, 248)
-        Me.dgvIngAndItem.Name = "dgvIngAndItem"
-        Me.dgvIngAndItem.RowHeadersWidth = 51
-        Me.dgvIngAndItem.RowTemplate.Height = 24
-        Me.dgvIngAndItem.Size = New System.Drawing.Size(571, 391)
-        Me.dgvIngAndItem.TabIndex = 36
+        Me.dgvMENUANDUSED.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvMENUANDUSED.Location = New System.Drawing.Point(693, 248)
+        Me.dgvMENUANDUSED.Name = "dgvMENUANDUSED"
+        Me.dgvMENUANDUSED.RowHeadersWidth = 51
+        Me.dgvMENUANDUSED.RowTemplate.Height = 24
+        Me.dgvMENUANDUSED.Size = New System.Drawing.Size(571, 391)
+        Me.dgvMENUANDUSED.TabIndex = 36
         '
-        'dgvIngUsed
+        'dgvIng
         '
-        Me.dgvIngUsed.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvIngUsed.Location = New System.Drawing.Point(48, 248)
-        Me.dgvIngUsed.Name = "dgvIngUsed"
-        Me.dgvIngUsed.RowHeadersWidth = 51
-        Me.dgvIngUsed.RowTemplate.Height = 24
-        Me.dgvIngUsed.Size = New System.Drawing.Size(571, 391)
-        Me.dgvIngUsed.TabIndex = 35
+        Me.dgvIng.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvIng.Location = New System.Drawing.Point(48, 248)
+        Me.dgvIng.Name = "dgvIng"
+        Me.dgvIng.RowHeadersWidth = 51
+        Me.dgvIng.RowTemplate.Height = 24
+        Me.dgvIng.Size = New System.Drawing.Size(571, 391)
+        Me.dgvIng.TabIndex = 35
         '
         'txtMenuNo
         '
@@ -489,7 +499,7 @@ Partial Class MainMenu
         Me.CloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CloseBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CloseBtn.ForeColor = System.Drawing.Color.White
-        Me.CloseBtn.Location = New System.Drawing.Point(1155, 656)
+        Me.CloseBtn.Location = New System.Drawing.Point(1155, 688)
         Me.CloseBtn.Name = "CloseBtn"
         Me.CloseBtn.Size = New System.Drawing.Size(109, 41)
         Me.CloseBtn.TabIndex = 22
@@ -501,7 +511,7 @@ Partial Class MainMenu
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(48, 656)
+        Me.SaveBtn.Location = New System.Drawing.Point(48, 688)
         Me.SaveBtn.Name = "SaveBtn"
         Me.SaveBtn.Size = New System.Drawing.Size(121, 41)
         Me.SaveBtn.TabIndex = 21
@@ -513,7 +523,7 @@ Partial Class MainMenu
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(190, 656)
+        Me.DeleteBtn.Location = New System.Drawing.Point(190, 688)
         Me.DeleteBtn.Name = "DeleteBtn"
         Me.DeleteBtn.Size = New System.Drawing.Size(109, 41)
         Me.DeleteBtn.TabIndex = 20
@@ -586,8 +596,8 @@ Partial Class MainMenu
         Me.Panel2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.dgvIngAndItem, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvIngUsed, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvMENUANDUSED, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvIng, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -631,9 +641,10 @@ Partial Class MainMenu
     Friend WithEvents Label4 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents dgvIngAndItem As DataGridView
-    Friend WithEvents dgvIngUsed As DataGridView
+    Friend WithEvents dgvMENUANDUSED As DataGridView
+    Friend WithEvents dgvIng As DataGridView
     Friend WithEvents searchAll As TextBox
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button4 As Button
+    Friend WithEvents SWITCHBTN As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents TextBox1 As TextBox
 End Class

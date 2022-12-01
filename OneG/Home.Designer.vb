@@ -237,7 +237,7 @@ Partial Class Home
         Me.OrderBtn.FlatAppearance.BorderSize = 0
         Me.OrderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.OrderBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OrderBtn.ForeColor = System.Drawing.Color.White
+        Me.OrderBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.OrderBtn.Location = New System.Drawing.Point(73, 216)
         Me.OrderBtn.Name = "OrderBtn"
         Me.OrderBtn.Size = New System.Drawing.Size(216, 68)
