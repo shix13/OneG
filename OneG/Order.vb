@@ -290,7 +290,7 @@ Public Class Order
                         End If
                     Else
                         'order didnt exist
-                        cmdInsert = New DB2Command("insert into order values (@Ord, @total,@date,@cust,@emp)", conn)
+                        cmdInsert = New DB2Command("insert into order(ORDERNO,ORDERTOTAL,ORDERDATE,TABLENO,ACCID)  values (@Ord, @total,@date,@cust,@emp)", conn)
                         cmdInsert.Parameters.Add("@cust", DB2Type.Integer).Value = cmbTableNo.Text
                         cmdInsert.Parameters.Add("@Ord", DB2Type.Integer).Value = txtOrderNo.Text
                         cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Login.ACCID.ToString

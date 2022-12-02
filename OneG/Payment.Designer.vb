@@ -43,7 +43,6 @@ Partial Class Payment
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtOrderNo = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtAmountToPay = New System.Windows.Forms.TextBox()
@@ -54,6 +53,7 @@ Partial Class Payment
         Me.ConfirmBtn = New System.Windows.Forms.Button()
         Me.cmbTableNo = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtOrderNo = New System.Windows.Forms.TextBox()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -320,14 +320,6 @@ Partial Class Payment
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "CREATE PAYMENT"
         '
-        'txtOrderNo
-        '
-        Me.txtOrderNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOrderNo.Location = New System.Drawing.Point(175, 457)
-        Me.txtOrderNo.Name = "txtOrderNo"
-        Me.txtOrderNo.Size = New System.Drawing.Size(317, 32)
-        Me.txtOrderNo.TabIndex = 2
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -431,6 +423,14 @@ Partial Class Payment
         Me.Label5.TabIndex = 17
         Me.Label5.Text = "Table Number"
         '
+        'txtOrderNo
+        '
+        Me.txtOrderNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOrderNo.Location = New System.Drawing.Point(175, 457)
+        Me.txtOrderNo.Name = "txtOrderNo"
+        Me.txtOrderNo.Size = New System.Drawing.Size(317, 32)
+        Me.txtOrderNo.TabIndex = 2
+        '
         'Payment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -485,7 +485,6 @@ Partial Class Payment
     Friend WithEvents LogoutBtn As Button
     Friend WithEvents lblMenuBar As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents txtOrderNo As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents txtAmountToPay As TextBox
@@ -496,4 +495,5 @@ Partial Class Payment
     Friend WithEvents ConfirmBtn As Button
     Friend WithEvents cmbTableNo As ComboBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents txtOrderNo As TextBox
 End Class

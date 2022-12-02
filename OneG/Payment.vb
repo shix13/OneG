@@ -1,4 +1,5 @@
-﻿Imports IBM.Data.DB2
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports IBM.Data.DB2
 
 Public Class Payment
     Private conn As Common.DbConnection
@@ -84,7 +85,7 @@ Public Class Payment
 
             Me.txtReceiptNo.Text = param1.Value.ToString
             Me.txtAmountToPay.Clear()
-            Me.txtOrderNo.Clear()
+
 
             Dim dtadapt2 As DB2DataAdapter
             Dim ds2 As DataSet = New DataSet()
@@ -94,7 +95,10 @@ Public Class Payment
             cmbTableNo.DisplayMember = "tableno"
             cmbTableNo.ValueMember = "tableno"
             cmbTableNo.DataSource = ds2.Tables("Tables")
-            txtAmountToPay.Text = "0.0"
+
+
+            cmbTableNo.Text = "SELECT TABLE"
+            txtAmountToPay.Text = "0.00"
 
         Catch ex As Exception
 
@@ -127,5 +131,62 @@ Public Class Payment
 
     Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
         Me.Close()
+    End Sub
+
+
+
+    Private Sub cmbTableNo_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbTableNo.SelectedIndexChanged
+
+
+        Dim cmdsearch As DB2Command
+        Dim rdrsearch As DB2DataReader
+
+        Try
+
+            cmdsearch = New DB2Command("select ORDERNO,ORDERTOTAL from ORDER where TABLENO = '" & cmbTableNo.Text & "' AND PAYMENT ='NOT PAID'", conn)
+            rdrsearch = cmdsearch.ExecuteReader
+            While rdrsearch.Read
+                txtOrderNo.Text = rdrsearch.GetString(0)
+                txtAmountToPay.Text = rdrsearch.GetString(1)
+            End While
+
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub cmbTableNo_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbTableNo.SelectedValueChanged
+
+    End Sub
+
+    Private Sub ConfirmBtn_Click(sender As Object, e As EventArgs) Handles ConfirmBtn.Click
+        Dim cmdInsert As DB2Command
+        'dtpSideBar.Value = Now
+        If txtAmountToPay.Text = "0.00" Or txtAmountToPay.Text <= 0 Then
+            MsgBox("Amount to pay cannot be less than zero (0)")
+        Else
+            Try
+
+                cmdInsert = New DB2Command("insert into payment values (@rcpt,@date,@amt,@accid,@table)", conn)
+                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Text
+                cmdInsert.Parameters.Add("@amt", DB2Type.Decimal).Value = txtAmountToPay.Text
+                cmdInsert.Parameters.Add("@table", DB2Type.Integer).Value = cmbTableNo.Text()
+                cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Login.ACCID.ToString
+                cmdInsert.Parameters.Add("@rcpt", DB2Type.Integer).Value = txtReceiptNo.Text
+                cmdInsert.ExecuteNonQuery()
+
+                cmdInsert = New DB2Command("update ORDER set  PAYMENT ='PAID' where orderno= '" & txtOrderNo.Text & "'", conn)
+                cmdInsert.ExecuteNonQuery()
+                cmdInsert = New DB2Command("update tables set  availability ='AVAILABLE' where TABLENO= '" & cmbTableNo.Text & "'", conn)
+                cmdInsert.ExecuteNonQuery()
+
+
+                MsgBox("payment info recorded...")
+                Call REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+            End Try
+        End If
     End Sub
 End Class
