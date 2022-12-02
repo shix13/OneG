@@ -43,9 +43,9 @@ Partial Class AccountUser
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TXTACCID = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TXTPOSITION = New System.Windows.Forms.TextBox()
         Me.txtPass = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -55,7 +55,7 @@ Partial Class AccountUser
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtLName = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.savebtn = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.leftSideBar.SuspendLayout()
@@ -328,13 +328,14 @@ Partial Class AccountUser
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "ACCOUNT"
         '
-        'TextBox2
+        'TXTACCID
         '
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(893, 222)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(330, 30)
-        Me.TextBox2.TabIndex = 48
+        Me.TXTACCID.Enabled = False
+        Me.TXTACCID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXTACCID.Location = New System.Drawing.Point(893, 222)
+        Me.TXTACCID.Name = "TXTACCID"
+        Me.TXTACCID.Size = New System.Drawing.Size(330, 30)
+        Me.TXTACCID.TabIndex = 48
         '
         'Label7
         '
@@ -348,19 +349,21 @@ Partial Class AccountUser
         Me.Label7.TabIndex = 47
         Me.Label7.Text = "Account ID"
         '
-        'TextBox1
+        'TXTPOSITION
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(894, 573)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(330, 30)
-        Me.TextBox1.TabIndex = 46
+        Me.TXTPOSITION.Enabled = False
+        Me.TXTPOSITION.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXTPOSITION.Location = New System.Drawing.Point(894, 573)
+        Me.TXTPOSITION.Name = "TXTPOSITION"
+        Me.TXTPOSITION.Size = New System.Drawing.Size(330, 30)
+        Me.TXTPOSITION.TabIndex = 46
         '
         'txtPass
         '
         Me.txtPass.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPass.Location = New System.Drawing.Point(894, 666)
         Me.txtPass.Name = "txtPass"
+        Me.txtPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
         Me.txtPass.Size = New System.Drawing.Size(330, 30)
         Me.txtPass.TabIndex = 45
         '
@@ -448,17 +451,17 @@ Partial Class AccountUser
         Me.Label2.TabIndex = 37
         Me.Label2.Text = "Last name"
         '
-        'Button5
+        'savebtn
         '
-        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button5.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.ForeColor = System.Drawing.Color.White
-        Me.Button5.Location = New System.Drawing.Point(943, 739)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(166, 41)
-        Me.Button5.TabIndex = 36
-        Me.Button5.Text = "SAVE CHANGES"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.savebtn.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.savebtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.savebtn.ForeColor = System.Drawing.Color.White
+        Me.savebtn.Location = New System.Drawing.Point(943, 739)
+        Me.savebtn.Name = "savebtn"
+        Me.savebtn.Size = New System.Drawing.Size(166, 41)
+        Me.savebtn.TabIndex = 36
+        Me.savebtn.Text = "SAVE CHANGES"
+        Me.savebtn.UseVisualStyleBackColor = True
         '
         'Button3
         '
@@ -490,9 +493,9 @@ Partial Class AccountUser
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1382, 853)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.TXTACCID)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.TXTPOSITION)
         Me.Controls.Add(Me.txtPass)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
@@ -502,7 +505,7 @@ Partial Class AccountUser
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtLName)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Button5)
+        Me.Controls.Add(Me.savebtn)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.leftSideBar)
         Me.Controls.Add(Me.Panel2)
@@ -541,9 +544,9 @@ Partial Class AccountUser
     Friend WithEvents LogoutBtn As Button
     Friend WithEvents lblMenuBar As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TXTACCID As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TXTPOSITION As TextBox
     Friend WithEvents txtPass As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
@@ -553,7 +556,7 @@ Partial Class AccountUser
     Friend WithEvents Label3 As Label
     Friend WithEvents txtLName As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents Button5 As Button
+    Friend WithEvents savebtn As Button
     Friend WithEvents Button3 As Button
     Friend WithEvents PictureBox1 As PictureBox
 End Class

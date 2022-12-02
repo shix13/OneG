@@ -91,7 +91,7 @@ Partial Class MainSupp
         Me.leftSideBar.Location = New System.Drawing.Point(-1, -1)
         Me.leftSideBar.Margin = New System.Windows.Forms.Padding(1)
         Me.leftSideBar.Name = "leftSideBar"
-        Me.leftSideBar.Size = New System.Drawing.Size(75, 857)
+        Me.leftSideBar.Size = New System.Drawing.Size(364, 857)
         Me.leftSideBar.TabIndex = 0
         '
         'dtpSideBar
@@ -278,7 +278,7 @@ Partial Class MainSupp
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(75, 76)
+        Me.Panel1.Size = New System.Drawing.Size(364, 76)
         Me.Panel1.TabIndex = 1
         '
         'lblMenuBar
@@ -300,7 +300,7 @@ Partial Class MainSupp
         Me.MenuBarBtn.Dock = System.Windows.Forms.DockStyle.Right
         Me.MenuBarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MenuBarBtn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.MenuBarBtn.Location = New System.Drawing.Point(15, 0)
+        Me.MenuBarBtn.Location = New System.Drawing.Point(304, 0)
         Me.MenuBarBtn.Name = "MenuBarBtn"
         Me.MenuBarBtn.Size = New System.Drawing.Size(60, 76)
         Me.MenuBarBtn.TabIndex = 0

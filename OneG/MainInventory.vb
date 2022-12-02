@@ -249,4 +249,8 @@ Public Class MainInventory
         End Try
 
     End Sub
+
+    Private Sub IconOrderBtn_Click(sender As Object, e As EventArgs) Handles IconOrderBtn.Click
+
+    End Sub
 End Class

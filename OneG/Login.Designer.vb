@@ -67,7 +67,7 @@ Partial Class Login
         Me.txtPass.Location = New System.Drawing.Point(463, 455)
         Me.txtPass.Multiline = True
         Me.txtPass.Name = "txtPass"
-        Me.txtPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
         Me.txtPass.Size = New System.Drawing.Size(302, 25)
         Me.txtPass.TabIndex = 3
         Me.txtPass.Text = "Password"
@@ -122,7 +122,7 @@ Partial Class Login
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
         Me.MaximizeBox = False
-        Me.Name = "Login"
+        Me.name = "Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "LOGIN"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
