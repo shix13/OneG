@@ -58,7 +58,6 @@ Partial Class MainTable
         Me.SupplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -88,7 +87,7 @@ Partial Class MainTable
         Me.leftSideBar.Location = New System.Drawing.Point(-1, -1)
         Me.leftSideBar.Margin = New System.Windows.Forms.Padding(1)
         Me.leftSideBar.Name = "leftSideBar"
-        Me.leftSideBar.Size = New System.Drawing.Size(263, 857)
+        Me.leftSideBar.Size = New System.Drawing.Size(74, 857)
         Me.leftSideBar.TabIndex = 0
         '
         'dtpSideBar
@@ -275,7 +274,7 @@ Partial Class MainTable
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(263, 76)
+        Me.Panel1.Size = New System.Drawing.Size(74, 76)
         Me.Panel1.TabIndex = 1
         '
         'lblMenuBar
@@ -297,7 +296,7 @@ Partial Class MainTable
         Me.MenuBarBtn.Dock = System.Windows.Forms.DockStyle.Right
         Me.MenuBarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MenuBarBtn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.MenuBarBtn.Location = New System.Drawing.Point(203, 0)
+        Me.MenuBarBtn.Location = New System.Drawing.Point(14, 0)
         Me.MenuBarBtn.Name = "MenuBarBtn"
         Me.MenuBarBtn.Size = New System.Drawing.Size(60, 76)
         Me.MenuBarBtn.TabIndex = 0
@@ -331,7 +330,6 @@ Partial Class MainTable
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.CloseBtn)
         Me.GroupBox1.Controls.Add(Me.savebtn)
         Me.GroupBox1.Controls.Add(Me.DeleteBtn)
@@ -368,7 +366,7 @@ Partial Class MainTable
         Me.savebtn.Name = "savebtn"
         Me.savebtn.Size = New System.Drawing.Size(121, 41)
         Me.savebtn.TabIndex = 21
-        Me.savebtn.Text = "INSERT"
+        Me.savebtn.Text = "SAVE"
         Me.savebtn.UseVisualStyleBackColor = True
         '
         'DeleteBtn
@@ -476,18 +474,6 @@ Partial Class MainTable
         Me.InventoryToolStripMenuItem.Size = New System.Drawing.Size(107, 29)
         Me.InventoryToolStripMenuItem.Text = "Inventory"
         '
-        'Button1
-        '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(211, 516)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(121, 41)
-        Me.Button1.TabIndex = 23
-        Me.Button1.Text = "UPDATE"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'MainTable
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -551,5 +537,4 @@ Partial Class MainTable
     Friend WithEvents CloseBtn As Button
     Friend WithEvents savebtn As Button
     Friend WithEvents DeleteBtn As Button
-    Friend WithEvents Button1 As Button
 End Class

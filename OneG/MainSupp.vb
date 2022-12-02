@@ -52,8 +52,9 @@ Public Class MainSupp
         End Try
     End Sub
     Private Sub REFRESHORDERDATAGRID()
-        Dim value As Integer = CInt(Int((100000 * Rnd()) + 1))
-        txtSupID.Text = "SUP" + value.ToString
+        Dim randNum As New Random
+        Dim value As Integer = randNum.Next(1, 10000)
+        txtSupID.Text = "SUP_" + value.ToString
 
         Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + " !"
         Dim str As String
@@ -106,75 +107,74 @@ Public Class MainSupp
         Dim param1 As DB2Parameter
         Dim param2 As DB2Parameter
         Dim param3 As DB2Parameter
+        Dim RDR As DB2DataReader
+
+
+        cmd = New DB2Command("select SUPID from SUPPLIER where SUPID ='" & txtSupID.Text & "'", conn)
+        RDR = cmd.ExecuteReader
+        If RDR.HasRows Then
+            Try
+                str = "call updatesupplier(?,?,?)"
+                cmd = New DB2Command(str, conn)
+
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtSupID.Text
+
+                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                param2.Direction = ParameterDirection.Input
+                cmd.Parameters("@2").Value = Me.txtSupName.Text
+
+                param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
+                param3.Direction = ParameterDirection.Input
+                cmd.Parameters("@3").Value = Me.txtContactNo.Text
+
+                cmd.ExecuteNonQuery()
+                MsgBox("Supplier Information has been Updated!")
+                Call REFRESHORDERDATAGRID()
+
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+
+            End Try
+        Else
+
+            Try
+                str = "call INSERTSUPPLIER(?,?,?)"
+                cmd = New DB2Command(str, conn)
+
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtSupID.Text
+
+                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                param2.Direction = ParameterDirection.Input
+                cmd.Parameters("@2").Value = Me.txtSupName.Text
+
+                param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
+                param3.Direction = ParameterDirection.Input
+                cmd.Parameters("@3").Value = Me.txtContactNo.Text
 
 
 
-        Try
-            str = "call INSERTSUPPLIER(?,?,?)"
-            cmd = New DB2Command(str, conn)
-
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtSupID.Text
-
-            param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-            param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.txtSupName.Text
-
-            param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
-            param3.Direction = ParameterDirection.Input
-            cmd.Parameters("@3").Value = Me.txtContactNo.Text
+                cmd.ExecuteNonQuery()
+                MsgBox("Supplier Information Saved Successfully!")
+                REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
 
 
+            End Try
 
-            cmd.ExecuteNonQuery()
-            MsgBox("Supplier Information Saved Successfully!")
-            REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
+        End If
 
-
-        End Try
     End Sub
 
     Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
         Me.Close()
     End Sub
 
-    Private Sub BTNUPDATE_Click(sender As Object, e As EventArgs) Handles BTNUPDATE.Click
-        Dim str As String
-        Dim cmd As DB2Command
-        Dim param1 As DB2Parameter
-        Dim param2 As DB2Parameter
-        Dim param3 As DB2Parameter
 
-
-
-        Try
-            str = "call updatesupplier(?,?,?)"
-            cmd = New DB2Command(str, conn)
-
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtSupID.Text
-
-            param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-            param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.txtSupName.Text
-
-            param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
-            param3.Direction = ParameterDirection.Input
-            cmd.Parameters("@3").Value = Me.txtContactNo.Text
-
-            cmd.ExecuteNonQuery()
-            MsgBox("Supplier Information has been Updated!")
-            Call REFRESHORDERDATAGRID()
-
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-
-        End Try
-    End Sub
 
     Private Sub searchSupp_TextChanged(sender As Object, e As EventArgs) Handles searchSupp.TextChanged
         Dim strsearchkey As String
@@ -233,4 +233,6 @@ Public Class MainSupp
             MsgBox("Something went wrong please try again!")
         End Try
     End Sub
+
+
 End Class

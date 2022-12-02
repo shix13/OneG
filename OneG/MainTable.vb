@@ -115,34 +115,70 @@ Public Class MainTable
     End Sub
 
     Private Sub SaveBtn_Click(sender As Object, e As EventArgs) Handles savebtn.Click
+
         Dim str As String
         Dim cmd As DB2Command
+        Dim RDR As DB2DataReader
         Dim param1 As DB2Parameter
         Dim param2 As DB2Parameter
 
 
-        Try
+
+        cmd = New DB2Command("select TABLENO from TABLES where TABLENO ='" & txtTableNo.Text & "'", conn)
+        RDR = cmd.ExecuteReader
+        If RDR.HasRows Then
+
+            Try
+
+                str = "call updatetable(?,?)"
+                cmd = New DB2Command(str, conn)
+
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtTableNo.Text
+
+                param2 = cmd.Parameters.Add("@2", DB2Type.Integer)
+                param2.Direction = ParameterDirection.Input
+                cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
 
 
-            str = "call INSERTTABLE(?,?)"
-            cmd = New DB2Command(str, conn)
+                cmd.ExecuteNonQuery()
+                MsgBox("Table has been Updated!")
+                Call REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
 
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtTableNo.Text
-
-            param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-            param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
+            End Try
+        Else
+            If cmbNoOfSeat.Text = "SELECT" Or cmbNoOfSeat.Text = "" Then
+                MsgBox("Please Select the Number of Seats")
+            Else
 
 
+                Try
 
-            cmd.ExecuteNonQuery()
-            MsgBox("Table Added Successfully!")
-            Call REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
+
+                    str = "call INSERTTABLE(?,?)"
+                    cmd = New DB2Command(str, conn)
+
+                    param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                    param1.Direction = ParameterDirection.Input
+                    cmd.Parameters("@1").Value = Me.txtTableNo.Text
+
+                    param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                    param2.Direction = ParameterDirection.Input
+                    cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
+
+
+
+                    cmd.ExecuteNonQuery()
+                    MsgBox("Table Added Successfully!")
+                    Call REFRESHORDERDATAGRID()
+                Catch ex As Exception
+                    MsgBox("Something went wrong please try again!")
+                End Try
+            End If
+        End If
     End Sub
 
     Private Sub DeleteBtn_Click(sender As Object, e As EventArgs) Handles DeleteBtn.Click
@@ -185,35 +221,5 @@ Public Class MainTable
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim str As String
-        Dim cmd As DB2Command
-        Dim param1 As DB2Parameter
-        Dim param2 As DB2Parameter
 
-
-        Try
-
-
-            str = "call updatetable(?,?)"
-            cmd = New DB2Command(str, conn)
-
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtTableNo.Text
-
-            param2 = cmd.Parameters.Add("@2", DB2Type.Integer)
-            param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
-
-
-
-            cmd.ExecuteNonQuery()
-            MsgBox("Table has been Updated!")
-            Call REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-
-        End Try
-    End Sub
 End Class

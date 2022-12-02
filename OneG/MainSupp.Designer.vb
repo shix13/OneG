@@ -44,7 +44,6 @@ Partial Class MainSupp
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.BTNUPDATE = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.searchSupp = New System.Windows.Forms.TextBox()
         Me.txtSupID = New System.Windows.Forms.TextBox()
@@ -335,7 +334,6 @@ Partial Class MainSupp
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.BTNUPDATE)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.searchSupp)
         Me.GroupBox1.Controls.Add(Me.txtSupID)
@@ -354,18 +352,6 @@ Partial Class MainSupp
         Me.GroupBox1.Size = New System.Drawing.Size(1313, 744)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
-        '
-        'BTNUPDATE
-        '
-        Me.BTNUPDATE.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.BTNUPDATE.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTNUPDATE.ForeColor = System.Drawing.Color.White
-        Me.BTNUPDATE.Location = New System.Drawing.Point(249, 567)
-        Me.BTNUPDATE.Name = "BTNUPDATE"
-        Me.BTNUPDATE.Size = New System.Drawing.Size(121, 41)
-        Me.BTNUPDATE.TabIndex = 37
-        Me.BTNUPDATE.Text = "UPDATE"
-        Me.BTNUPDATE.UseVisualStyleBackColor = True
         '
         'Label8
         '
@@ -604,5 +590,4 @@ Partial Class MainSupp
     Friend WithEvents searchSupp As TextBox
     Friend WithEvents txtSupID As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents BTNUPDATE As Button
 End Class

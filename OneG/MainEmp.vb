@@ -1,4 +1,5 @@
-﻿Imports IBM.Data.DB2
+﻿Imports System.ComponentModel
+Imports IBM.Data.DB2
 
 Public Class MainEmp
     Private conn As Common.DbConnection
@@ -60,7 +61,8 @@ Public Class MainEmp
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
         Dim rows As String()
-        Dim value As Integer = CInt(Int((10000 * Rnd()) + 1))
+        Dim randNum As New Random
+        Dim value As Integer = randNum.Next(1, 10000)
         txtAccID.Text = "ACC_" + value.ToString
         Me.txtFName.Clear()
         Me.txtLName.Clear()
@@ -114,6 +116,7 @@ Public Class MainEmp
     Private Sub SaveBtn_Click(sender As Object, e As EventArgs) Handles SaveBtn.Click
         Dim str As String
         Dim cmd As DB2Command
+        Dim RDR As DB2DataReader
         Dim param1 As DB2Parameter
         Dim param2 As DB2Parameter
         Dim param3 As DB2Parameter
@@ -121,120 +124,127 @@ Public Class MainEmp
         Dim param5 As DB2Parameter
         Dim param6 As DB2Parameter
 
-        Try
-            str = "call insertEmployee(?,?,?,?,?,?)"
-            cmd = New DB2Command(str, conn)
+        cmd = New DB2Command("select ACCID from EMPLOYEE where ACCID ='" & txtAccID.Text & "'", conn)
+        RDR = cmd.ExecuteReader
+        If RDR.HasRows Then
+            Try
 
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtAccID.Text
+                Dim PW As String = Me.txtPass.Text
+                If (PW Is Nothing) Then
+                    str = "call updateemployee_WO_PW(?,?,?,?,?)"
+                    cmd = New DB2Command(str, conn)
 
-            param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-            param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.txtLName.Text
+                    param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                    param1.Direction = ParameterDirection.Input
+                    cmd.Parameters("@1").Value = Me.txtAccID.Text
 
-            param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
-            param3.Direction = ParameterDirection.Input
-            cmd.Parameters("@3").Value = Me.txtFName.Text
+                    param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                    param2.Direction = ParameterDirection.Input
+                    cmd.Parameters("@2").Value = Me.txtFName.Text
 
-            param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
-            param4.Direction = ParameterDirection.Input
-            cmd.Parameters("@4").Value = Me.txtMName.Text
+                    param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
+                    param3.Direction = ParameterDirection.Input
+                    cmd.Parameters("@3").Value = Me.txtMName.Text
 
-            param5 = cmd.Parameters.Add("@5", DB2Type.VarChar)
-            param5.Direction = ParameterDirection.Input
-            cmd.Parameters("@5").Value = Me.cmbPosition.Text
+                    param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
+                    param4.Direction = ParameterDirection.Input
+                    cmd.Parameters("@4").Value = Me.txtLName.Text
 
-            param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
-            param6.Direction = ParameterDirection.Input
-            cmd.Parameters("@6").Value = Me.txtPass.Text
+                    param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
+                    param6.Direction = ParameterDirection.Input
+                    cmd.Parameters("@6").Value = Me.cmbPosition.Text
 
-            cmd.ExecuteNonQuery()
-            MsgBox("Account Saved Successfully!")
-            REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
-    End Sub
+                    cmd.ExecuteNonQuery()
+                    MsgBox("Employee Information has been Updated!")
+                    Call REFRESHORDERDATAGRID()
 
-    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-        Dim str As String
-        Dim cmd As DB2Command
-        Dim param1 As DB2Parameter
-        Dim param2 As DB2Parameter
-        Dim param3 As DB2Parameter
-        Dim param4 As DB2Parameter
-        Dim param5 As DB2Parameter
-        Dim param6 As DB2Parameter
-        Dim PW As String = Me.txtPass.Text
+                Else
 
-        Try
-            If (PW Is Nothing) Then
-                str = "call updateemployee_WO_PW(?,?,?,?,?)"
-                cmd = New DB2Command(str, conn)
+                    str = "call updateemployee(?,?,?,?,?,?)"
+                    cmd = New DB2Command(str, conn)
 
-                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-                param1.Direction = ParameterDirection.Input
-                cmd.Parameters("@1").Value = Me.txtAccID.Text
+                    param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                    param1.Direction = ParameterDirection.Input
+                    cmd.Parameters("@1").Value = Me.txtAccID.Text
 
-                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-                param2.Direction = ParameterDirection.Input
-                cmd.Parameters("@2").Value = Me.txtFName.Text
+                    param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                    param2.Direction = ParameterDirection.Input
+                    cmd.Parameters("@2").Value = Me.txtFName.Text
 
-                param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
-                param3.Direction = ParameterDirection.Input
-                cmd.Parameters("@3").Value = Me.txtMName.Text
+                    param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
+                    param3.Direction = ParameterDirection.Input
+                    cmd.Parameters("@3").Value = Me.txtMName.Text
 
-                param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
-                param4.Direction = ParameterDirection.Input
-                cmd.Parameters("@4").Value = Me.txtLName.Text
+                    param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
+                    param4.Direction = ParameterDirection.Input
+                    cmd.Parameters("@4").Value = Me.txtLName.Text
 
-                param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
-                param6.Direction = ParameterDirection.Input
-                cmd.Parameters("@6").Value = Me.cmbPosition.Text
+                    param5 = cmd.Parameters.Add("@5", DB2Type.VarChar)
+                    param5.Direction = ParameterDirection.Input
+                    cmd.Parameters("@5").Value = Me.txtPass.Text
 
-                cmd.ExecuteNonQuery()
-                MsgBox("Employee Information has been Updated!")
-                Call REFRESHORDERDATAGRID()
+                    param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
+                    param6.Direction = ParameterDirection.Input
+                    cmd.Parameters("@6").Value = Me.cmbPosition.Text
 
+                    cmd.ExecuteNonQuery()
+                    MsgBox("Employee Information has been Updated!")
+                    Call REFRESHORDERDATAGRID()
+                End If
+
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+
+            End Try
+        Else
+            If cmbPosition.Text = "SELECT" Or cmbPosition.Text = "" Then
+                MsgBox("Select an Organizational Role")
+
+            ElseIf txtPass.Text = "" Then
+                MsgBox("Please Provide an Account Password")
             Else
-                str = "call updateemployee(?,?,?,?,?,?)"
-                cmd = New DB2Command(str, conn)
 
-                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-                param1.Direction = ParameterDirection.Input
-                cmd.Parameters("@1").Value = Me.txtAccID.Text
 
-                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-                param2.Direction = ParameterDirection.Input
-                cmd.Parameters("@2").Value = Me.txtFName.Text
+                Try
+                    str = "call insertEmployee(?,?,?,?,?,?)"
+                    cmd = New DB2Command(str, conn)
 
-                param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
-                param3.Direction = ParameterDirection.Input
-                cmd.Parameters("@3").Value = Me.txtMName.Text
+                    param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                    param1.Direction = ParameterDirection.Input
+                    cmd.Parameters("@1").Value = Me.txtAccID.Text
 
-                param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
-                param4.Direction = ParameterDirection.Input
-                cmd.Parameters("@4").Value = Me.txtLName.Text
+                    param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                    param2.Direction = ParameterDirection.Input
+                    cmd.Parameters("@2").Value = Me.txtLName.Text
 
-                param5 = cmd.Parameters.Add("@5", DB2Type.VarChar)
-                param5.Direction = ParameterDirection.Input
-                cmd.Parameters("@5").Value = Me.txtPass.Text
+                    param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
+                    param3.Direction = ParameterDirection.Input
+                    cmd.Parameters("@3").Value = Me.txtFName.Text
 
-                param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
-                param6.Direction = ParameterDirection.Input
-                cmd.Parameters("@6").Value = Me.cmbPosition.Text
+                    param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
+                    param4.Direction = ParameterDirection.Input
+                    cmd.Parameters("@4").Value = Me.txtMName.Text
 
-                cmd.ExecuteNonQuery()
-                MsgBox("Employee Information has been Updated!")
-                Call REFRESHORDERDATAGRID()
+                    param5 = cmd.Parameters.Add("@5", DB2Type.VarChar)
+                    param5.Direction = ParameterDirection.Input
+                    cmd.Parameters("@5").Value = Me.cmbPosition.Text
+
+                    param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
+                    param6.Direction = ParameterDirection.Input
+                    cmd.Parameters("@6").Value = Me.txtPass.Text
+
+                    cmd.ExecuteNonQuery()
+                    MsgBox("Account Saved Successfully!")
+                    REFRESHORDERDATAGRID()
+                Catch ex As Exception
+                    MsgBox("Something went wrong please try again!")
+                End Try
             End If
-
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-
-        End Try
+        End If
+        
     End Sub
+
+
 
     Private Sub dgvEmployeeAcc_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployeeAcc.CellContentClick
 
@@ -303,5 +313,9 @@ Public Class MainEmp
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs)
+
     End Sub
 End Class

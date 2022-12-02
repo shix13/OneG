@@ -44,7 +44,6 @@ Partial Class MainEmp
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.btnUpdate = New System.Windows.Forms.Button()
         Me.cmbPosition = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.searchAccID = New System.Windows.Forms.TextBox()
@@ -341,7 +340,6 @@ Partial Class MainEmp
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.btnUpdate)
         Me.GroupBox1.Controls.Add(Me.cmbPosition)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.searchAccID)
@@ -366,18 +364,6 @@ Partial Class MainEmp
         Me.GroupBox1.Size = New System.Drawing.Size(1313, 744)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
-        '
-        'btnUpdate
-        '
-        Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.btnUpdate.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdate.ForeColor = System.Drawing.Color.White
-        Me.btnUpdate.Location = New System.Drawing.Point(250, 650)
-        Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(121, 41)
-        Me.btnUpdate.TabIndex = 38
-        Me.btnUpdate.Text = "UPDATE"
-        Me.btnUpdate.UseVisualStyleBackColor = True
         '
         'cmbPosition
         '
@@ -543,11 +529,11 @@ Partial Class MainEmp
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(95, 650)
+        Me.SaveBtn.Location = New System.Drawing.Point(245, 650)
         Me.SaveBtn.Name = "SaveBtn"
         Me.SaveBtn.Size = New System.Drawing.Size(121, 41)
         Me.SaveBtn.TabIndex = 21
-        Me.SaveBtn.Text = "INSERT"
+        Me.SaveBtn.Text = "SAVE"
         Me.SaveBtn.UseVisualStyleBackColor = True
         '
         'DeleteBtn
@@ -688,5 +674,4 @@ Partial Class MainEmp
     Friend WithEvents txtAccID As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents cmbPosition As ComboBox
-    Friend WithEvents btnUpdate As Button
 End Class

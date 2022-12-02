@@ -52,7 +52,8 @@ Public Class MainInventory
         End Try
     End Sub
     Private Sub REFRESHORDERDATAGRID()
-        Dim value As Integer = CInt(Int((100000 * Rnd()) + 1))
+        Dim randNum As New Random
+        Dim value As Integer = randNum.Next(1, 10000)
         txtIngID.Text = "ING_" + value.ToString
 
         Me.cmbUnit.Text = "SELECT"
@@ -114,79 +115,80 @@ Public Class MainInventory
         Dim param2 As DB2Parameter
         Dim param3 As DB2Parameter
         Dim param4 As DB2Parameter
+        Dim RDR As DB2DataReader
+
+        cmd = New DB2Command("select ING_ID from INGREDIENTS where ING_ID ='" & txtIngID.Text & "'", conn)
+        RDR = cmd.ExecuteReader
+        If RDR.HasRows Then
+            Try
+                str = "call UPDATEINGREDIENT(?,?,?,?)"
+                cmd = New DB2Command(str, conn)
+
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtIngID.Text
+
+                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                param2.Direction = ParameterDirection.Input
+                cmd.Parameters("@2").Value = Me.txtIngName.Text
+
+                param3 = cmd.Parameters.Add("@3", DB2Type.Decimal)
+                param3.Direction = ParameterDirection.Input
+                cmd.Parameters("@3").Value = Me.txtQty.Text
+
+                param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
+                param4.Direction = ParameterDirection.Input
+                cmd.Parameters("@4").Value = Me.cmbUnit.Text
+
+                cmd.ExecuteNonQuery()
+                MsgBox("Ingredient Information has been Updated!")
+                Call REFRESHORDERDATAGRID()
+
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+
+            End Try
+        Else
+            If cmbUnit.Text = "" Or cmbUnit.Text = "SELECT" Then
+                MsgBox("You have not Selected the unit of measure")
+            Else
+                Try
+                str = "call insertINGREDIENT(?,?,?,?)"
+                cmd = New DB2Command(str, conn)
+
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtIngID.Text
+
+                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                param2.Direction = ParameterDirection.Input
+                cmd.Parameters("@2").Value = Me.txtIngName.Text
+
+                param3 = cmd.Parameters.Add("@3", DB2Type.Decimal)
+                param3.Direction = ParameterDirection.Input
+                cmd.Parameters("@3").Value = Me.txtQty.Text
+
+                param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
+                param4.Direction = ParameterDirection.Input
+                cmd.Parameters("@4").Value = Me.cmbUnit.Text
 
 
-        Try
-            str = "call insertINGREDIENT(?,?,?,?)"
-            cmd = New DB2Command(str, conn)
+                cmd.ExecuteNonQuery()
+                MsgBox("Ingredient Information Saved Successfully!")
+                REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+            End Try
 
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtIngID.Text
-
-            param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-            param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.txtIngName.Text
-
-            param3 = cmd.Parameters.Add("@3", DB2Type.Decimal)
-            param3.Direction = ParameterDirection.Input
-            cmd.Parameters("@3").Value = Me.txtQty.Text
-
-            param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
-            param4.Direction = ParameterDirection.Input
-            cmd.Parameters("@4").Value = Me.cmbUnit.Text
-
-
-            cmd.ExecuteNonQuery()
-            MsgBox("Ingredient Information Saved Successfully!")
-            REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
+            End If
+        End If
     End Sub
 
     Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
         Me.Close()
     End Sub
 
-    Private Sub BTNUPDATE_Click(sender As Object, e As EventArgs) Handles BTNUPDATE.Click
-        Dim str As String
-        Dim cmd As DB2Command
-        Dim param1 As DB2Parameter
-        Dim param2 As DB2Parameter
-        Dim param3 As DB2Parameter
-        Dim param4 As DB2Parameter
 
-
-        Try
-            str = "call UPDATEINGREDIENT(?,?,?,?)"
-            cmd = New DB2Command(str, conn)
-
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtIngID.Text
-
-            param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-            param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.txtIngName.Text
-
-            param3 = cmd.Parameters.Add("@3", DB2Type.Decimal)
-            param3.Direction = ParameterDirection.Input
-            cmd.Parameters("@3").Value = Me.txtQty.Text
-
-            param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
-            param4.Direction = ParameterDirection.Input
-            cmd.Parameters("@4").Value = Me.cmbUnit.Text
-
-            cmd.ExecuteNonQuery()
-            MsgBox("Ingredient Information has been Updated!")
-            Call REFRESHORDERDATAGRID()
-
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-
-        End Try
-    End Sub
 
 
 

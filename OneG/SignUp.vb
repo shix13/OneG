@@ -13,13 +13,14 @@ Public Class SignUp
         End Try
     End Sub
     Private Sub REFRESHORDERDATAGRID()
-        Dim value As Integer = CInt(Int((10000 * Rnd()) + 1))
+        Dim randNum As New Random
+        Dim value As Integer = randNum.Next(1, 10000)
         txtAccID.Text = "ACC_" + value.ToString
         txtFName.Clear()
         txtLName.Clear()
         txtMName.Clear()
         txtPass.Clear()
-        cmbPosition.Text = "Select"
+        cmbPosition.Text = "SELECT"
 
     End Sub
 
@@ -33,45 +34,56 @@ Public Class SignUp
         Dim param5 As DB2Parameter
         Dim param6 As DB2Parameter
 
-        Try
-            str = "call insertEmployee(?,?,?,?,?,?)"
-            cmd = New DB2Command(str, conn)
+        If txtFName.Text = "" Or txtLName.Text = "" Or txtMName.Text = "" Or txtPass.Text = "" Then
+            MsgBox("Fill Up All details")
+        ElseIf cmbPosition.Text = "" Or cmbPosition.Text = "SELECT" Then
+            MsgBox("Select an Organizational Role")
+        Else
 
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtAccID.Text
+            Try
+                str = "call insertEmployee(?,?,?,?,?,?)"
+                cmd = New DB2Command(str, conn)
 
-            param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-            param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.txtLName.Text
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtAccID.Text
 
-            param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
-            param3.Direction = ParameterDirection.Input
-            cmd.Parameters("@3").Value = Me.txtFName.Text
+                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                param2.Direction = ParameterDirection.Input
+                cmd.Parameters("@2").Value = Me.txtLName.Text
 
-            param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
-            param4.Direction = ParameterDirection.Input
-            cmd.Parameters("@4").Value = Me.txtMName.Text
+                param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
+                param3.Direction = ParameterDirection.Input
+                cmd.Parameters("@3").Value = Me.txtFName.Text
 
-            param5 = cmd.Parameters.Add("@5", DB2Type.VarChar)
-            param5.Direction = ParameterDirection.Input
-            cmd.Parameters("@5").Value = Me.cmbPosition.Text
+                param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
+                param4.Direction = ParameterDirection.Input
+                cmd.Parameters("@4").Value = Me.txtMName.Text
 
-            param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
-            param6.Direction = ParameterDirection.Input
-            cmd.Parameters("@6").Value = Me.txtPass.Text
+                param5 = cmd.Parameters.Add("@5", DB2Type.VarChar)
+                param5.Direction = ParameterDirection.Input
+                cmd.Parameters("@5").Value = Me.cmbPosition.Text
 
-            cmd.ExecuteNonQuery()
-            MsgBox("Account Saved Successfully!")
-            Call REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
+                param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
+                param6.Direction = ParameterDirection.Input
+                cmd.Parameters("@6").Value = Me.txtPass.Text
+
+                cmd.ExecuteNonQuery()
+                MsgBox("Account Saved Successfully!")
+                Call REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+            End Try
+        End If
 
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
 
         Me.Close()
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
     End Sub
 End Class
