@@ -1,7 +1,7 @@
 ﻿Imports IBM.Data.DB2
 Public Class Login
     Private conn As IDbConnection
-    Public role As String = ""
+    Public role As String = "ADMIN"
     Public ACCID As String = "admin"
     Public name As String
     Dim i As Integer = 0

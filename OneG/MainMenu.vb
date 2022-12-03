@@ -185,13 +185,19 @@ Public Class MainMenu
         Dim count As Integer = 0
         Dim param2 As DB2Parameter
         Dim param3 As DB2Parameter
+        Dim save As Boolean = False
+        If txtMenuItemName.Text = "" Then
+            MsgBox("Set Meal Name")
+        ElseIf txtPrice.Text = "" Then
+            MsgBox("Set Meal Price")
+        Else
 
 
-
-        While count < dgvMENUANDUSED.Rows.Count - 1
+            While count < dgvMENUANDUSED.Rows.Count - 1
             If dgvMENUANDUSED.Rows(count).Cells(3).Value Is Nothing Then
                 MsgBox("Reminder: Fill the qty of ingredients used: Rows with lacking information will not be saved... (Row: " & count + 1 & ")")
-            Else
+
+                Else
                 cmd = New DB2Command("select * from menu where menu_no= '" & txtMenuNo.Text & "'", conn)
                 rdr = cmd.ExecuteReader()
                 If rdr.HasRows Then
@@ -215,25 +221,23 @@ Public Class MainMenu
 
                         cmd = New DB2Command("select menu_no,ing_id from ingredients_used where menu_no ='" & dgvMENUANDUSED.Rows(count).Cells(1).Value & "' and ing_id ='" & dgvMENUANDUSED.Rows(count).Cells(2).Value & "' ", conn)
                         rdr = cmd.ExecuteReader
-                        If rdr.HasRows Then
+                            If rdr.HasRows Then
 
-                            cmd = New DB2Command("update ingredients_used set qtyused= @used,qtyunit=@unit where menu_no ='" & Me.dgvMENUANDUSED.Rows(count).Cells(1).Value & "' and ing_id='" & Me.dgvMENUANDUSED.Rows(count).Cells(2).Value & "'", conn)
-                            cmd.Parameters.Add("@used", DB2Type.Double).Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
-                            cmd.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
-                            cmd.ExecuteNonQuery()
-                        Else
+                                cmd = New DB2Command("update ingredients_used set qtyused= @used,qtyunit=@unit where menu_no ='" & Me.dgvMENUANDUSED.Rows(count).Cells(1).Value & "' and ing_id='" & Me.dgvMENUANDUSED.Rows(count).Cells(2).Value & "'", conn)
+                                cmd.Parameters.Add("@used", DB2Type.Double).Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
+                                cmd.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
+                                cmd.ExecuteNonQuery()
+                            Else
 
-                            cmd = New DB2Command("insert into ingredients_used values (@qty,@un,@menu,@ing)", conn)
-                            cmd.Parameters.Add("@menu", DB2Type.Integer).Value = Me.dgvMENUANDUSED.Rows(count).Cells(1).Value
-                            cmd.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(2).Value
-                            cmd.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
-                            cmd.Parameters.Add("@un", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
-                            cmd.ExecuteNonQuery()
-                        End If
-
-
-
-                    Catch ex As Exception
+                                cmd = New DB2Command("insert into ingredients_used values (@qty,@un,@menu,@ing)", conn)
+                                cmd.Parameters.Add("@menu", DB2Type.Integer).Value = Me.dgvMENUANDUSED.Rows(count).Cells(1).Value
+                                cmd.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(2).Value
+                                cmd.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
+                                cmd.Parameters.Add("@un", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
+                                cmd.ExecuteNonQuery()
+                            End If
+                            save = True
+                        Catch ex As Exception
                         MsgBox("Something went wrong please Try again!")
                         MsgBox(ex.ToString)
                     End Try
@@ -262,10 +266,8 @@ Public Class MainMenu
                         cmd.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
                         cmd.Parameters.Add("@un", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
                         cmd.ExecuteNonQuery()
-
-
-
-                    Catch ex As Exception
+                            save = True
+                        Catch ex As Exception
                         MsgBox("Fill all details")
                         MsgBox(ex.ToString)
                     End Try
@@ -273,13 +275,36 @@ Public Class MainMenu
 
             End If
             count += 1
+            End While
+            If save = True Then
+                MsgBox("Menu Item Information Saved Successfully!")
+            Else
+                MsgBox("Menu Item Not Saved.")
+            End If
 
-        End While
-        MsgBox("Menu Item Information Saved Successfully!")
-        Call REFRESHORDERDATAGRID()
+            Call REFRESHORDERDATAGRID()
+        End If
     End Sub
 
     Private Sub dgvIng_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvIng.MouseUp
+
+        If SWITCHBTN.Text = "MENU LIST" Then
+
+        Else
+            SWITCHBTN.Text = "MENU LIST"
+            REMOVEBTN.Visible = True
+            dgvMENUANDUSED.Columns(0).Visible = True
+            With Me.dgvMENUANDUSED
+                .ColumnCount = 5
+                .Columns(0).Name = "-"
+                .Columns(1).Name = "VIAND CODE"
+                .Columns(2).Name = "INGREDIENT"
+                .Columns(3).Name = "QTY USED"
+                .Columns(4).Name = "UNIT"
+            End With
+            REFRESHORDERDATAGRID()
+
+        End If
         Try
 
             Dim i As Integer = 0
@@ -319,11 +344,9 @@ Public Class MainMenu
             End If
 
 
-
-
         Catch ex As Exception
             MsgBox(ex.ToString)
-        End Try
+            End Try
     End Sub
 
     Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
@@ -372,6 +395,8 @@ Public Class MainMenu
             If SWITCHBTN.Text = "MENU LIST" Then
                 dgvMENUANDUSED.Rows.Clear()
                 SWITCHBTN.Text = "RECIPE LIST"
+                REMOVEBTN.Visible = False
+
                 dgvMENUANDUSED.Columns(0).Visible = False
                 With Me.dgvMENUANDUSED
                     .ColumnCount = 4
@@ -392,6 +417,7 @@ Public Class MainMenu
 
             Else
                 SWITCHBTN.Text = "MENU LIST"
+                REMOVEBTN.Visible = True
                 dgvMENUANDUSED.Columns(0).Visible = True
                 With Me.dgvMENUANDUSED
                     .ColumnCount = 5
@@ -424,11 +450,11 @@ Public Class MainMenu
 
             If SWITCHBTN.Text = "MENU LIST" Then
 
-
+                REMOVEBTN.Visible = False
 
             Else
                 Try
-
+                    REMOVEBTN.Visible = True
 
                     txtMenuNo.Text = dgvMENUANDUSED.CurrentRow.Cells(1).Value
                     txtMenuItemName.Text = dgvMENUANDUSED.CurrentRow.Cells(2).Value
@@ -464,7 +490,7 @@ Public Class MainMenu
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles REMOVEBTN.Click
         Dim k As Integer = 0
         Dim count As Integer = 0
         Dim cmd As DB2Command
@@ -516,5 +542,9 @@ Public Class MainMenu
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+    End Sub
+
+    Private Sub dgvIng_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvIng.CellContentClick
+
     End Sub
 End Class

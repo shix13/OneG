@@ -403,7 +403,7 @@ Public Class PurchaseOrder
         Dim cmdInsert As DB2Command
         Dim i As Integer = 0 'as count of row that has po_no assigned
         Dim count As Integer = 0
-        Dim cmdupdate2 As DB2Command
+
         Dim rdrInsert As DB2DataReader
 
         If Login.role.Equals("CASHIER") Then
@@ -419,17 +419,6 @@ Public Class PurchaseOrder
                     cmdInsert = New DB2Command("select po_no from purchases where po_no ='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
                     rdrInsert = cmdInsert.ExecuteReader
                     If rdrInsert.HasRows Then
-                        cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,delvstat=@delv,purunit=@unit where po_no= '" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
-                        cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(4).Value
-                        cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(3).Value
-                        cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                        cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(6).Value
-                        cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(7).Value
-                        cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(8).Value
-                        cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(9).Value
-                        cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(1).Value
-                        cmdInsert.ExecuteNonQuery()
-
 
                     Else
                         cmdInsert = New DB2Command("insert into purchases(po_no,empid,ing_id,supid,qtypur,pricepur,subtotal,delvstat,purdate,purunit) values(@po,@emp,@ing,@supid,@qty,@price,@sub,@delv,@date,@unit)", conn)
@@ -447,58 +436,16 @@ Public Class PurchaseOrder
 
                     End If
 
-
-                    Dim stat As String = Me.dgvPO.Rows(count).Cells(9).Value
-                    Dim unit As String
-
-                    If stat = "DELIVERED" Or stat = "NOT DELIVERED" Then
-                        Dim Cmdunit As DB2Command
-                        Dim rdrunit As DB2DataReader
-
-                        Cmdunit = New DB2Command("select ingunit from ingredients where ing_ID= '" & Me.dgvPO.Rows(count).Cells(4).Value & "'", conn)
-                        rdrunit = Cmdunit.ExecuteReader
-                        rdrunit.Read()
-
-                        unit = rdrunit.GetString(0)
-
-                        If unit = "KILOGRAMS" And Me.dgvPO.Rows(count).Cells(6).Value = "KILOGRAMS" Then
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPO.Rows(count).Cells(4).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                            cmdupdate2.ExecuteNonQuery()
-
-                        ElseIf unit = "KILOGRAMS" And Me.dgvPO.Rows(count).Cells(6).Value = "GRAMS" Then
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPO.Rows(count).Cells(4).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPO.Rows(count).Cells(5).Value / 1000
-                            cmdupdate2.ExecuteNonQuery()
-
-
-                        ElseIf unit = "GRAMS" And Me.dgvPO.Rows(count).Cells(6).Value = "KILOGRAMS" Then
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPO.Rows(count).Cells(4).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPO.Rows(count).Cells(5).Value * 1000
-                            cmdupdate2.ExecuteNonQuery()
-
-                        ElseIf unit = "Grams" And Me.dgvPO.Rows(count).Cells(6).Value = "Grams" Then
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_no= '" & Me.dgvPO.Rows(count).Cells(4).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                            cmdupdate2.ExecuteNonQuery()
-                        Else
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_no= '" & Me.dgvPO.Rows(count).Cells(4).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                            cmdupdate2.ExecuteNonQuery()
-                        End If
-                    End If
-
                     count += 1
                 End While
 
                 MsgBox("Purchase Order Saved Succesfully")
-
+                dgvPO.Rows.Clear()
             Catch ex As Exception
-                MsgBox("Tables with missing information is/are not recorded")
-
+                MsgBox("Table(s) has missing information.")
             End Try
         End If
-        dgvPO.Rows.Clear()
+
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs)
@@ -523,5 +470,30 @@ Public Class PurchaseOrder
         End While
         MsgBox("Purchase Order on the List have been canceled")
         dgvPO.Rows.Clear()
+    End Sub
+
+    Private Sub dgvPO_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPO.CellContentClick
+
+    End Sub
+
+    Private Sub dgvPO_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPO.CellValueChanged
+        Dim subtotal As Double
+
+        If Me.dgvPO.CurrentRow.Cells(5).Value = "" Then
+            Me.dgvPO.CurrentRow.Cells(8).Value = "0.00"
+        ElseIf Me.dgvPO.CurrentRow.Cells(7).Value = "" Then
+            Me.dgvPO.CurrentRow.Cells(8).Value = "0.00"
+        Else
+            Dim qty As Decimal = Me.dgvPO.CurrentRow.Cells(5).Value
+            Dim price As Decimal = Me.dgvPO.CurrentRow.Cells(7).Value
+            subtotal = qty * price
+            Me.dgvPO.CurrentRow.Cells(8).Value = subtotal
+        End If
+
+    End Sub
+
+    Private Sub EmployeeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmployeeToolStripMenuItem.Click
+        PurchasesAll.Show()
+
     End Sub
 End Class

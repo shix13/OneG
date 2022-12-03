@@ -1,4 +1,5 @@
 ﻿Imports System.Data.Common
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
 Imports IBM.Data.DB2
 
 Public Class PurchasesAll
@@ -110,7 +111,8 @@ Public Class PurchasesAll
 
 
     Private Sub dgvPurchases_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPurchases.CellContentClick
-        'here
+
+
     End Sub
 
     Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
@@ -135,8 +137,8 @@ Public Class PurchasesAll
                 Me.dgvPurchases.Rows.Add(rows)
             End While
         Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
+            MsgBox(ex.ToString)
+        End Try
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbSearchSup.SelectedIndexChanged
@@ -166,12 +168,129 @@ Public Class PurchasesAll
             StrDelete = "delete from purchases where po_no= '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'"
             CmdDelete = New DB2Command(StrDelete, conn)
             CmdDelete.ExecuteNonQuery()
-            Catch ex As Exception
+        Catch ex As Exception
                 MsgBox(ex.ToString)
             End Try
 
 
         MsgBox("Purchase Order has been Canceled")
         Call RefreshorderDataGrid()
+    End Sub
+
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+
+    End Sub
+
+    Private Sub SaveBtn_Click(sender As Object, e As EventArgs) Handles SaveBtn.Click
+        Dim count As Integer = dgvPurchases.Rows.Count - 1
+        Dim i As Integer = 0
+        Dim cmdInsert As DB2Command
+        While i < count
+            If Me.dgvPurchases.Rows(count).Cells(8).Value = "DELIVERED" Then
+                MsgBox("Delivered Items cannot be updated")
+            Else
+                cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,purunit=@unit where po_no= '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'", conn)
+                cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(3).Value
+                cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(2).Value
+                cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
+                cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(5).Value
+                cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(6).Value
+                cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(7).Value
+                cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(1).Value
+                cmdInsert.ExecuteNonQuery()
+            End If
+        End While
+    End Sub
+
+    Private Sub dgvPurchases_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvPurchases.MouseUp
+        If Me.dgvPurchases.CurrentRow.Cells(8).Value = "DELIVERED" Then
+            MsgBox("Delivered Items cannot be updated")
+        Else
+        End If
+    End Sub
+
+    Private Sub dgvPurchases_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPurchases.CellDoubleClick
+        If Me.dgvPurchases.CurrentRow.Cells(8).Value = "DELIVERED" Then
+            MsgBox("Delivered Items cannot be updated")
+        Else
+            ConfirmCode.ShowDialog()
+
+            If ConfirmCode.CONFIRM = True Then
+                Me.dgvPurchases.CurrentRow.Cells(8).Value = "DELIVERED"
+
+                Dim cmdInsert As DB2Command
+
+                Dim count As Integer = 0
+                Dim cmdupdate2 As DB2Command
+
+
+
+                Try
+
+                    cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,delvstat=@delv,purunit=@unit where po_no= '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'", conn)
+                    cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(3).Value
+                    cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(2).Value
+                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
+                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(5).Value
+                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(6).Value
+                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(7).Value
+                    cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(8).Value
+                    cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(1).Value
+                    cmdInsert.ExecuteNonQuery()
+
+
+
+                    Dim stat As String = Me.dgvPurchases.Rows(count).Cells(8).Value
+                    Dim unit As String
+
+                    If stat = "DELIVERED" Then
+                        Dim Cmdunit As DB2Command
+                        Dim rdrunit As DB2DataReader
+
+                        Cmdunit = New DB2Command("select ingunit from ingredients where ing_ID= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
+                        rdrunit = Cmdunit.ExecuteReader
+                        rdrunit.Read()
+
+                        unit = rdrunit.GetString(0)
+
+                        If unit = "KILOGRAMS" And Me.dgvPurchases.Rows(count).Cells(5).Value = "KILOGRAMS" Then
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
+                            cmdupdate2.ExecuteNonQuery()
+
+                        ElseIf unit = "KILOGRAMS" And Me.dgvPurchases.Rows(count).Cells(5).Value = "GRAMS" Then
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value / 1000
+                            cmdupdate2.ExecuteNonQuery()
+
+
+                        ElseIf unit = "GRAMS" And Me.dgvPurchases.Rows(count).Cells(5).Value = "KILOGRAMS" Then
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value * 1000
+                            cmdupdate2.ExecuteNonQuery()
+
+                        ElseIf unit = "GRAMS" And Me.dgvPurchases.Rows(count).Cells(5).Value = "GRAMS" Then
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_ID= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
+                            cmdupdate2.ExecuteNonQuery()
+                        Else
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_ID= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
+                            cmdupdate2.ExecuteNonQuery()
+                        End If
+                    End If
+
+
+                    MsgBox("Purchase Order Saved Succesfully")
+
+                Catch ex As Exception
+                    MsgBox("Tables with missing information is/are not recorded")
+
+                End Try
+            Else
+                MsgBox("Incorrect Key")
+            End If
+        End If
+
     End Sub
 End Class

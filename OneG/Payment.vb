@@ -53,7 +53,7 @@ Public Class Payment
     End Sub
 
     Private Sub REFRESHORDERDATAGRID()
-        Me.cmbTableNo.Text = "SELECT"
+
         Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + " !"
 
         Dim str As String
@@ -72,7 +72,7 @@ Public Class Payment
 
             Me.dgvPayment.Rows.Clear()
             While rdr.Read
-                rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3), rdr.GetString(4)}
+                rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(4), rdr.GetString(3)}
                 Me.dgvPayment.Rows.Add(rows)
             End While
 
@@ -96,7 +96,7 @@ Public Class Payment
             cmbTableNo.ValueMember = "tableno"
             cmbTableNo.DataSource = ds2.Tables("Tables")
 
-
+            txtOrderNo.Text = ""
             cmbTableNo.Text = "SELECT TABLE"
             txtAmountToPay.Text = "0.00"
 
@@ -161,32 +161,43 @@ Public Class Payment
     End Sub
 
     Private Sub ConfirmBtn_Click(sender As Object, e As EventArgs) Handles ConfirmBtn.Click
+
+
         Dim cmdInsert As DB2Command
         'dtpSideBar.Value = Now
         If txtAmountToPay.Text = "0.00" Or txtAmountToPay.Text <= 0 Then
             MsgBox("Amount to pay cannot be less than zero (0)")
         Else
-            Try
+            ConfirmationBox.ShowDialog()
 
-                cmdInsert = New DB2Command("insert into payment values (@rcpt,@date,@amt,@accid,@table)", conn)
-                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Text
-                cmdInsert.Parameters.Add("@amt", DB2Type.Decimal).Value = txtAmountToPay.Text
-                cmdInsert.Parameters.Add("@table", DB2Type.Integer).Value = cmbTableNo.Text()
-                cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Login.ACCID.ToString
-                cmdInsert.Parameters.Add("@rcpt", DB2Type.Integer).Value = txtReceiptNo.Text
-                cmdInsert.ExecuteNonQuery()
+            If ConfirmationBox.confirmPayment = True Then
+                Try
 
-                cmdInsert = New DB2Command("update ORDER set  PAYMENT ='PAID' where orderno= '" & txtOrderNo.Text & "'", conn)
-                cmdInsert.ExecuteNonQuery()
-                cmdInsert = New DB2Command("update tables set  availability ='AVAILABLE' where TABLENO= '" & cmbTableNo.Text & "'", conn)
-                cmdInsert.ExecuteNonQuery()
+                    cmdInsert = New DB2Command("insert into payment values (@rcpt,@date,@amt,@accid,@table)", conn)
+                    cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Text
+                    cmdInsert.Parameters.Add("@amt", DB2Type.Decimal).Value = txtAmountToPay.Text
+                    cmdInsert.Parameters.Add("@table", DB2Type.Integer).Value = cmbTableNo.Text()
+                    cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Login.ACCID.ToString
+                    cmdInsert.Parameters.Add("@rcpt", DB2Type.Integer).Value = txtReceiptNo.Text
+                    cmdInsert.ExecuteNonQuery()
 
-
-                MsgBox("payment info recorded...")
-                Call REFRESHORDERDATAGRID()
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
+                    cmdInsert = New DB2Command("update ORDER set  PAYMENT ='PAID' where orderno= '" & txtOrderNo.Text & "'", conn)
+                    cmdInsert.ExecuteNonQuery()
+                    cmdInsert = New DB2Command("update tables set  availability ='AVAILABLE' where TABLENO= '" & cmbTableNo.Text & "'", conn)
+                    cmdInsert.ExecuteNonQuery()
+                    MsgBox("payment info recorded...")
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+            Else
+                MsgBox("Payment has been Canceled.")
+            End If
         End If
+
+        Call REFRESHORDERDATAGRID()
+    End Sub
+
+    Private Sub txtOrderNo_TextChanged(sender As Object, e As EventArgs) Handles txtOrderNo.TextChanged
+
     End Sub
 End Class

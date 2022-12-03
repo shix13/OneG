@@ -41,9 +41,8 @@ Partial Class PurchaseOrder
         Me.lblMenuBar = New System.Windows.Forms.Label()
         Me.MenuBarBtn = New System.Windows.Forms.Button()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SEARCHPO = New System.Windows.Forms.Label()
         Me.txtsearch = New System.Windows.Forms.TextBox()
         Me.ingbtn = New System.Windows.Forms.Button()
@@ -55,14 +54,15 @@ Partial Class PurchaseOrder
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.TableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmployeeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvSelect, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvPO, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'leftSideBar
@@ -306,29 +306,6 @@ Partial Class PurchaseOrder
         'Timer1
         '
         '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.Panel2.BackgroundImage = Global.OneG.My.Resources.Resources.Background_1
-        Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Panel2.Controls.Add(Me.Label1)
-        Me.Panel2.Location = New System.Drawing.Point(-34, 0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1502, 129)
-        Me.Panel2.TabIndex = 1
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(489, 25)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(455, 70)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "MAINTENANCE"
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.Button1)
@@ -346,6 +323,18 @@ Partial Class PurchaseOrder
         Me.GroupBox1.Size = New System.Drawing.Size(1313, 744)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
+        '
+        'Button1
+        '
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.Location = New System.Drawing.Point(1144, 395)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(124, 56)
+        Me.Button1.TabIndex = 39
+        Me.Button1.Text = "REMOVE"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'SEARCHPO
         '
@@ -460,17 +449,28 @@ Partial Class PurchaseOrder
         Me.EmployeeToolStripMenuItem.Size = New System.Drawing.Size(135, 29)
         Me.EmployeeToolStripMenuItem.Text = "All Purchases"
         '
-        'Button1
+        'Panel2
         '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(1144, 395)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(124, 56)
-        Me.Button1.TabIndex = 39
-        Me.Button1.Text = "REMOVE"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.Panel2.BackgroundImage = Global.OneG.My.Resources.Resources.Background_1
+        Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.Panel2.Controls.Add(Me.Label1)
+        Me.Panel2.Location = New System.Drawing.Point(-34, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1502, 129)
+        Me.Panel2.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.Transparent
+        Me.Label1.Location = New System.Drawing.Point(489, 25)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(455, 70)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "MAINTENANCE"
         '
         'PurchaseOrder
         '
@@ -489,14 +489,14 @@ Partial Class PurchaseOrder
         Me.leftSideBar.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.dgvSelect, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvPO, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

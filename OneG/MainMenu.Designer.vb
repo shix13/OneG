@@ -44,7 +44,7 @@ Partial Class MainMenu
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.REMOVEBTN = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.SWITCHBTN = New System.Windows.Forms.Button()
         Me.searchAll = New System.Windows.Forms.TextBox()
@@ -339,7 +339,7 @@ Partial Class MainMenu
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.REMOVEBTN)
         Me.GroupBox1.Controls.Add(Me.TextBox1)
         Me.GroupBox1.Controls.Add(Me.SWITCHBTN)
         Me.GroupBox1.Controls.Add(Me.searchAll)
@@ -362,17 +362,17 @@ Partial Class MainMenu
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         '
-        'Button1
+        'REMOVEBTN
         '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(693, 645)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(146, 38)
-        Me.Button1.TabIndex = 41
-        Me.Button1.Text = "REMOVE SELECTED ITEM"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.REMOVEBTN.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.REMOVEBTN.Font = New System.Drawing.Font("Malgun Gothic", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.REMOVEBTN.ForeColor = System.Drawing.Color.White
+        Me.REMOVEBTN.Location = New System.Drawing.Point(693, 645)
+        Me.REMOVEBTN.Name = "REMOVEBTN"
+        Me.REMOVEBTN.Size = New System.Drawing.Size(146, 38)
+        Me.REMOVEBTN.TabIndex = 41
+        Me.REMOVEBTN.Text = "REMOVE SELECTED ITEM"
+        Me.REMOVEBTN.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
@@ -645,6 +645,6 @@ Partial Class MainMenu
     Friend WithEvents dgvIng As DataGridView
     Friend WithEvents searchAll As TextBox
     Friend WithEvents SWITCHBTN As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents REMOVEBTN As Button
     Friend WithEvents TextBox1 As TextBox
 End Class

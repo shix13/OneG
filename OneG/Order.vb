@@ -1,6 +1,7 @@
 ﻿Imports IBM.Data.DB2
 Imports System.ComponentModel.Design
 Imports System.Net.NetworkInformation
+Imports System.Security.Policy
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 
 Public Class Order
@@ -430,7 +431,7 @@ Public Class Order
 
         Catch ex As Exception
             MsgBox(ex.ToString)
-            End Try
+        End Try
 
     End Sub
 
@@ -601,7 +602,7 @@ Public Class Order
     End Sub
 
     Private Sub dgvOrder_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvOrder.CellContentClick
-       
+
     End Sub
 
     Private Sub dgvOrder_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvOrder.MouseUp
@@ -663,16 +664,49 @@ Public Class Order
         Dim rdrInsert As DB2DataReader
         Dim cmdInsert1 As DB2Command
         Dim rdrInsert1 As DB2DataReader
-
+        Dim none As Boolean = True
+        Dim po As Integer
+        Dim postr As String
+        Dim j As Integer = 0
         Try
 
+            k = dgvOrder.Rows.Count - 1
 
-            While Me.dgvOrder.Rows(k).Cells(0).Value IsNot Nothing
+
+            While count < k
+
+                If dgvOrder.Rows(count).Cells(0).Value = True Then
+
+                    k -= 1
+                    none = False
+                Else
+                    count += 1
+                End If
+            End While
+
+
+            cmd = New DB2Command("select vo_no from viandorder order by vo_no asc", conn)
+            rdr = cmd.ExecuteReader
+            If rdr.HasRows Then
+                While rdr.Read
+                    postr = rdr.GetString(0)
+                    Integer.TryParse(postr, po)
+
+                End While
+            Else
+                po = 10000 'as start
+            End If
+
+            'increment last po_no 
+            po += 1
+
+            k = 0
+            While Me.dgvOrder.Rows(k).Cells(1).Value IsNot Nothing
                 k += 1
             End While
 
-            While count < k
-                If dgvOrder.Rows(count).Cells(0).Value = True Then
+            While j < k
+                If dgvOrder.Rows(j).Cells(0).Value = True Then
 
 
                     'check if order already exist in db
@@ -681,7 +715,7 @@ Public Class Order
                     If rdrInsert.HasRows Then
 
                         'check if viandorder exist
-                        cmdInsert = New DB2Command("select vo_no,itemqty from viandorder where vo_no='" & dgvOrder.Rows(count).Cells(1).Value & "'", conn)
+                        cmdInsert = New DB2Command("select vo_no,itemqty from viandorder where vo_no='" & dgvOrder.Rows(j).Cells(1).Value & "'", conn)
                         rdrInsert = cmdInsert.ExecuteReader
                         rdrInsert.Read()
                         If rdrInsert.HasRows Then
@@ -689,10 +723,9 @@ Public Class Order
                             'get the old itemqty
                             'multiply to the ing_used
 
-                            cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(3).Value & "'", conn)
+                            cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(j).Cells(3).Value & "'", conn)
                             rdrInsert = cmdInsert.ExecuteReader
                             While rdrInsert.Read
-
 
                                 Dim qty As Decimal = rdrInsert.GetString(1) * oldqty
                                 Dim ing As String = rdrInsert.GetString(0)
@@ -726,17 +759,19 @@ Public Class Order
                     End If
 
 
-                    cmd = New DB2Command("select * from viandorder where vo_no ='" & Me.dgvOrder.Rows(count).Cells(1).Value & "'", conn)
+
+                    cmd = New DB2Command("select * from viandorder where vo_no ='" & Me.dgvOrder.Rows(j).Cells(1).Value & "'", conn)
                     rdr = cmd.ExecuteReader
                     If rdr.HasRows Then
-                        cmd = New DB2Command("delete from viandorder where vo_no='" & dgvOrder.Rows(count).Cells(1).Value & "'", conn)
+                        cmd = New DB2Command("delete from viandorder where vo_no='" & dgvOrder.Rows(j).Cells(1).Value & "'", conn)
                         cmd.ExecuteNonQuery()
+
                     End If
-                    dgvOrder.Rows(count).Cells(0).Value = False
-                    dgvOrder.Rows.RemoveAt(count)
+                    dgvOrder.Rows(j).Cells(0).Value = False
+                    dgvOrder.Rows.RemoveAt(j)
                     k -= 1
                 Else
-                    count += 1
+                    j += 1
                 End If
             End While
 
@@ -748,8 +783,7 @@ Public Class Order
 
             txtTotal.Text = total
 
-
-            MsgBox("Removed from order")
+            ' MsgBox("Removed from order")
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try

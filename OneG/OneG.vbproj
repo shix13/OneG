@@ -105,6 +105,24 @@
     <Compile Include="AccountUser.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ConfirmationBox.Designer.vb">
+      <DependentUpon>ConfirmationBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConfirmationBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfirmCode.Designer.vb">
+      <DependentUpon>ConfirmCode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConfirmCode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="key.Designer.vb">
+      <DependentUpon>key.vb</DependentUpon>
+    </Compile>
+    <Compile Include="key.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainInventory.Designer.vb">
       <DependentUpon>MainInventory.vb</DependentUpon>
     </Compile>
@@ -198,6 +216,15 @@
   <ItemGroup>
     <EmbeddedResource Include="AccountUser.resx">
       <DependentUpon>AccountUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfirmationBox.resx">
+      <DependentUpon>ConfirmationBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfirmCode.resx">
+      <DependentUpon>ConfirmCode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="key.resx">
+      <DependentUpon>key.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainInventory.resx">
       <DependentUpon>MainInventory.vb</DependentUpon>
