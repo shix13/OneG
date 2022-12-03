@@ -44,6 +44,8 @@ Partial Class PurchasesAll
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CmbSearchSup = New System.Windows.Forms.ComboBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.searchPurchases = New System.Windows.Forms.TextBox()
         Me.dgvPurchases = New System.Windows.Forms.DataGridView()
@@ -53,14 +55,13 @@ Partial Class PurchasesAll
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.CreatePOStrip = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmployeeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvPurchases, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'leftSideBar
@@ -329,6 +330,7 @@ Partial Class PurchasesAll
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.CmbSearchSup)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.searchPurchases)
@@ -342,6 +344,25 @@ Partial Class PurchasesAll
         Me.GroupBox1.Size = New System.Drawing.Size(1313, 744)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
+        '
+        'CmbSearchSup
+        '
+        Me.CmbSearchSup.FormattingEnabled = True
+        Me.CmbSearchSup.Items.AddRange(New Object() {"NOT DELIVERED", "DELIVERED"})
+        Me.CmbSearchSup.Location = New System.Drawing.Point(528, 137)
+        Me.CmbSearchSup.Name = "CmbSearchSup"
+        Me.CmbSearchSup.Size = New System.Drawing.Size(121, 24)
+        Me.CmbSearchSup.TabIndex = 40
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = Global.OneG.My.Resources.Resources.logo_small_2
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox1.Location = New System.Drawing.Point(49, 59)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(118, 116)
+        Me.PictureBox1.TabIndex = 39
+        Me.PictureBox1.TabStop = False
         '
         'Label8
         '
@@ -390,9 +411,9 @@ Partial Class PurchasesAll
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(862, 670)
+        Me.SaveBtn.Location = New System.Drawing.Point(49, 670)
         Me.SaveBtn.Name = "SaveBtn"
-        Me.SaveBtn.Size = New System.Drawing.Size(121, 41)
+        Me.SaveBtn.Size = New System.Drawing.Size(121, 59)
         Me.SaveBtn.TabIndex = 21
         Me.SaveBtn.Text = "SAVE"
         Me.SaveBtn.UseVisualStyleBackColor = True
@@ -402,11 +423,11 @@ Partial Class PurchasesAll
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(1016, 670)
+        Me.DeleteBtn.Location = New System.Drawing.Point(176, 670)
         Me.DeleteBtn.Name = "DeleteBtn"
-        Me.DeleteBtn.Size = New System.Drawing.Size(109, 41)
+        Me.DeleteBtn.Size = New System.Drawing.Size(129, 59)
         Me.DeleteBtn.TabIndex = 20
-        Me.DeleteBtn.Text = "DELETE"
+        Me.DeleteBtn.Text = "CANCEL ORDER"
         Me.DeleteBtn.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -434,16 +455,6 @@ Partial Class PurchasesAll
         Me.EmployeeToolStripMenuItem.Size = New System.Drawing.Size(135, 29)
         Me.EmployeeToolStripMenuItem.Text = "All Purchases"
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackgroundImage = Global.OneG.My.Resources.Resources.logo_small_2
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(49, 59)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(118, 116)
-        Me.PictureBox1.TabIndex = 39
-        Me.PictureBox1.TabStop = False
-        '
         'PurchasesAll
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -465,10 +476,10 @@ Partial Class PurchasesAll
         Me.Panel2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvPurchases, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -504,4 +515,5 @@ Partial Class PurchasesAll
     Friend WithEvents Label8 As Label
     Friend WithEvents searchPurchases As TextBox
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents CmbSearchSup As ComboBox
 End Class

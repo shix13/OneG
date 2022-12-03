@@ -44,24 +44,24 @@ Partial Class PurchaseOrder
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.SEARCHPO = New System.Windows.Forms.Label()
+        Me.txtsearch = New System.Windows.Forms.TextBox()
+        Me.ingbtn = New System.Windows.Forms.Button()
+        Me.supbtn = New System.Windows.Forms.Button()
+        Me.dgvSelect = New System.Windows.Forms.DataGridView()
+        Me.closebtn = New System.Windows.Forms.Button()
+        Me.SaveBtn = New System.Windows.Forms.Button()
+        Me.dgvPO = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.TableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmployeeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvSelect, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvPO, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -331,15 +331,15 @@ Partial Class PurchaseOrder
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Label8)
-        Me.GroupBox1.Controls.Add(Me.TextBox3)
-        Me.GroupBox1.Controls.Add(Me.Button2)
-        Me.GroupBox1.Controls.Add(Me.Button4)
-        Me.GroupBox1.Controls.Add(Me.DataGridView2)
         Me.GroupBox1.Controls.Add(Me.Button1)
-        Me.GroupBox1.Controls.Add(Me.Button5)
-        Me.GroupBox1.Controls.Add(Me.Button3)
-        Me.GroupBox1.Controls.Add(Me.DataGridView1)
+        Me.GroupBox1.Controls.Add(Me.SEARCHPO)
+        Me.GroupBox1.Controls.Add(Me.txtsearch)
+        Me.GroupBox1.Controls.Add(Me.ingbtn)
+        Me.GroupBox1.Controls.Add(Me.supbtn)
+        Me.GroupBox1.Controls.Add(Me.dgvSelect)
+        Me.GroupBox1.Controls.Add(Me.closebtn)
+        Me.GroupBox1.Controls.Add(Me.SaveBtn)
+        Me.GroupBox1.Controls.Add(Me.dgvPO)
         Me.GroupBox1.Controls.Add(Me.MenuStrip1)
         Me.GroupBox1.Location = New System.Drawing.Point(71, 112)
         Me.GroupBox1.Name = "GroupBox1"
@@ -347,105 +347,94 @@ Partial Class PurchaseOrder
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         '
-        'Label8
+        'SEARCHPO
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.Label8.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.ForeColor = System.Drawing.Color.Transparent
-        Me.Label8.Location = New System.Drawing.Point(548, 436)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(67, 21)
-        Me.Label8.TabIndex = 38
-        Me.Label8.Text = "Search"
+        Me.SEARCHPO.AutoSize = True
+        Me.SEARCHPO.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.SEARCHPO.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SEARCHPO.ForeColor = System.Drawing.Color.Transparent
+        Me.SEARCHPO.Location = New System.Drawing.Point(462, 436)
+        Me.SEARCHPO.Name = "SEARCHPO"
+        Me.SEARCHPO.Size = New System.Drawing.Size(164, 21)
+        Me.SEARCHPO.TabIndex = 38
+        Me.SEARCHPO.Text = "Search Ingredients"
         '
-        'TextBox3
+        'txtsearch
         '
-        Me.TextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox3.Location = New System.Drawing.Point(632, 434)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(224, 27)
-        Me.TextBox3.TabIndex = 37
+        Me.txtsearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtsearch.Location = New System.Drawing.Point(632, 434)
+        Me.txtsearch.Name = "txtsearch"
+        Me.txtsearch.Size = New System.Drawing.Size(224, 27)
+        Me.txtsearch.TabIndex = 37
         '
-        'Button2
+        'ingbtn
         '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(48, 424)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(120, 41)
-        Me.Button2.TabIndex = 25
-        Me.Button2.Text = "Ingredients"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ingbtn.BackColor = System.Drawing.Color.Gray
+        Me.ingbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ingbtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ingbtn.ForeColor = System.Drawing.Color.White
+        Me.ingbtn.Location = New System.Drawing.Point(48, 424)
+        Me.ingbtn.Name = "ingbtn"
+        Me.ingbtn.Size = New System.Drawing.Size(120, 41)
+        Me.ingbtn.TabIndex = 25
+        Me.ingbtn.Text = "Ingredients"
+        Me.ingbtn.UseVisualStyleBackColor = False
         '
-        'Button4
+        'supbtn
         '
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button4.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.ForeColor = System.Drawing.Color.White
-        Me.Button4.Location = New System.Drawing.Point(174, 424)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(120, 41)
-        Me.Button4.TabIndex = 24
-        Me.Button4.Text = "Suppliers"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.supbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.supbtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.supbtn.ForeColor = System.Drawing.Color.White
+        Me.supbtn.Location = New System.Drawing.Point(174, 424)
+        Me.supbtn.Name = "supbtn"
+        Me.supbtn.Size = New System.Drawing.Size(120, 41)
+        Me.supbtn.TabIndex = 24
+        Me.supbtn.Text = "Suppliers"
+        Me.supbtn.UseVisualStyleBackColor = True
         '
-        'DataGridView2
+        'dgvSelect
         '
-        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Location = New System.Drawing.Point(48, 471)
-        Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.RowHeadersWidth = 51
-        Me.DataGridView2.RowTemplate.Height = 24
-        Me.DataGridView2.Size = New System.Drawing.Size(808, 240)
-        Me.DataGridView2.TabIndex = 23
+        Me.dgvSelect.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSelect.Location = New System.Drawing.Point(48, 471)
+        Me.dgvSelect.Name = "dgvSelect"
+        Me.dgvSelect.RowHeadersWidth = 51
+        Me.dgvSelect.RowTemplate.Height = 24
+        Me.dgvSelect.Size = New System.Drawing.Size(808, 240)
+        Me.dgvSelect.TabIndex = 23
         '
-        'Button1
+        'closebtn
         '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(1159, 670)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(109, 41)
-        Me.Button1.TabIndex = 22
-        Me.Button1.Text = "CLOSE"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.closebtn.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.closebtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.closebtn.ForeColor = System.Drawing.Color.White
+        Me.closebtn.Location = New System.Drawing.Point(1159, 670)
+        Me.closebtn.Name = "closebtn"
+        Me.closebtn.Size = New System.Drawing.Size(109, 41)
+        Me.closebtn.TabIndex = 22
+        Me.closebtn.Text = "CLOSE"
+        Me.closebtn.UseVisualStyleBackColor = True
         '
-        'Button5
+        'SaveBtn
         '
-        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button5.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.ForeColor = System.Drawing.Color.White
-        Me.Button5.Location = New System.Drawing.Point(1017, 424)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(121, 41)
-        Me.Button5.TabIndex = 21
-        Me.Button5.Text = "SAVE"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SaveBtn.ForeColor = System.Drawing.Color.White
+        Me.SaveBtn.Location = New System.Drawing.Point(1006, 395)
+        Me.SaveBtn.Name = "SaveBtn"
+        Me.SaveBtn.Size = New System.Drawing.Size(132, 56)
+        Me.SaveBtn.TabIndex = 21
+        Me.SaveBtn.Text = "SAVE"
+        Me.SaveBtn.UseVisualStyleBackColor = True
         '
-        'Button3
+        'dgvPO
         '
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.Button3.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.ForeColor = System.Drawing.Color.White
-        Me.Button3.Location = New System.Drawing.Point(1159, 424)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(109, 41)
-        Me.Button3.TabIndex = 20
-        Me.Button3.Text = "DELETE"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'DataGridView1
-        '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(48, 88)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.RowTemplate.Height = 24
-        Me.DataGridView1.Size = New System.Drawing.Size(1220, 295)
-        Me.DataGridView1.TabIndex = 1
+        Me.dgvPO.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPO.Location = New System.Drawing.Point(48, 88)
+        Me.dgvPO.Name = "dgvPO"
+        Me.dgvPO.RowHeadersWidth = 51
+        Me.dgvPO.RowTemplate.Height = 24
+        Me.dgvPO.Size = New System.Drawing.Size(1220, 295)
+        Me.dgvPO.TabIndex = 1
         '
         'MenuStrip1
         '
@@ -471,6 +460,18 @@ Partial Class PurchaseOrder
         Me.EmployeeToolStripMenuItem.Size = New System.Drawing.Size(135, 29)
         Me.EmployeeToolStripMenuItem.Text = "All Purchases"
         '
+        'Button1
+        '
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.Location = New System.Drawing.Point(1144, 395)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(124, 56)
+        Me.Button1.TabIndex = 39
+        Me.Button1.Text = "REMOVE"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'PurchaseOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -492,8 +493,8 @@ Partial Class PurchaseOrder
         Me.Panel2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvSelect, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvPO, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -524,13 +525,13 @@ Partial Class PurchaseOrder
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents TableToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EmployeeToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvPO As DataGridView
+    Friend WithEvents closebtn As Button
+    Friend WithEvents SaveBtn As Button
+    Friend WithEvents dgvSelect As DataGridView
+    Friend WithEvents ingbtn As Button
+    Friend WithEvents supbtn As Button
+    Friend WithEvents SEARCHPO As Label
+    Friend WithEvents txtsearch As TextBox
     Friend WithEvents Button1 As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents DataGridView2 As DataGridView
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Label8 As Label
-    Friend WithEvents TextBox3 As TextBox
 End Class
