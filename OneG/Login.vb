@@ -1,4 +1,5 @@
-﻿Imports IBM.Data.DB2
+﻿Imports System.Windows
+Imports IBM.Data.DB2
 Public Class Login
     Private conn As IDbConnection
     Public role As String = "ADMIN"
@@ -30,7 +31,7 @@ Public Class Login
 
             param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
             param2.Direction = ParameterDirection.Input
-            cmd.Parameters("@2").Value = Me.txtAccID.Text
+            cmd.Parameters("@2").Value = Me.txtPass.Text
 
             rdr = cmd.ExecuteReader
             If rdr.HasRows Then
@@ -39,8 +40,7 @@ Public Class Login
                 role = rdr.GetString(1)
                 ACCID = rdr.GetString(2)
                 MsgBox("Welcome " + name + "!")
-                Me.Hide()
-                Home.ShowDialog()
+                Application.Run(New Home())
 
             Else
                 MsgBox("Account not found in the system")

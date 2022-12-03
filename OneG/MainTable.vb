@@ -107,7 +107,8 @@ Public Class MainTable
     End Sub
 
     Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
-
+        Me.Hide()
+        MainEmp.Show()
     End Sub
 
     Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
@@ -221,5 +222,23 @@ Public Class MainTable
 
     End Sub
 
+    Private Sub SupplierToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupplierToolStripMenuItem.Click
+        Me.Hide()
+        MainSupp.Show()
+    End Sub
 
+    Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
+        Me.Hide()
+        MainMenu.Show()
+    End Sub
+
+    Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
+        Me.Hide()
+        MainInventory.Show()
+    End Sub
+
+    Private Sub OrderBtn_Click(sender As Object, e As EventArgs) Handles OrderBtn.Click
+        Me.Hide()
+        Order.Show()
+    End Sub
 End Class

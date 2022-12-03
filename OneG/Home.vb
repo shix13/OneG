@@ -36,8 +36,8 @@ Public Class Home
             MsgBox(ex.ToString)
         End Try
 
-        Me.lblWelcomeHome.Text = "WELCOME, " + Login.name.ToString + " !"
-        Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + " !"
+        Me.lblWelcomeHome.Text = "WELCOME, " + Login.name.ToString + "!"
+        Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
 
     End Sub
 
@@ -63,5 +63,29 @@ Public Class Home
 
 
         End If
+    End Sub
+
+    Private Sub OrderBtn_Click(sender As Object, e As EventArgs) Handles OrderBtn.Click
+        Me.Hide()
+        Order.ShowDialog()
+        Me.Show()
+    End Sub
+
+    Private Sub PayBtn_Click(sender As Object, e As EventArgs) Handles PayBtn.Click
+        Me.Hide()
+        Payment.ShowDialog()
+        Me.Show()
+    End Sub
+
+    Private Sub MainBtn_Click(sender As Object, e As EventArgs) Handles MainBtn.Click
+        Me.Hide()
+        MainTable.Show()
+        Me.Show()
+    End Sub
+
+    Private Sub AccBtn_Click(sender As Object, e As EventArgs) Handles AccBtn.Click
+        Me.Hide()
+        AccountUser.ShowDialog()
+        Me.Show()
     End Sub
 End Class
