@@ -223,22 +223,30 @@ Public Class MainTable
     End Sub
 
     Private Sub SupplierToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupplierToolStripMenuItem.Click
-        Me.Hide()
+
         MainSupp.Show()
+        Me.Close()
     End Sub
 
     Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
-        Me.Hide()
+
         MainMenu.Show()
+        Me.Close()
     End Sub
 
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
-        Me.Hide()
+
         MainInventory.Show()
+        Me.Close()
     End Sub
 
     Private Sub OrderBtn_Click(sender As Object, e As EventArgs) Handles OrderBtn.Click
-        Me.Hide()
+
         Order.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub leftSideBar_Paint(sender As Object, e As PaintEventArgs) Handles leftSideBar.Paint
+
     End Sub
 End Class

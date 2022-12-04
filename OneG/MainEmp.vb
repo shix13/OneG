@@ -318,4 +318,33 @@ Public Class MainEmp
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs)
 
     End Sub
+
+    Private Sub SupplierToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupplierToolStripMenuItem.Click
+        MainSupp.Show()
+        Me.Close()
+
+    End Sub
+
+    Private Sub TableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TableToolStripMenuItem.Click
+        MainTable.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
+        MainMenu.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
+        MainInventory.Show()
+        Me.Close()
+
+    End Sub
+
+    Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
+        logout.ShowDialog()
+        MsgBox("Please Log in Again.")
+        Login.Show()
+        Me.Close()
+    End Sub
 End Class

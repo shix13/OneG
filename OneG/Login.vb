@@ -40,7 +40,8 @@ Public Class Login
                 role = rdr.GetString(1)
                 ACCID = rdr.GetString(2)
                 MsgBox("Welcome " + name + "!")
-                Application.Run(New Home())
+                Home.Show()
+                Me.Close()
 
             Else
                 MsgBox("Account not found in the system")

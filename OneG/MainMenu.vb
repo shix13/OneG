@@ -544,7 +544,27 @@ Public Class MainMenu
         End Try
     End Sub
 
-    Private Sub dgvIng_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvIng.CellContentClick
+    Private Sub SupplierToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupplierToolStripMenuItem.Click
+        MainSupp.Show()
+        Me.Close()
 
+    End Sub
+
+    Private Sub TableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TableToolStripMenuItem.Click
+        MainTable.Show()
+        Me.Close()
+    End Sub
+
+
+
+    Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
+        MainInventory.Show()
+        Me.Close()
+
+    End Sub
+
+    Private Sub EmployeeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmployeeToolStripMenuItem.Click
+        MainEmp.Show()
+        Me.Close()
     End Sub
 End Class
