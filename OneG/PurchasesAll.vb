@@ -240,35 +240,42 @@ Public Class PurchasesAll
         Dim cmdInsert As DB2Command
         Dim updated As Boolean = False
         Try
+            Dim answer As DialogResult
+            answer = MessageBox.Show("Purchase Order has Changes, Save?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If answer = vbYes Then
 
-            While i < count
-                If Me.dgvPurchases.Rows(i).Cells(8).Value = "DELIVERED" Then
+                While i < count
+                    If Me.dgvPurchases.Rows(i).Cells(8).Value = "DELIVERED" Then
 
+                    Else
+
+                        cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,delvstat=@delv,purunit=@unit where po_no= '" & Me.dgvPurchases.Rows(i).Cells(0).Value & "'", conn)
+                        cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(11).Value
+                        cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(10).Value
+                        cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(4).Value
+                        cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(5).Value
+                        cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(6).Value
+                        cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(7).Value
+                        cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(8).Value
+                        cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(1).Value
+                        cmdInsert.ExecuteNonQuery()
+                        updated = True
+                    End If
+                    i += 1
+                End While
+
+                If updated = False Then
+                    MsgBox("Delivered Items cannot be updated")
                 Else
-                    cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,delvstat=@delv,purunit=@unit where po_no= '" & Me.dgvPurchases.Rows(i).Cells(0).Value & "'", conn)
-                    cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(11).Value
-                    cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(10).Value
-                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(4).Value
-                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(5).Value
-                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(6).Value
-                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(7).Value
-                    cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(8).Value
-                    cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(1).Value
-                    cmdInsert.ExecuteNonQuery()
-                    updated = True
+                    MsgBox("Purchase Order Updated Succesfully")
                 End If
-                i += 1
-            End While
-            If updated = False Then
-                MsgBox("Delivered Items cannot be updated")
-            Else
-                MsgBox("Purchase Order Updated Succesfully")
+                Call RefreshorderDataGrid()
             End If
 
-            Call RefreshorderDataGrid()
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+
     End Sub
 
     Private Sub dgvPurchases_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvPurchases.MouseUp

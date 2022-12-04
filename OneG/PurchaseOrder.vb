@@ -292,7 +292,7 @@ Public Class PurchaseOrder
                     Dim answer As DialogResult
                     answer = MessageBox.Show("Ingredient Order Already Exist, Continue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                     If answer = vbYes Then
-                        Debug.Print("He waz")
+
                     Else
                         dgvPO.Rows.RemoveAt(i)
                     End If
@@ -354,7 +354,7 @@ Public Class PurchaseOrder
                 End If
             End While
 
-            If none = True Then
+            If none = True And k > 0 Then
                 dgvPO.Rows.RemoveAt(k - 1)
             End If
 
@@ -416,44 +416,56 @@ Public Class PurchaseOrder
         Dim cmdInsert As DB2Command
         Dim i As Integer = 0 'as count of row that has po_no assigned
         Dim count As Integer = 0
-
+        Dim save As Boolean = False
         Dim rdrInsert As DB2DataReader
 
-        If Login.role.Equals("CASHIER") Then
+        If Login.role.Contains("CASHIER") Then
             MsgBox("Error: User Acount Not Authorized")
+
+
         Else
+
             Try
                 While Me.dgvPO.Rows(i).Cells(1).Value IsNot Nothing
                     i += 1
+                    save = True
                 End While
 
-                While count < i
+                If save = True Then
+                    Dim answer As DialogResult
+                    answer = MessageBox.Show("Purchase Order will be saved, Continue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    If answer = vbYes Then
 
-                    cmdInsert = New DB2Command("select po_no from purchases where po_no ='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
-                    rdrInsert = cmdInsert.ExecuteReader
-                    If rdrInsert.HasRows Then
+                        While count < i
 
-                    Else
-                        cmdInsert = New DB2Command("insert into purchases(po_no,empid,ing_id,supid,qtypur,pricepur,subtotal,delvstat,purdate,purunit) values(@po,@emp,@ing,@supid,@qty,@price,@sub,@delv,@date,@unit)", conn)
-                        cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(1).Value
-                        cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(2).Value
-                        cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(12).Value
-                        cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(11).Value
-                        cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                        cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(6).Value
-                        cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(7).Value
-                        cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(8).Value
-                        cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(9).Value
-                        cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = Me.dgvPO.Rows(count).Cells(10).Value
-                        cmdInsert.ExecuteNonQuery()
+                            cmdInsert = New DB2Command("select po_no from purchases where po_no ='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                            rdrInsert = cmdInsert.ExecuteReader
+                            If rdrInsert.HasRows Then
 
+                            Else
+                                cmdInsert = New DB2Command("insert into purchases(po_no,empid,ing_id,supid,qtypur,pricepur,subtotal,delvstat,purdate,purunit) values(@po,@emp,@ing,@supid,@qty,@price,@sub,@delv,@date,@unit)", conn)
+                                cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(1).Value
+                                cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(2).Value
+                                cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(12).Value
+                                cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(11).Value
+                                cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
+                                cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(6).Value
+                                cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(7).Value
+                                cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(8).Value
+                                cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(9).Value
+                                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = Me.dgvPO.Rows(count).Cells(10).Value
+                                cmdInsert.ExecuteNonQuery()
+
+                            End If
+
+                            count += 1
+                        End While
+                        MsgBox("Purchase Order Saved Succesfully")
+                        dgvPO.Rows.Clear()
                     End If
 
-                    count += 1
-                End While
+                End If
 
-                MsgBox("Purchase Order Saved Succesfully")
-                dgvPO.Rows.Clear()
             Catch ex As Exception
                 MsgBox("Table(s) has missing information.")
             End Try

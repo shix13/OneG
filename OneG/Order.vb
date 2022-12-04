@@ -50,14 +50,15 @@ Public Class Order
             dgvOrder.Columns(0).Width = 20
 
             With Me.dgvOrder 'viandOrder to be ordered
-                .ColumnCount = 6
+                .ColumnCount = 7
                 .Columns(1).Name = "VIAND ORDER"
                 .Columns(2).Name = "ORDER NUMBER"
-                .Columns(3).Name = "VIAND CODE"
+                .Columns(3).Name = "VIAND "
                 .Columns(4).Name = "ORDER QTY"
                 .Columns(5).Name = "SUBTOTAL"
-
+                .Columns(6).Name = "MENU CODE"
             End With
+            dgvOrder.Columns(6).Visible = False
             Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
             Call RefreshorderDataGrid1()
         Catch ex As Exception
@@ -76,7 +77,15 @@ Public Class Order
 
             Me.txtTotal.Text = "0.00"
 
-
+            If TableOrderBtn.Text = "ORDER LISTS" Then
+                SaveBtn.Visible = False
+                DeleteBtn.Visible = False
+                REMOVEBTN.Visible = False
+            Else
+                SaveBtn.Visible = True
+                DeleteBtn.Visible = True
+                REMOVEBTN.Visible = True
+            End If
 
             cmd = New DB2Command("select * from menu", conn)
             rdr = cmd.ExecuteReader
@@ -146,211 +155,223 @@ Public Class Order
         Dim rdrInsert1 As DB2DataReader
         Dim count As Integer = 0
         Dim i As Integer = 0
+        Try
 
-        If cmbTableNo.Text = "" Or cmbTableNo.Text = "SELECT TABLE" Then
-            MsgBox("Table Number is empty.")
-        Else
+            If cmbTableNo.Text = "" Or cmbTableNo.Text = "SELECT TABLE" Then
+                MsgBox("Table Number is empty.")
+            ElseIf dgvOrder.Rows(i).Cells(1).ToString = "" Then
+                MsgBox("Please Select a Menu item before saving.")
+            Else
 
-
-            Try
-                While Me.dgvOrder.Rows(i).Cells(1).Value IsNot Nothing
-                    i += 1
-                End While
-
-                While count < i
-
-                    'check if order already exist in db
-                    cmdInsert = New DB2Command("select orderno from order where orderno ='" & txtOrderNo.Text & "'", conn)
-                    rdrInsert = cmdInsert.ExecuteReader
-                    If rdrInsert.HasRows Then
-                        'order exist so we update 
-                        cmdInsert = New DB2Command("update order set ordertotal= @total where orderno='" & txtOrderNo.Text & "'", conn)
-                        cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
-                        cmdInsert.ExecuteNonQuery()
-
-                        'check if viandorder exist
-                        cmdInsert = New DB2Command("select vo_no,itemqty from viandorder where vo_no='" & dgvOrder.Rows(count).Cells(1).Value & "'", conn)
-                        rdrInsert = cmdInsert.ExecuteReader
-                        rdrInsert.Read()
-                        If rdrInsert.HasRows Then
-                            Dim oldqty As Integer = rdrInsert.GetString(1)
-                            'get the old itemqty
-                            'multiply to the ing_used
-
-                            cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(3).Value & "'", conn)
-                            rdrInsert = cmdInsert.ExecuteReader
-                            While rdrInsert.Read
-
-                                Dim qty As Decimal = rdrInsert.GetString(1) * oldqty
-                                Dim ing As String = rdrInsert.GetString(0)
-                                Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
+                Dim answer As DialogResult
+                answer = MessageBox.Show("Purchase Order has Changes, Save?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                If answer = vbYes Then
 
 
-                                'get the unit of that ingredient (grams/kilograms)
-                                cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_ID ='" & ing & "'", conn)
-                                rdrInsert1 = cmdInsert1.ExecuteReader
-                                rdrInsert1.Read()
-                                Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
-                                'compare units
-                                If unit = ingunit Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ '" & qty & "' where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.ExecuteNonQuery()
-                                ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ @qty where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
-                                    cmdInsert1.ExecuteNonQuery()
-                                ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ @qty where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
-                                    cmdInsert1.ExecuteNonQuery()
-                                End If
-                            End While
-                            'add to the ingredients
-
-
-                            cmdInsert = New DB2Command("update viandorder set itemqty= @qty ,subtotal =@sub where vo_no='" & Me.dgvOrder.Rows(count).Cells(1).Value & "'", conn)
-                            cmdInsert.Parameters.Add("@qty", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(4).Value
-                            cmdInsert.Parameters.Add("@sub", DB2Type.Decimal).Value = Me.dgvOrder.Rows(count).Cells(5).Value
-                            cmdInsert.ExecuteNonQuery()
-
-                            'get the ing_used details of that menu item
-                            cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(3).Value & "'", conn)
-                            rdrInsert = cmdInsert.ExecuteReader
-                            While rdrInsert.Read
-
-
-                                Dim qty As Decimal = rdrInsert.GetString(1) * Me.dgvOrder.Rows(count).Cells(4).Value
-                                Dim ing As String = rdrInsert.GetString(0)
-                                Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
-
-
-                                'get the unit of that ingredient (grams/kilograms)
-                                cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_ID ='" & ing & "'", conn)
-                                rdrInsert1 = cmdInsert1.ExecuteReader
-                                rdrInsert1.Read()
-                                Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
-                                'compare units
-                                If unit = ingunit Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- '" & qty & "' where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.ExecuteNonQuery()
-                                ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
-                                    cmdInsert1.ExecuteNonQuery()
-                                ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
-                                    cmdInsert1.ExecuteNonQuery()
-
-                                End If
-                            End While
-
-
-
-                        Else
-
-                            cmdInsert = New DB2Command("insert into viandorder values(@VO,@sub,@qty,@OrdID,@menu)", conn)
-                            cmdInsert.Parameters.Add("@VO", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(1).Value
-                            cmdInsert.Parameters.Add("@OrdID", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(2).Value
-                            cmdInsert.Parameters.Add("@menu", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(3).Value
-                            cmdInsert.Parameters.Add("@qty", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(4).Value
-                            cmdInsert.Parameters.Add("@sub", DB2Type.Decimal).Value = Me.dgvOrder.Rows(count).Cells(5).Value
-                            cmdInsert.ExecuteNonQuery()
-
-
-                            cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(3).Value & "'", conn)
-                            rdrInsert = cmdInsert.ExecuteReader
-                            While rdrInsert.Read
-
-
-                                Dim qty As Decimal = rdrInsert.GetString(1) * Me.dgvOrder.Rows(count).Cells(4).Value
-                                Dim ing As String = rdrInsert.GetString(0)
-                                Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
-
-
-                                'get the unit of that ingredient (grams/kilograms)
-                                cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_ID='" & ing & "'", conn)
-                                rdrInsert1 = cmdInsert1.ExecuteReader
-                                rdrInsert1.Read()
-                                Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
-                                'compare units
-                                If unit = ingunit Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- '" & qty & "' where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.ExecuteNonQuery()
-                                ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
-                                    cmdInsert1.ExecuteNonQuery()
-                                ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
-                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
-                                    cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
-                                    cmdInsert1.ExecuteNonQuery()
-
-                                End If
-                            End While
-                        End If
-                    Else
-                        'order didnt exist
-                        cmdInsert = New DB2Command("insert into order(ORDERNO,ORDERTOTAL,ORDERDATE,TABLENO,ACCID)  values (@Ord, @total,@date,@cust,@emp)", conn)
-                        cmdInsert.Parameters.Add("@cust", DB2Type.Integer).Value = cmbTableNo.Text
-                        cmdInsert.Parameters.Add("@Ord", DB2Type.Integer).Value = txtOrderNo.Text
-                        cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Login.ACCID.ToString
-                        cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
-                        cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Text
-                        cmdInsert.ExecuteNonQuery()
-
-                        cmdInsert = New DB2Command("insert into viandorder values(@VO,@sub,@qty,@OrdID,@menu)", conn)
-                        cmdInsert.Parameters.Add("@VO", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(1).Value
-                        cmdInsert.Parameters.Add("@OrdID", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(2).Value
-                        cmdInsert.Parameters.Add("@menu", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(3).Value
-                        cmdInsert.Parameters.Add("@qty", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(4).Value
-                        cmdInsert.Parameters.Add("@sub", DB2Type.Decimal).Value = Me.dgvOrder.Rows(count).Cells(5).Value
-                        cmdInsert.ExecuteNonQuery()
-
-                        cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(3).Value & "'", conn)
-                        rdrInsert = cmdInsert.ExecuteReader
-                        While rdrInsert.Read
-
-
-                            Dim qty As Decimal = rdrInsert.GetString(1) * Me.dgvOrder.Rows(count).Cells(4).Value
-                            Dim ing As String = rdrInsert.GetString(0)
-                            Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
-
-
-                            'get the unit of that ingredient (grams/kilograms)
-                            cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_ID ='" & ing & "'", conn)
-                            rdrInsert1 = cmdInsert1.ExecuteReader
-                            rdrInsert1.Read()
-                            Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
-                            'compare units
-                            If unit = ingunit Then
-                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- '" & qty & "' where ing_ID ='" & ing & "'", conn)
-                                cmdInsert1.ExecuteNonQuery()
-                            ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
-                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
-                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
-                                cmdInsert1.ExecuteNonQuery()
-                            ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
-                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
-                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
-                                cmdInsert1.ExecuteNonQuery()
-                            End If
-
+                    Try
+                        While Me.dgvOrder.Rows(i).Cells(1).Value IsNot Nothing
+                            i += 1
                         End While
-                    End If
-                    count += 1
-                End While
-                MsgBox("Order Saved!")
-                cmdInsert1 = New DB2Command("update tables set availability ='NOT AVAILABLE' where TABLENO ='" & cmbTableNo.Text & "'", conn)
-                cmdInsert1.ExecuteNonQuery()
-                Call RefreshorderDataGrid1()
-            Catch ex As Exception
-                MsgBox("Fill all details to better serve your customer")
-                MsgBox(ex.ToString)
-            End Try
 
-        End If
+                        While count < i
 
+                            'check if order already exist in db
+                            cmdInsert = New DB2Command("select orderno from order where orderno ='" & txtOrderNo.Text & "'", conn)
+                            rdrInsert = cmdInsert.ExecuteReader
+                            If rdrInsert.HasRows Then
+                                masterKey.ShowDialog()
+                                If masterKey.CONFIRM = True Then
+                                    'order exist so we update 
+                                    cmdInsert = New DB2Command("update order set ordertotal= @total where orderno='" & txtOrderNo.Text & "'", conn)
+                                    cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
+                                    cmdInsert.ExecuteNonQuery()
+
+                                    'check if viandorder exist
+                                    cmdInsert = New DB2Command("select vo_no,itemqty from viandorder where vo_no='" & dgvOrder.Rows(count).Cells(1).Value & "'", conn)
+                                    rdrInsert = cmdInsert.ExecuteReader
+                                    rdrInsert.Read()
+                                    If rdrInsert.HasRows Then
+                                        Dim oldqty As Integer = rdrInsert.GetString(1)
+                                        'get the old itemqty
+                                        'multiply to the ing_used
+
+                                        cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(6).Value & "'", conn)
+                                        rdrInsert = cmdInsert.ExecuteReader
+                                        While rdrInsert.Read
+
+                                            Dim qty As Decimal = rdrInsert.GetString(1) * oldqty
+                                            Dim ing As String = rdrInsert.GetString(0)
+                                            Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
+
+
+                                            'get the unit of that ingredient (grams/kilograms)
+                                            cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_ID ='" & ing & "'", conn)
+                                            rdrInsert1 = cmdInsert1.ExecuteReader
+                                            rdrInsert1.Read()
+                                            Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
+                                            'compare units
+                                            If unit = ingunit Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ '" & qty & "' where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.ExecuteNonQuery()
+                                            ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ @qty where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
+                                                cmdInsert1.ExecuteNonQuery()
+                                            ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ @qty where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
+                                                cmdInsert1.ExecuteNonQuery()
+                                            End If
+                                        End While
+                                        'add to the ingredients
+
+
+                                        cmdInsert = New DB2Command("update viandorder set itemqty= @qty ,subtotal =@sub where vo_no='" & Me.dgvOrder.Rows(count).Cells(1).Value & "'", conn)
+                                        cmdInsert.Parameters.Add("@qty", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(4).Value
+                                        cmdInsert.Parameters.Add("@sub", DB2Type.Decimal).Value = Me.dgvOrder.Rows(count).Cells(5).Value
+                                        cmdInsert.ExecuteNonQuery()
+
+                                        'get the ing_used details of that menu item
+                                        cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(6).Value & "'", conn)
+                                        rdrInsert = cmdInsert.ExecuteReader
+                                        While rdrInsert.Read
+
+
+                                            Dim qty As Decimal = rdrInsert.GetString(1) * Me.dgvOrder.Rows(count).Cells(4).Value
+                                            Dim ing As String = rdrInsert.GetString(0)
+                                            Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
+
+
+                                            'get the unit of that ingredient (grams/kilograms)
+                                            cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_ID ='" & ing & "'", conn)
+                                            rdrInsert1 = cmdInsert1.ExecuteReader
+                                            rdrInsert1.Read()
+                                            Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
+                                            'compare units
+                                            If unit = ingunit Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- '" & qty & "' where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.ExecuteNonQuery()
+                                            ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
+                                                cmdInsert1.ExecuteNonQuery()
+                                            ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
+                                                cmdInsert1.ExecuteNonQuery()
+
+                                            End If
+                                        End While
+
+
+
+                                    Else
+
+                                        cmdInsert = New DB2Command("insert into viandorder values(@VO,@sub,@qty,@OrdID,@menu)", conn)
+                                        cmdInsert.Parameters.Add("@VO", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(1).Value
+                                        cmdInsert.Parameters.Add("@OrdID", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(2).Value
+                                        cmdInsert.Parameters.Add("@menu", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(6).Value
+                                        cmdInsert.Parameters.Add("@qty", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(4).Value
+                                        cmdInsert.Parameters.Add("@sub", DB2Type.Decimal).Value = Me.dgvOrder.Rows(count).Cells(5).Value
+                                        cmdInsert.ExecuteNonQuery()
+
+
+                                        cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(6).Value & "'", conn)
+                                        rdrInsert = cmdInsert.ExecuteReader
+                                        While rdrInsert.Read
+
+
+                                            Dim qty As Decimal = rdrInsert.GetString(1) * Me.dgvOrder.Rows(count).Cells(4).Value
+                                            Dim ing As String = rdrInsert.GetString(0)
+                                            Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
+
+
+                                            'get the unit of that ingredient (grams/kilograms)
+                                            cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_ID='" & ing & "'", conn)
+                                            rdrInsert1 = cmdInsert1.ExecuteReader
+                                            rdrInsert1.Read()
+                                            Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
+                                            'compare units
+                                            If unit = ingunit Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- '" & qty & "' where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.ExecuteNonQuery()
+                                            ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
+                                                cmdInsert1.ExecuteNonQuery()
+                                            ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
+                                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
+                                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
+                                                cmdInsert1.ExecuteNonQuery()
+
+                                            End If
+                                        End While
+                                    End If
+                                End If
+                            Else
+                                'order didnt exist
+                                cmdInsert = New DB2Command("insert into order(ORDERNO,ORDERTOTAL,ORDERDATE,TABLENO,ACCID)  values (@Ord, @total,@date,@cust,@emp)", conn)
+                                cmdInsert.Parameters.Add("@cust", DB2Type.Integer).Value = cmbTableNo.Text
+                                cmdInsert.Parameters.Add("@Ord", DB2Type.Integer).Value = txtOrderNo.Text
+                                cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Login.ACCID.ToString
+                                cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
+                                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Text
+                                cmdInsert.ExecuteNonQuery()
+
+                                cmdInsert = New DB2Command("insert into viandorder values(@VO,@sub,@qty,@OrdID,@menu)", conn)
+                                cmdInsert.Parameters.Add("@VO", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(1).Value
+                                cmdInsert.Parameters.Add("@OrdID", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(2).Value
+                                cmdInsert.Parameters.Add("@menu", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(6).Value
+                                cmdInsert.Parameters.Add("@qty", DB2Type.Integer).Value = Me.dgvOrder.Rows(count).Cells(4).Value
+                                cmdInsert.Parameters.Add("@sub", DB2Type.Decimal).Value = Me.dgvOrder.Rows(count).Cells(5).Value
+                                cmdInsert.ExecuteNonQuery()
+
+                                cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(6).Value & "'", conn)
+                                rdrInsert = cmdInsert.ExecuteReader
+                                While rdrInsert.Read
+
+
+                                    Dim qty As Decimal = rdrInsert.GetString(1) * Me.dgvOrder.Rows(count).Cells(4).Value
+                                    Dim ing As String = rdrInsert.GetString(0)
+                                    Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
+
+
+                                    'get the unit of that ingredient (grams/kilograms)
+                                    cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_ID ='" & ing & "'", conn)
+                                    rdrInsert1 = cmdInsert1.ExecuteReader
+                                    rdrInsert1.Read()
+                                    Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
+                                    'compare units
+                                    If unit = ingunit Then
+                                        cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- '" & qty & "' where ing_ID ='" & ing & "'", conn)
+                                        cmdInsert1.ExecuteNonQuery()
+                                    ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
+                                        cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
+                                        cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
+                                        cmdInsert1.ExecuteNonQuery()
+                                    ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
+                                        cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty- @qty where ing_ID ='" & ing & "'", conn)
+                                        cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
+                                        cmdInsert1.ExecuteNonQuery()
+                                    End If
+
+                                End While
+                            End If
+                            count += 1
+                        End While
+                        MsgBox("Order Saved!")
+                        cmdInsert1 = New DB2Command("update tables set availability ='NOT AVAILABLE' where TABLENO ='" & cmbTableNo.Text & "'", conn)
+                        cmdInsert1.ExecuteNonQuery()
+                        Call RefreshorderDataGrid1()
+                    Catch ex As Exception
+                        MsgBox("Fill all details to better serve your customer")
+                        MsgBox(ex.ToString)
+                    End Try
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
 
     End Sub
 
@@ -367,12 +388,13 @@ Public Class Order
                 TableOrderBtn.Text = "TABLE ORDER"
                 dgvOrder.Columns(0).Visible = True
                 With Me.dgvOrder 'viandOrder to be ordered
-                    .ColumnCount = 6
+                    .ColumnCount = 7
                     .Columns(1).Name = "VIAND ORDER"
                     .Columns(2).Name = "ORDER NUMBER"
-                    .Columns(3).Name = "VIAND CODE"
+                    .Columns(3).Name = "VIAND"
                     .Columns(4).Name = "ORDER QTY"
                     .Columns(5).Name = "SUBTOTAL"
+                    .Columns(6).Name = "MENU CODE"
 
                 End With
                 RefreshorderDataGrid1()
@@ -399,7 +421,7 @@ Public Class Order
 
                 Dim i As Integer = 0 'check how many rows in the dgv
                 While Me.dgvOrder.Rows(i).Cells(1).Value IsNot Nothing
-                    If Me.dgvOrder.Rows(i).Cells(3).Value = dgvMenu.CurrentRow.Cells(0).Value Then
+                    If Me.dgvOrder.Rows(i).Cells(6).Value = dgvMenu.CurrentRow.Cells(0).Value Then
                         similar = True
                     End If
                     i += 1
@@ -410,9 +432,11 @@ Public Class Order
 
                 Else
                     dgvOrder.Rows.Add()
+
                     dgvOrder.Rows(i).Cells(5).Value = Me.dgvMenu.CurrentRow.Cells(2).Value
                     dgvOrder.Rows(i).Cells(2).Value = txtOrderNo.Text
-                    dgvOrder.Rows(i).Cells(3).Value = Me.dgvMenu.CurrentRow.Cells(0).Value
+                    dgvOrder.Rows(i).Cells(6).Value = Me.dgvMenu.CurrentRow.Cells(0).Value
+                    dgvOrder.Rows(i).Cells(3).Value = Me.dgvMenu.CurrentRow.Cells(1).Value
                     dgvOrder.Rows(i).Cells(4).Value = "1"
 
                     'traverse to all rows
@@ -443,9 +467,20 @@ Public Class Order
                 MsgBox(ex.ToString)
             End Try
 
+            dgvOrder.ClearSelection()
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+
+        If TableOrderBtn.Text = "ORDER LISTS" Then
+            SaveBtn.Visible = False
+            DeleteBtn.Visible = False
+            REMOVEBTN.Visible = False
+        Else
+            SaveBtn.Visible = True
+            DeleteBtn.Visible = True
+            REMOVEBTN.Visible = True
+        End If
 
     End Sub
 
@@ -460,8 +495,8 @@ Public Class Order
         Dim total As Decimal = 0
 
 
-        If dgvOrder.CurrentRow.Cells(3).Value IsNot Nothing Then
-            cmdSearch = New DB2Command("select price from menu where menu_no ='" & dgvOrder.CurrentRow.Cells(3).Value & "'", conn)
+        If dgvOrder.CurrentRow.Cells(6).Value IsNot Nothing Then
+            cmdSearch = New DB2Command("select price from menu where menu_no ='" & dgvOrder.CurrentRow.Cells(6).Value & "'", conn)
             rdrSearch = cmdSearch.ExecuteReader
             While rdrSearch.Read
                 price = rdrSearch.GetString(0)
@@ -513,12 +548,12 @@ Public Class Order
                         Dim oldqty As Decimal = rdrInsert.GetString(1)
                         'get the old itemqty
                         'multiply to the ing_used
-                        MsgBox("here")
 
-                        cmdInsert = New DB2Command("select ing_id, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(3).Value & "'", conn)
+
+                        cmdInsert = New DB2Command("select ing_id, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(6).Value & "'", conn)
                         rdrInsert = cmdInsert.ExecuteReader
                         While rdrInsert.Read
-                            MsgBox("here!!")
+
 
                             Dim qty As Decimal = rdrInsert.GetString(1) * oldqty
                             Dim ing As String = rdrInsert.GetString(0)
@@ -544,6 +579,11 @@ Public Class Order
                                 cmdInsert1.ExecuteNonQuery()
 
                             End If
+
+                            StrDelete = "delete from viandorder where vo_no = '" & Me.dgvOrder.Rows(count).Cells(1).Value & "'"
+                            CmdDelete = New DB2Command(StrDelete, conn)
+                            CmdDelete.ExecuteNonQuery()
+
                         End While
                         'add to the ingredients
 
@@ -569,6 +609,7 @@ Public Class Order
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
         Dim rows As String()
+
 
         Try
 
@@ -611,6 +652,15 @@ Public Class Order
                 RefreshorderDataGrid1()
 
             End If
+            If TableOrderBtn.Text = "ORDER LISTS" Then
+                SaveBtn.Visible = False
+                DeleteBtn.Visible = False
+                REMOVEBTN.Visible = False
+            Else
+                SaveBtn.Visible = True
+                DeleteBtn.Visible = True
+                REMOVEBTN.Visible = True
+            End If
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -625,7 +675,7 @@ Public Class Order
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
         Dim rows As String()
-
+        Dim i As Integer = 0
         Try
 
 
@@ -642,27 +692,45 @@ Public Class Order
 
                     dgvOrder.Columns(0).Visible = True
                     With Me.dgvOrder 'viandOrder to be ordered
-                        .ColumnCount = 6
+                        .ColumnCount = 7
                         .Columns(0).Name = ""
                         .Columns(1).Name = "VIAND ORDER"
                         .Columns(2).Name = "ORDER NUMBER"
-                        .Columns(3).Name = "VIAND CODE"
+                        .Columns(3).Name = "VIAND"
                         .Columns(4).Name = "ORDER QTY"
                         .Columns(5).Name = "SUBTOTAL"
+                        .Columns(6).Name = "MENU CODE"
                     End With
-                    str = "select * from VIANDORDER where ORDERNO ='" & txtOrderNo.Text & "'"
-                    cmd = New DB2Command(str, conn)
+                    cmd = New DB2Command("select * from table( db2admin.ORDER_LEFTJOIN_MENU()) as udf", conn)
                     rdr = cmd.ExecuteReader
-
-                    dgvOrder.Rows.Clear()
+                    Me.dgvOrder.Rows.Clear()
                     While rdr.Read
-                        rows = New String() {False, rdr.GetString(0), rdr.GetString(3), rdr.GetString(4), rdr.GetString(2), rdr.GetString(1)}
-                        Me.dgvOrder.Rows.Add(rows)
+                        If rdr.GetString(3).StartsWith(txtOrderNo.Text) Then
+                            dgvOrder.Rows.Add()
+                            Me.dgvOrder.Rows(i).Cells(0).Value = False
+                            Me.dgvOrder.Rows(i).Cells(1).Value = rdr.GetString(0)
+                            Me.dgvOrder.Rows(i).Cells(2).Value = rdr.GetString(3)
+                            Me.dgvOrder.Rows(i).Cells(3).Value = rdr.GetString(6)
+                            Me.dgvOrder.Rows(i).Cells(4).Value = rdr.GetString(2)
+                            Me.dgvOrder.Rows(i).Cells(5).Value = rdr.GetString(1)
+                            Me.dgvOrder.Rows(i).Cells(6).Value = rdr.GetString(4)
+                            i += 1
+                        End If
                     End While
+
 
                 Catch ex As Exception
                     MsgBox(ex.ToString)
                 End Try
+            End If
+            If TableOrderBtn.Text = "ORDER LISTS" Then
+                SaveBtn.Visible = False
+                DeleteBtn.Visible = False
+                REMOVEBTN.Visible = False
+            Else
+                SaveBtn.Visible = True
+                DeleteBtn.Visible = True
+                REMOVEBTN.Visible = True
             End If
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -686,7 +754,7 @@ Public Class Order
         Try
 
             k = dgvOrder.Rows.Count - 1
-            MsgBox(k.ToString)
+
             If k <= 1 Then
                 MsgBox("You can't have less than 1 Viand order (Suggestion: Cancel the Order)")
             Else
@@ -742,7 +810,7 @@ Public Class Order
                                 'get the old itemqty
                                 'multiply to the ing_used
 
-                                cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(j).Cells(3).Value & "'", conn)
+                                cmdInsert = New DB2Command("select ing_ID, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(j).Cells(6).Value & "'", conn)
                                 rdrInsert = cmdInsert.ExecuteReader
                                 While rdrInsert.Read
 

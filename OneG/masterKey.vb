@@ -22,10 +22,15 @@ Public Class masterKey
     Private Sub masterKey_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         conn = New DB2Connection("server=localhost;database=oneg;" + "uid=db2admin;password=db2admin;")
         conn.Open()
+        txtInput.Clear()
     End Sub
 
     Private Sub cancelBtn_Click(sender As Object, e As EventArgs) Handles cancelBtn.Click
         CONFIRM = False
         Me.Close()
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+
     End Sub
 End Class

@@ -27,22 +27,14 @@ Partial Class Order
         Me.dtpSideBar = New System.Windows.Forms.DateTimePicker()
         Me.lblWelcomeBar = New System.Windows.Forms.Label()
         Me.LogoutBtn = New System.Windows.Forms.Button()
-        Me.IconPurcBtn = New System.Windows.Forms.Button()
         Me.PurcBtn = New System.Windows.Forms.Button()
-        Me.IconAccBtn = New System.Windows.Forms.Button()
         Me.AccBtn = New System.Windows.Forms.Button()
-        Me.IconMainBtn = New System.Windows.Forms.Button()
         Me.MainBtn = New System.Windows.Forms.Button()
-        Me.IconPayBtn = New System.Windows.Forms.Button()
         Me.PayBtn = New System.Windows.Forms.Button()
-        Me.IconOrderBtn = New System.Windows.Forms.Button()
         Me.OrderBtn = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblMenuBar = New System.Windows.Forms.Label()
-        Me.MenuBarBtn = New System.Windows.Forms.Button()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtOrderNo = New System.Windows.Forms.TextBox()
@@ -57,11 +49,19 @@ Partial Class Order
         Me.DeleteBtn = New System.Windows.Forms.Button()
         Me.SaveBtn = New System.Windows.Forms.Button()
         Me.cmbTableNo = New System.Windows.Forms.ComboBox()
+        Me.IconPurcBtn = New System.Windows.Forms.Button()
+        Me.IconAccBtn = New System.Windows.Forms.Button()
+        Me.IconMainBtn = New System.Windows.Forms.Button()
+        Me.IconPayBtn = New System.Windows.Forms.Button()
+        Me.IconOrderBtn = New System.Windows.Forms.Button()
+        Me.MenuBarBtn = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         CType(Me.dgvOrder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvMenu, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'leftSideBar
@@ -119,20 +119,6 @@ Partial Class Order
         Me.LogoutBtn.Text = "Logout"
         Me.LogoutBtn.UseVisualStyleBackColor = True
         '
-        'IconPurcBtn
-        '
-        Me.IconPurcBtn.BackgroundImage = Global.OneG.My.Resources.Resources.kart
-        Me.IconPurcBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.IconPurcBtn.FlatAppearance.BorderSize = 0
-        Me.IconPurcBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IconPurcBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IconPurcBtn.ForeColor = System.Drawing.Color.White
-        Me.IconPurcBtn.Location = New System.Drawing.Point(10, 602)
-        Me.IconPurcBtn.Name = "IconPurcBtn"
-        Me.IconPurcBtn.Size = New System.Drawing.Size(60, 68)
-        Me.IconPurcBtn.TabIndex = 11
-        Me.IconPurcBtn.UseVisualStyleBackColor = True
-        '
         'PurcBtn
         '
         Me.PurcBtn.AutoSize = True
@@ -146,20 +132,6 @@ Partial Class Order
         Me.PurcBtn.TabIndex = 10
         Me.PurcBtn.Text = "  PURCHASE ORDER"
         Me.PurcBtn.UseVisualStyleBackColor = True
-        '
-        'IconAccBtn
-        '
-        Me.IconAccBtn.BackgroundImage = Global.OneG.My.Resources.Resources.profile_acc
-        Me.IconAccBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.IconAccBtn.FlatAppearance.BorderSize = 0
-        Me.IconAccBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IconAccBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IconAccBtn.ForeColor = System.Drawing.Color.White
-        Me.IconAccBtn.Location = New System.Drawing.Point(10, 502)
-        Me.IconAccBtn.Name = "IconAccBtn"
-        Me.IconAccBtn.Size = New System.Drawing.Size(60, 68)
-        Me.IconAccBtn.TabIndex = 9
-        Me.IconAccBtn.UseVisualStyleBackColor = True
         '
         'AccBtn
         '
@@ -175,20 +147,6 @@ Partial Class Order
         Me.AccBtn.Text = "  ACCOUNT"
         Me.AccBtn.UseVisualStyleBackColor = True
         '
-        'IconMainBtn
-        '
-        Me.IconMainBtn.BackgroundImage = Global.OneG.My.Resources.Resources.Daco_4626465
-        Me.IconMainBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.IconMainBtn.FlatAppearance.BorderSize = 0
-        Me.IconMainBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IconMainBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IconMainBtn.ForeColor = System.Drawing.Color.White
-        Me.IconMainBtn.Location = New System.Drawing.Point(10, 404)
-        Me.IconMainBtn.Name = "IconMainBtn"
-        Me.IconMainBtn.Size = New System.Drawing.Size(60, 68)
-        Me.IconMainBtn.TabIndex = 7
-        Me.IconMainBtn.UseVisualStyleBackColor = True
-        '
         'MainBtn
         '
         Me.MainBtn.AutoSize = True
@@ -203,20 +161,6 @@ Partial Class Order
         Me.MainBtn.Text = "  MAINTENANCE"
         Me.MainBtn.UseVisualStyleBackColor = True
         '
-        'IconPayBtn
-        '
-        Me.IconPayBtn.BackgroundImage = Global.OneG.My.Resources.Resources.PngItem_877239
-        Me.IconPayBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.IconPayBtn.FlatAppearance.BorderSize = 0
-        Me.IconPayBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IconPayBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IconPayBtn.ForeColor = System.Drawing.Color.White
-        Me.IconPayBtn.Location = New System.Drawing.Point(10, 309)
-        Me.IconPayBtn.Name = "IconPayBtn"
-        Me.IconPayBtn.Size = New System.Drawing.Size(60, 68)
-        Me.IconPayBtn.TabIndex = 5
-        Me.IconPayBtn.UseVisualStyleBackColor = True
-        '
         'PayBtn
         '
         Me.PayBtn.AutoSize = True
@@ -230,21 +174,6 @@ Partial Class Order
         Me.PayBtn.TabIndex = 4
         Me.PayBtn.Text = "  PAYMENT"
         Me.PayBtn.UseVisualStyleBackColor = True
-        '
-        'IconOrderBtn
-        '
-        Me.IconOrderBtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
-        Me.IconOrderBtn.BackgroundImage = Global.OneG.My.Resources.Resources.pinpng_com_checklist_icon_png_2009984
-        Me.IconOrderBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.IconOrderBtn.FlatAppearance.BorderSize = 0
-        Me.IconOrderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.IconOrderBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IconOrderBtn.ForeColor = System.Drawing.Color.White
-        Me.IconOrderBtn.Location = New System.Drawing.Point(10, 216)
-        Me.IconOrderBtn.Name = "IconOrderBtn"
-        Me.IconOrderBtn.Size = New System.Drawing.Size(60, 68)
-        Me.IconOrderBtn.TabIndex = 3
-        Me.IconOrderBtn.UseVisualStyleBackColor = False
         '
         'OrderBtn
         '
@@ -282,45 +211,8 @@ Partial Class Order
         Me.lblMenuBar.TabIndex = 1
         Me.lblMenuBar.Text = "MENU BAR"
         '
-        'MenuBarBtn
-        '
-        Me.MenuBarBtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.MenuBarBtn.BackgroundImage = Global.OneG.My.Resources.Resources.clipart365828
-        Me.MenuBarBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.MenuBarBtn.Dock = System.Windows.Forms.DockStyle.Right
-        Me.MenuBarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.MenuBarBtn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.MenuBarBtn.Location = New System.Drawing.Point(15, 0)
-        Me.MenuBarBtn.Name = "MenuBarBtn"
-        Me.MenuBarBtn.Size = New System.Drawing.Size(60, 76)
-        Me.MenuBarBtn.TabIndex = 0
-        Me.MenuBarBtn.UseVisualStyleBackColor = False
-        '
         'Timer1
         '
-        '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.Panel2.BackgroundImage = Global.OneG.My.Resources.Resources.Background_1
-        Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Panel2.Controls.Add(Me.Label1)
-        Me.Panel2.Location = New System.Drawing.Point(-34, 0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1502, 129)
-        Me.Panel2.TabIndex = 1
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(505, 25)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(453, 70)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "CREATE ORDER"
         '
         'Label2
         '
@@ -406,7 +298,7 @@ Partial Class Order
         Me.REMOVEBTN.ForeColor = System.Drawing.Color.White
         Me.REMOVEBTN.Location = New System.Drawing.Point(118, 756)
         Me.REMOVEBTN.Name = "REMOVEBTN"
-        Me.REMOVEBTN.Size = New System.Drawing.Size(220, 41)
+        Me.REMOVEBTN.Size = New System.Drawing.Size(154, 85)
         Me.REMOVEBTN.TabIndex = 11
         Me.REMOVEBTN.Text = "REMOVE SELECTED"
         Me.REMOVEBTN.UseVisualStyleBackColor = True
@@ -440,7 +332,7 @@ Partial Class Order
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(524, 766)
+        Me.DeleteBtn.Location = New System.Drawing.Point(524, 800)
         Me.DeleteBtn.Name = "DeleteBtn"
         Me.DeleteBtn.Size = New System.Drawing.Size(154, 41)
         Me.DeleteBtn.TabIndex = 14
@@ -452,9 +344,9 @@ Partial Class Order
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(373, 766)
+        Me.SaveBtn.Location = New System.Drawing.Point(524, 753)
         Me.SaveBtn.Name = "SaveBtn"
-        Me.SaveBtn.Size = New System.Drawing.Size(145, 41)
+        Me.SaveBtn.Size = New System.Drawing.Size(154, 41)
         Me.SaveBtn.TabIndex = 15
         Me.SaveBtn.Text = "SAVE ORDER"
         Me.SaveBtn.UseVisualStyleBackColor = True
@@ -467,6 +359,114 @@ Partial Class Order
         Me.cmbTableNo.Name = "cmbTableNo"
         Me.cmbTableNo.Size = New System.Drawing.Size(289, 33)
         Me.cmbTableNo.TabIndex = 16
+        '
+        'IconPurcBtn
+        '
+        Me.IconPurcBtn.BackgroundImage = Global.OneG.My.Resources.Resources.kart
+        Me.IconPurcBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.IconPurcBtn.FlatAppearance.BorderSize = 0
+        Me.IconPurcBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IconPurcBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IconPurcBtn.ForeColor = System.Drawing.Color.White
+        Me.IconPurcBtn.Location = New System.Drawing.Point(10, 602)
+        Me.IconPurcBtn.Name = "IconPurcBtn"
+        Me.IconPurcBtn.Size = New System.Drawing.Size(60, 68)
+        Me.IconPurcBtn.TabIndex = 11
+        Me.IconPurcBtn.UseVisualStyleBackColor = True
+        '
+        'IconAccBtn
+        '
+        Me.IconAccBtn.BackgroundImage = Global.OneG.My.Resources.Resources.profile_acc
+        Me.IconAccBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.IconAccBtn.FlatAppearance.BorderSize = 0
+        Me.IconAccBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IconAccBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IconAccBtn.ForeColor = System.Drawing.Color.White
+        Me.IconAccBtn.Location = New System.Drawing.Point(10, 502)
+        Me.IconAccBtn.Name = "IconAccBtn"
+        Me.IconAccBtn.Size = New System.Drawing.Size(60, 68)
+        Me.IconAccBtn.TabIndex = 9
+        Me.IconAccBtn.UseVisualStyleBackColor = True
+        '
+        'IconMainBtn
+        '
+        Me.IconMainBtn.BackgroundImage = Global.OneG.My.Resources.Resources.Daco_4626465
+        Me.IconMainBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.IconMainBtn.FlatAppearance.BorderSize = 0
+        Me.IconMainBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IconMainBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IconMainBtn.ForeColor = System.Drawing.Color.White
+        Me.IconMainBtn.Location = New System.Drawing.Point(10, 404)
+        Me.IconMainBtn.Name = "IconMainBtn"
+        Me.IconMainBtn.Size = New System.Drawing.Size(60, 68)
+        Me.IconMainBtn.TabIndex = 7
+        Me.IconMainBtn.UseVisualStyleBackColor = True
+        '
+        'IconPayBtn
+        '
+        Me.IconPayBtn.BackgroundImage = Global.OneG.My.Resources.Resources.PngItem_877239
+        Me.IconPayBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.IconPayBtn.FlatAppearance.BorderSize = 0
+        Me.IconPayBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IconPayBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IconPayBtn.ForeColor = System.Drawing.Color.White
+        Me.IconPayBtn.Location = New System.Drawing.Point(10, 309)
+        Me.IconPayBtn.Name = "IconPayBtn"
+        Me.IconPayBtn.Size = New System.Drawing.Size(60, 68)
+        Me.IconPayBtn.TabIndex = 5
+        Me.IconPayBtn.UseVisualStyleBackColor = True
+        '
+        'IconOrderBtn
+        '
+        Me.IconOrderBtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.IconOrderBtn.BackgroundImage = Global.OneG.My.Resources.Resources.pinpng_com_checklist_icon_png_2009984
+        Me.IconOrderBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.IconOrderBtn.FlatAppearance.BorderSize = 0
+        Me.IconOrderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IconOrderBtn.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IconOrderBtn.ForeColor = System.Drawing.Color.White
+        Me.IconOrderBtn.Location = New System.Drawing.Point(10, 216)
+        Me.IconOrderBtn.Name = "IconOrderBtn"
+        Me.IconOrderBtn.Size = New System.Drawing.Size(60, 68)
+        Me.IconOrderBtn.TabIndex = 3
+        Me.IconOrderBtn.UseVisualStyleBackColor = False
+        '
+        'MenuBarBtn
+        '
+        Me.MenuBarBtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.MenuBarBtn.BackgroundImage = Global.OneG.My.Resources.Resources.clipart365828
+        Me.MenuBarBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.MenuBarBtn.Dock = System.Windows.Forms.DockStyle.Right
+        Me.MenuBarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.MenuBarBtn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.MenuBarBtn.Location = New System.Drawing.Point(15, 0)
+        Me.MenuBarBtn.Name = "MenuBarBtn"
+        Me.MenuBarBtn.Size = New System.Drawing.Size(60, 76)
+        Me.MenuBarBtn.TabIndex = 0
+        Me.MenuBarBtn.UseVisualStyleBackColor = False
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.Panel2.BackgroundImage = Global.OneG.My.Resources.Resources.Background_1
+        Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.Panel2.Controls.Add(Me.Label1)
+        Me.Panel2.Location = New System.Drawing.Point(-34, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1502, 129)
+        Me.Panel2.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.Transparent
+        Me.Label1.Location = New System.Drawing.Point(505, 25)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(453, 70)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "CREATE ORDER"
         '
         'Order
         '
@@ -497,10 +497,10 @@ Partial Class Order
         Me.leftSideBar.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
         CType(Me.dgvOrder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvMenu, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
