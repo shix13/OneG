@@ -144,10 +144,6 @@ Public Class Order
         End If
     End Sub
 
-    Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
-        Me.Close()
-    End Sub
-
     Private Sub SaveBtn_Click(sender As Object, e As EventArgs) Handles SaveBtn.Click
         Dim cmdInsert As DB2Command
         Dim rdrInsert As DB2DataReader
@@ -528,80 +524,83 @@ Public Class Order
         Dim rdrInsert As DB2DataReader
         Dim cmdInsert1 As DB2Command
         Dim rdrInsert1 As DB2DataReader
-        Try
-            While Me.dgvOrder.Rows(i).Cells(1).Value IsNot Nothing
-                i += 1
-            End While
+        masterKey.ShowDialog()
+        If masterKey.CONFIRM = True Then
+            Try
+                While Me.dgvOrder.Rows(i).Cells(1).Value IsNot Nothing
+                    i += 1
+                End While
 
-            While count < i
+                While count < i
 
-                'check if order already exist in db
-                cmdInsert = New DB2Command("select orderno from order where orderno ='" & txtOrderNo.Text & "'", conn)
-                rdrInsert = cmdInsert.ExecuteReader
-                If rdrInsert.HasRows Then
-
-                    'check if viandorder exist
-                    cmdInsert = New DB2Command("select vo_no,itemqty from viandorder where vo_no='" & dgvOrder.Rows(count).Cells(1).Value & "'", conn)
+                    'check if order already exist in db
+                    cmdInsert = New DB2Command("select orderno from order where orderno ='" & txtOrderNo.Text & "'", conn)
                     rdrInsert = cmdInsert.ExecuteReader
-                    rdrInsert.Read()
                     If rdrInsert.HasRows Then
-                        Dim oldqty As Decimal = rdrInsert.GetString(1)
-                        'get the old itemqty
-                        'multiply to the ing_used
 
-
-                        cmdInsert = New DB2Command("select ing_id, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(6).Value & "'", conn)
+                        'check if viandorder exist
+                        cmdInsert = New DB2Command("select vo_no,itemqty from viandorder where vo_no='" & dgvOrder.Rows(count).Cells(1).Value & "'", conn)
                         rdrInsert = cmdInsert.ExecuteReader
-                        While rdrInsert.Read
+                        rdrInsert.Read()
+                        If rdrInsert.HasRows Then
+                            Dim oldqty As Decimal = rdrInsert.GetString(1)
+                            'get the old itemqty
+                            'multiply to the ing_used
 
 
-                            Dim qty As Decimal = rdrInsert.GetString(1) * oldqty
-                            Dim ing As String = rdrInsert.GetString(0)
-                            Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
+                            cmdInsert = New DB2Command("select ing_id, qtyused,qtyunit from ingredients_used where menu_no ='" & Me.dgvOrder.Rows(count).Cells(6).Value & "'", conn)
+                            rdrInsert = cmdInsert.ExecuteReader
+                            While rdrInsert.Read
 
 
-                            'get the unit of that ingredient (grams/kilograms)
-                            cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_id ='" & ing & "'", conn)
-                            rdrInsert1 = cmdInsert1.ExecuteReader
-                            rdrInsert1.Read()
-                            Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
-                            'compare units
-                            If unit = ingunit Then
-                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ '" & qty & "' where ing_ID ='" & ing & "'", conn)
-                                cmdInsert1.ExecuteNonQuery()
-                            ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
-                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ @qty where ing_ID ='" & ing & "'", conn)
-                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
-                                cmdInsert1.ExecuteNonQuery()
-                            ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
-                                cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ @qty where ing_ID ='" & ing & "'", conn)
-                                cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
-                                cmdInsert1.ExecuteNonQuery()
+                                Dim qty As Decimal = rdrInsert.GetString(1) * oldqty
+                                Dim ing As String = rdrInsert.GetString(0)
+                                Dim unit As String = rdrInsert.GetString(2) 'unit in ing_used table 
 
-                            End If
 
-                            StrDelete = "delete from viandorder where vo_no = '" & Me.dgvOrder.Rows(count).Cells(1).Value & "'"
-                            CmdDelete = New DB2Command(StrDelete, conn)
-                            CmdDelete.ExecuteNonQuery()
+                                'get the unit of that ingredient (grams/kilograms)
+                                cmdInsert1 = New DB2Command("select ingunit from ingredients where ing_id ='" & ing & "'", conn)
+                                rdrInsert1 = cmdInsert1.ExecuteReader
+                                rdrInsert1.Read()
+                                Dim ingunit As String = rdrInsert1.GetString(0) 'the unit in ingredients
+                                'compare units
+                                If unit = ingunit Then
+                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ '" & qty & "' where ing_ID ='" & ing & "'", conn)
+                                    cmdInsert1.ExecuteNonQuery()
+                                ElseIf unit = "KILOGRAMS" And ingunit = "GRAMS" Then
+                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ @qty where ing_ID ='" & ing & "'", conn)
+                                    cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty * 1000
+                                    cmdInsert1.ExecuteNonQuery()
+                                ElseIf unit = "GRAMS" And ingunit = "KILOGRAMS" Then
+                                    cmdInsert1 = New DB2Command("update ingredients set ingqty =ingqty+ @qty where ing_ID ='" & ing & "'", conn)
+                                    cmdInsert1.Parameters.Add("@qty", DB2Type.Decimal).Value = qty / 1000
+                                    cmdInsert1.ExecuteNonQuery()
 
-                        End While
-                        'add to the ingredients
+                                End If
 
+                                StrDelete = "delete from viandorder where vo_no = '" & Me.dgvOrder.Rows(count).Cells(1).Value & "'"
+                                CmdDelete = New DB2Command(StrDelete, conn)
+                                CmdDelete.ExecuteNonQuery()
+
+                            End While
+                            'add to the ingredients
+
+                        End If
                     End If
-                End If
-                count += 1
-            End While
-            cmdInsert1 = New DB2Command("update tables set availability='AVAILABLE' WHERE tableno ='" & cmbTableNo.Text & "'", conn)
-            cmdInsert1.ExecuteNonQuery()
-            StrDelete = "delete from order where orderno = '" & Me.txtOrderNo.Text & "'"
-            CmdDelete = New DB2Command(StrDelete, conn)
-            CmdDelete.ExecuteNonQuery()
-            MsgBox("The order was successfully deleted ...")
+                    count += 1
+                End While
+                cmdInsert1 = New DB2Command("update tables set availability='AVAILABLE' WHERE tableno ='" & cmbTableNo.Text & "'", conn)
+                cmdInsert1.ExecuteNonQuery()
+                StrDelete = "delete from order where orderno = '" & Me.txtOrderNo.Text & "'"
+                CmdDelete = New DB2Command(StrDelete, conn)
+                CmdDelete.ExecuteNonQuery()
+                MsgBox("The order was successfully deleted ...")
 
-            Call RefreshorderDataGrid1()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
+                Call RefreshorderDataGrid1()
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+            End Try
+        End If
     End Sub
 
     Private Sub TableOrderBtn_Click(sender As Object, e As EventArgs) Handles TableOrderBtn.Click
@@ -896,4 +895,103 @@ Public Class Order
             MsgBox(ex.ToString)
         End Try
     End Sub
+
+
+
+
+    'CLOSE BUTTON'
+    Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
+        Home.Show()
+        Me.Close()
+    End Sub
+
+
+    'WORD BUTTONS'
+    Private Sub PayBtn_Click(sender As Object, e As EventArgs) Handles PayBtn.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Payment.Show()
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub MainBtn_Click(sender As Object, e As EventArgs) Handles MainBtn.Click
+        If Home.role = "Cashier" Or Home.role = "CASHIER" Then
+            MsgBox("Account Type Not Authorized.")
+        ElseIf Home.role = "Cook" Then
+            MainMenu.Show()
+            Me.Close()
+        Else
+            MainTable.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub AccBtn_Click(sender As Object, e As EventArgs) Handles AccBtn.Click
+        AccountUser.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub PurcBtn_Click(sender As Object, e As EventArgs) Handles PurcBtn.Click
+        If Home.role = "Cashier" Or Home.role = "CASHIER" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            PurchaseOrder.Show()
+            Me.Hide()
+        End If
+    End Sub
+
+    'LOGOUT BUTTON'
+    Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
+        logout.ShowDialog()
+        If logout.out = True Then
+            MsgBox("Logging out of account.")
+            Login.Show()
+            Me.Close()
+        Else
+            MsgBox("Log out Cancelled.")
+        End If
+
+    End Sub
+
+
+    'ICON BUTTONS'
+    Private Sub IconPayBtn_Click(sender As Object, e As EventArgs) Handles IconPayBtn.Click
+        If Home.role = "Cook" Or Home.role = "COOK" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Payment.Show()
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub IconMainBtn_Click(sender As Object, e As EventArgs) Handles IconMainBtn.Click
+        If Home.role = "Cashier" Or Home.role = "CASHIER" Then
+            MsgBox("Account Type Not Authorized.")
+        ElseIf Home.role = "Cook" Then
+            MainMenu.Show()
+            Me.Close()
+        Else
+            MainTable.Show()
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub IconAccBtn_Click(sender As Object, e As EventArgs) Handles IconAccBtn.Click
+        AccountUser.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub IconPurcBtn_Click(sender As Object, e As EventArgs) Handles IconPurcBtn.Click
+        If Home.role = "Cashier" Or Home.role = "CASHIER" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            PurchaseOrder.Show()
+            Me.Close()
+        End If
+    End Sub
+
+
+
+
 End Class

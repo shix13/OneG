@@ -184,14 +184,6 @@ Public Class MainInventory
         End If
     End Sub
 
-    Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
-        Me.Close()
-    End Sub
-
-
-
-
-
     Private Sub dgvIngredients_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvIngredients.MouseUp
         Try
             Me.txtIngID.Text = Me.dgvIngredients.CurrentRow.Cells(0).Value
@@ -251,14 +243,23 @@ Public Class MainInventory
     End Sub
 
     Private Sub SupplierToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupplierToolStripMenuItem.Click
-        MainSupp.Show()
-        Me.Close()
-
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MainSupp.Enabled = False
+            MsgBox("Account Type Not Authorized.")
+        Else
+            MainSupp.Show()
+            Me.Close()
+        End If
     End Sub
 
     Private Sub TableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TableToolStripMenuItem.Click
-        MainTable.Show()
-        Me.Close()
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MainTable.Enabled = False
+            MsgBox("Account Type Not Authorized.")
+        Else
+            MainTable.Show()
+            Me.Close()
+        End If
     End Sub
 
     Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
@@ -266,14 +267,108 @@ Public Class MainInventory
         Me.Close()
     End Sub
 
-    Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
-
-        Me.Close()
-
-    End Sub
-
     Private Sub EmployeeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmployeeToolStripMenuItem.Click
-        MainEmp.Show()
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MainEmp.Enabled = False
+            MsgBox("Account Type Not Authorized.")
+        Else
+            MainEmp.Show()
+            Me.Close()
+        End If
+    End Sub
+
+
+
+
+
+    'CLOSE BUTTON'
+    Private Sub CloseBtn_Click(sender As Object, e As EventArgs) Handles CloseBtn.Click
+        Home.Show()
         Me.Close()
     End Sub
+
+
+    'WORD BUTTONS'
+    Private Sub OrderBtn_Click(sender As Object, e As EventArgs) Handles OrderBtn.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Order.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub PayBtn_Click(sender As Object, e As EventArgs) Handles PayBtn.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Payment.Show()
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub AccBtn_Click(sender As Object, e As EventArgs) Handles AccBtn.Click
+        AccountUser.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub PurcBtn_Click(sender As Object, e As EventArgs) Handles PurcBtn.Click
+        If Home.role = "Cashier" Or Home.role = "CASHIER" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            PurchaseOrder.Show()
+            Me.Hide()
+        End If
+    End Sub
+
+    'LOGOUT BUTTON'
+    Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
+        logout.ShowDialog()
+        If logout.out = True Then
+            MsgBox("Logging out of account.")
+            Login.Show()
+            Me.Close()
+        Else
+            MsgBox("Log out Cancelled.")
+        End If
+
+    End Sub
+
+
+    'ICON BUTTONS'
+    Private Sub IconOrderBtn_Click(sender As Object, e As EventArgs) Handles IconOrderBtn.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Order.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub IconPayBtn_Click(sender As Object, e As EventArgs) Handles IconPayBtn.Click
+        If Home.role = "Cook" Or Home.role = "COOK" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Payment.Show()
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub IconAccBtn_Click(sender As Object, e As EventArgs) Handles IconAccBtn.Click
+        AccountUser.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub IconPurcBtn_Click(sender As Object, e As EventArgs) Handles IconPurcBtn.Click
+        If Home.role = "Cashier" Or Home.role = "CASHIER" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            PurchaseOrder.Show()
+            Me.Close()
+        End If
+    End Sub
+
+
+
+
+
+
 End Class

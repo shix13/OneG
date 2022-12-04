@@ -124,9 +124,6 @@ Public Class PurchaseOrder
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles closebtn.Click
-        Me.Close()
-    End Sub
 
     Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
 
@@ -519,6 +516,98 @@ Public Class PurchaseOrder
 
     Private Sub EmployeeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmployeeToolStripMenuItem.Click
         PurchasesAll.Show()
-
+        Me.Close()
     End Sub
+
+
+
+
+    'CLOSE BUTTON'
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles closebtn.Click
+        Home.Show()
+        Me.Close()
+    End Sub
+
+
+    'WORD BUTTONS'
+    Private Sub OrderBtn_Click(sender As Object, e As EventArgs) Handles OrderBtn.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Order.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub PayBtn_Click(sender As Object, e As EventArgs) Handles PayBtn.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Payment.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub MainBtn_Click(sender As Object, e As EventArgs) Handles MainBtn.Click
+        If Home.role = "Cashier" Or Home.role = "CASHIER" Then
+            MsgBox("Account Type Not Authorized.")
+        ElseIf Home.role = "Cook" Then
+            MainMenu.Show()
+            Me.Close()
+        Else
+            MainTable.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub AccBtn_Click(sender As Object, e As EventArgs) Handles AccBtn.Click
+        AccountUser.Show()
+        Me.Close()
+    End Sub
+
+
+    'LOGOUT BUTTON'
+    Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
+        logout.ShowDialog()
+        If logout.out = True Then
+            MsgBox("Logging out of account.")
+            Login.Show()
+            Me.Close()
+        Else
+            MsgBox("Log out Cancelled.")
+        End If
+    End Sub
+
+    'ICON BUTTONS'
+    Private Sub IconOrderBtn_Click(sender As Object, e As EventArgs) Handles IconOrderBtn.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Order.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub IconPayBtn_Click(sender As Object, e As EventArgs) Handles IconPayBtn.Click
+        If Home.role = "Cook" Or Home.role = "COOK" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            Payment.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub IconMainBtn_Click(sender As Object, e As EventArgs) Handles IconMainBtn.Click
+        If Home.role = "Cashier" Or Home.role = "CASHIER" Then
+            MsgBox("Account Type Not Authorized.")
+        ElseIf Home.role = "Cook" Then
+            MainMenu.Show()
+            Me.Close()
+        Else
+            MainTable.Show()
+            Me.Close()
+        End If
+    End Sub
+    Private Sub IconAccBtn_Click(sender As Object, e As EventArgs) Handles IconAccBtn.Click
+        AccountUser.Show()
+        Me.Close()
+    End Sub
+
+
+
 End Class

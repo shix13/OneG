@@ -62,7 +62,8 @@ Public Class SignUp
 
                 param5 = cmd.Parameters.Add("@5", DB2Type.VarChar)
                 param5.Direction = ParameterDirection.Input
-                cmd.Parameters("@5").Value = Me.cmbPosition.Text
+                cmd.Parameters("@5").Value = Me.cmbPosition.Text.ToUpper
+
 
                 param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
                 param6.Direction = ParameterDirection.Input
