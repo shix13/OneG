@@ -509,6 +509,7 @@ Partial Class AccountUser
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.savebtn)
         Me.Controls.Add(Me.Button3)
+        Me.MaximizeBox = False
         Me.Name = "AccountUser"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "  ACCOUNT"

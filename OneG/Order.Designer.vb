@@ -304,7 +304,7 @@ Partial Class Order
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(225, 168)
+        Me.Label2.Location = New System.Drawing.Point(229, 155)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(149, 23)
         Me.Label2.TabIndex = 3
@@ -315,7 +315,7 @@ Partial Class Order
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(580, 168)
+        Me.Label3.Location = New System.Drawing.Point(584, 155)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(151, 23)
         Me.Label3.TabIndex = 5
@@ -324,7 +324,7 @@ Partial Class Order
         'txtOrderNo
         '
         Me.txtOrderNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOrderNo.Location = New System.Drawing.Point(584, 194)
+        Me.txtOrderNo.Location = New System.Drawing.Point(588, 181)
         Me.txtOrderNo.Name = "txtOrderNo"
         Me.txtOrderNo.Size = New System.Drawing.Size(289, 32)
         Me.txtOrderNo.TabIndex = 4
@@ -334,7 +334,7 @@ Partial Class Order
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(938, 168)
+        Me.Label4.Location = New System.Drawing.Point(942, 155)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(57, 23)
         Me.Label4.TabIndex = 7
@@ -343,7 +343,7 @@ Partial Class Order
         'txtTotal
         '
         Me.txtTotal.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTotal.Location = New System.Drawing.Point(942, 194)
+        Me.txtTotal.Location = New System.Drawing.Point(946, 181)
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.Size = New System.Drawing.Size(289, 32)
         Me.txtTotal.TabIndex = 6
@@ -352,7 +352,7 @@ Partial Class Order
         '
         Me.dgvOrder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvOrder.Location = New System.Drawing.Point(119, 321)
+        Me.dgvOrder.Location = New System.Drawing.Point(123, 308)
         Me.dgvOrder.Name = "dgvOrder"
         Me.dgvOrder.RowHeadersWidth = 51
         Me.dgvOrder.RowTemplate.Height = 24
@@ -363,7 +363,7 @@ Partial Class Order
         '
         Me.dgvMenu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMenu.Location = New System.Drawing.Point(765, 321)
+        Me.dgvMenu.Location = New System.Drawing.Point(769, 308)
         Me.dgvMenu.Name = "dgvMenu"
         Me.dgvMenu.RowHeadersWidth = 51
         Me.dgvMenu.RowTemplate.Height = 24
@@ -373,7 +373,7 @@ Partial Class Order
         'searchMenu
         '
         Me.searchMenu.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.searchMenu.Location = New System.Drawing.Point(1036, 287)
+        Me.searchMenu.Location = New System.Drawing.Point(1040, 274)
         Me.searchMenu.Name = "searchMenu"
         Me.searchMenu.Size = New System.Drawing.Size(289, 28)
         Me.searchMenu.TabIndex = 10
@@ -383,9 +383,9 @@ Partial Class Order
         Me.REMOVEBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.REMOVEBTN.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.REMOVEBTN.ForeColor = System.Drawing.Color.White
-        Me.REMOVEBTN.Location = New System.Drawing.Point(119, 753)
+        Me.REMOVEBTN.Location = New System.Drawing.Point(123, 747)
         Me.REMOVEBTN.Name = "REMOVEBTN"
-        Me.REMOVEBTN.Size = New System.Drawing.Size(154, 85)
+        Me.REMOVEBTN.Size = New System.Drawing.Size(154, 66)
         Me.REMOVEBTN.TabIndex = 11
         Me.REMOVEBTN.Text = "REMOVE SELECTED"
         Me.REMOVEBTN.UseVisualStyleBackColor = True
@@ -395,7 +395,7 @@ Partial Class Order
         Me.TableOrderBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.TableOrderBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TableOrderBtn.ForeColor = System.Drawing.Color.White
-        Me.TableOrderBtn.Location = New System.Drawing.Point(126, 274)
+        Me.TableOrderBtn.Location = New System.Drawing.Point(130, 261)
         Me.TableOrderBtn.Name = "TableOrderBtn"
         Me.TableOrderBtn.Size = New System.Drawing.Size(162, 41)
         Me.TableOrderBtn.TabIndex = 12
@@ -407,7 +407,7 @@ Partial Class Order
         Me.CloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CloseBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CloseBtn.ForeColor = System.Drawing.Color.White
-        Me.CloseBtn.Location = New System.Drawing.Point(1216, 797)
+        Me.CloseBtn.Location = New System.Drawing.Point(1220, 772)
         Me.CloseBtn.Name = "CloseBtn"
         Me.CloseBtn.Size = New System.Drawing.Size(109, 41)
         Me.CloseBtn.TabIndex = 13
@@ -419,7 +419,7 @@ Partial Class Order
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(524, 797)
+        Me.DeleteBtn.Location = New System.Drawing.Point(528, 772)
         Me.DeleteBtn.Name = "DeleteBtn"
         Me.DeleteBtn.Size = New System.Drawing.Size(154, 41)
         Me.DeleteBtn.TabIndex = 14
@@ -431,7 +431,7 @@ Partial Class Order
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(524, 753)
+        Me.SaveBtn.Location = New System.Drawing.Point(368, 772)
         Me.SaveBtn.Name = "SaveBtn"
         Me.SaveBtn.Size = New System.Drawing.Size(154, 41)
         Me.SaveBtn.TabIndex = 15
@@ -442,7 +442,7 @@ Partial Class Order
         '
         Me.cmbTableNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbTableNo.FormattingEnabled = True
-        Me.cmbTableNo.Location = New System.Drawing.Point(229, 193)
+        Me.cmbTableNo.Location = New System.Drawing.Point(233, 180)
         Me.cmbTableNo.Name = "cmbTableNo"
         Me.cmbTableNo.Size = New System.Drawing.Size(289, 33)
         Me.cmbTableNo.TabIndex = 16
@@ -492,6 +492,7 @@ Partial Class Order
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtOrderNo)
         Me.Controls.Add(Me.Label2)
+        Me.MaximizeBox = False
         Me.Name = "Order"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ORDER"

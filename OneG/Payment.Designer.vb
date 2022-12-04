@@ -451,6 +451,7 @@ Partial Class Payment
         Me.Controls.Add(Me.txtAmountToPay)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtOrderNo)
+        Me.MaximizeBox = False
         Me.Name = "Payment"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " PAYMENT"
