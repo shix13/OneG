@@ -330,6 +330,7 @@ Partial Class MainTable
         '
         'GroupBox1
         '
+        Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.GroupBox1.Controls.Add(Me.CloseBtn)
         Me.GroupBox1.Controls.Add(Me.savebtn)
         Me.GroupBox1.Controls.Add(Me.DeleteBtn)
@@ -362,7 +363,7 @@ Partial Class MainTable
         Me.savebtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.savebtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.savebtn.ForeColor = System.Drawing.Color.White
-        Me.savebtn.Location = New System.Drawing.Point(84, 516)
+        Me.savebtn.Location = New System.Drawing.Point(211, 516)
         Me.savebtn.Name = "savebtn"
         Me.savebtn.Size = New System.Drawing.Size(121, 41)
         Me.savebtn.TabIndex = 21
@@ -388,7 +389,7 @@ Partial Class MainTable
         Me.cmbNoOfSeat.Items.AddRange(New Object() {"2", "3", "4", "6"})
         Me.cmbNoOfSeat.Location = New System.Drawing.Point(119, 337)
         Me.cmbNoOfSeat.Name = "cmbNoOfSeat"
-        Me.cmbNoOfSeat.Size = New System.Drawing.Size(317, 33)
+        Me.cmbNoOfSeat.Size = New System.Drawing.Size(328, 33)
         Me.cmbNoOfSeat.TabIndex = 19
         '
         'Label2
@@ -419,11 +420,12 @@ Partial Class MainTable
         Me.txtTableNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTableNo.Location = New System.Drawing.Point(119, 204)
         Me.txtTableNo.Name = "txtTableNo"
-        Me.txtTableNo.Size = New System.Drawing.Size(317, 32)
+        Me.txtTableNo.Size = New System.Drawing.Size(328, 32)
         Me.txtTableNo.TabIndex = 8
         '
         'dgvTable
         '
+        Me.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvTable.Location = New System.Drawing.Point(598, 108)
         Me.dgvTable.Name = "dgvTable"

@@ -608,6 +608,4 @@ Public Class PurchaseOrder
         Me.Close()
     End Sub
 
-
-
 End Class

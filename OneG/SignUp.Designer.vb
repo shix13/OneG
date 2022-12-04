@@ -53,7 +53,7 @@ Partial Class SignUp
         '
         Me.SignUpBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.SignUpBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SignUpBtn.Location = New System.Drawing.Point(646, 681)
+        Me.SignUpBtn.Location = New System.Drawing.Point(647, 692)
         Me.SignUpBtn.Name = "SignUpBtn"
         Me.SignUpBtn.Size = New System.Drawing.Size(100, 44)
         Me.SignUpBtn.TabIndex = 4
@@ -67,7 +67,7 @@ Partial Class SignUp
         Me.Label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Label1.Font = New System.Drawing.Font("Malgun Gothic", 25.8!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(337, 108)
+        Me.Label1.Location = New System.Drawing.Point(339, 104)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(518, 59)
         Me.Label1.TabIndex = 5
@@ -79,7 +79,7 @@ Partial Class SignUp
         Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.Label2.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(449, 207)
+        Me.Label2.Location = New System.Drawing.Point(448, 245)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(106, 28)
         Me.Label2.TabIndex = 6
@@ -88,7 +88,7 @@ Partial Class SignUp
         'txtLName
         '
         Me.txtLName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLName.Location = New System.Drawing.Point(454, 238)
+        Me.txtLName.Location = New System.Drawing.Point(453, 276)
         Me.txtLName.Name = "txtLName"
         Me.txtLName.Size = New System.Drawing.Size(330, 30)
         Me.txtLName.TabIndex = 7
@@ -96,7 +96,7 @@ Partial Class SignUp
         'txtFName
         '
         Me.txtFName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFName.Location = New System.Drawing.Point(454, 325)
+        Me.txtFName.Location = New System.Drawing.Point(453, 363)
         Me.txtFName.Name = "txtFName"
         Me.txtFName.Size = New System.Drawing.Size(330, 30)
         Me.txtFName.TabIndex = 9
@@ -107,7 +107,7 @@ Partial Class SignUp
         Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.Label3.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(449, 294)
+        Me.Label3.Location = New System.Drawing.Point(448, 332)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(108, 28)
         Me.Label3.TabIndex = 8
@@ -116,7 +116,7 @@ Partial Class SignUp
         'txtMName
         '
         Me.txtMName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtMName.Location = New System.Drawing.Point(454, 413)
+        Me.txtMName.Location = New System.Drawing.Point(453, 451)
         Me.txtMName.Name = "txtMName"
         Me.txtMName.Size = New System.Drawing.Size(330, 30)
         Me.txtMName.TabIndex = 11
@@ -127,7 +127,7 @@ Partial Class SignUp
         Me.Label4.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.Label4.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(449, 382)
+        Me.Label4.Location = New System.Drawing.Point(448, 420)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(133, 28)
         Me.Label4.TabIndex = 10
@@ -139,7 +139,7 @@ Partial Class SignUp
         Me.Label5.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.Label5.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Transparent
-        Me.Label5.Location = New System.Drawing.Point(449, 474)
+        Me.Label5.Location = New System.Drawing.Point(448, 512)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(85, 28)
         Me.Label5.TabIndex = 12
@@ -148,7 +148,7 @@ Partial Class SignUp
         'txtPass
         '
         Me.txtPass.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPass.Location = New System.Drawing.Point(454, 598)
+        Me.txtPass.Location = New System.Drawing.Point(453, 636)
         Me.txtPass.Name = "txtPass"
         Me.txtPass.Size = New System.Drawing.Size(330, 30)
         Me.txtPass.TabIndex = 15
@@ -159,7 +159,7 @@ Partial Class SignUp
         Me.Label6.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.Label6.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.Transparent
-        Me.Label6.Location = New System.Drawing.Point(449, 567)
+        Me.Label6.Location = New System.Drawing.Point(448, 605)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(97, 28)
         Me.Label6.TabIndex = 14
@@ -172,7 +172,7 @@ Partial Class SignUp
         Me.cmbPosition.ForeColor = System.Drawing.SystemColors.WindowFrame
         Me.cmbPosition.FormattingEnabled = True
         Me.cmbPosition.Items.AddRange(New Object() {"ADMIN", "ADMIN/MANAGER", "CASHIER", "COOK"})
-        Me.cmbPosition.Location = New System.Drawing.Point(454, 502)
+        Me.cmbPosition.Location = New System.Drawing.Point(453, 540)
         Me.cmbPosition.Name = "cmbPosition"
         Me.cmbPosition.Size = New System.Drawing.Size(330, 33)
         Me.cmbPosition.TabIndex = 16
@@ -182,7 +182,7 @@ Partial Class SignUp
         'txtAccID
         '
         Me.txtAccID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAccID.Location = New System.Drawing.Point(454, 174)
+        Me.txtAccID.Location = New System.Drawing.Point(453, 196)
         Me.txtAccID.Name = "txtAccID"
         Me.txtAccID.Size = New System.Drawing.Size(330, 30)
         Me.txtAccID.TabIndex = 17
@@ -192,7 +192,7 @@ Partial Class SignUp
         '
         Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnCancel.Font = New System.Drawing.Font("Malgun Gothic", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCancel.Location = New System.Drawing.Point(482, 681)
+        Me.btnCancel.Location = New System.Drawing.Point(483, 692)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(100, 44)
         Me.btnCancel.TabIndex = 18

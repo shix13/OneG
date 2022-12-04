@@ -350,6 +350,7 @@ Partial Class Order
         '
         'dgvOrder
         '
+        Me.dgvOrder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvOrder.Location = New System.Drawing.Point(119, 321)
         Me.dgvOrder.Name = "dgvOrder"
@@ -360,6 +361,7 @@ Partial Class Order
         '
         'dgvMenu
         '
+        Me.dgvMenu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMenu.Location = New System.Drawing.Point(765, 321)
         Me.dgvMenu.Name = "dgvMenu"
@@ -381,7 +383,7 @@ Partial Class Order
         Me.REMOVEBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.REMOVEBTN.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.REMOVEBTN.ForeColor = System.Drawing.Color.White
-        Me.REMOVEBTN.Location = New System.Drawing.Point(118, 756)
+        Me.REMOVEBTN.Location = New System.Drawing.Point(119, 753)
         Me.REMOVEBTN.Name = "REMOVEBTN"
         Me.REMOVEBTN.Size = New System.Drawing.Size(154, 85)
         Me.REMOVEBTN.TabIndex = 11
@@ -405,7 +407,7 @@ Partial Class Order
         Me.CloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CloseBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CloseBtn.ForeColor = System.Drawing.Color.White
-        Me.CloseBtn.Location = New System.Drawing.Point(1216, 766)
+        Me.CloseBtn.Location = New System.Drawing.Point(1216, 797)
         Me.CloseBtn.Name = "CloseBtn"
         Me.CloseBtn.Size = New System.Drawing.Size(109, 41)
         Me.CloseBtn.TabIndex = 13
@@ -417,7 +419,7 @@ Partial Class Order
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(524, 800)
+        Me.DeleteBtn.Location = New System.Drawing.Point(524, 797)
         Me.DeleteBtn.Name = "DeleteBtn"
         Me.DeleteBtn.Size = New System.Drawing.Size(154, 41)
         Me.DeleteBtn.TabIndex = 14
@@ -472,7 +474,7 @@ Partial Class Order
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1382, 853)
         Me.Controls.Add(Me.leftSideBar)
         Me.Controls.Add(Me.Panel2)

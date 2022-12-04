@@ -55,20 +55,22 @@ Partial Class Login
         '
         'txtAccID
         '
+        Me.txtAccID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAccID.Location = New System.Drawing.Point(463, 399)
         Me.txtAccID.Multiline = True
         Me.txtAccID.Name = "txtAccID"
-        Me.txtAccID.Size = New System.Drawing.Size(302, 25)
+        Me.txtAccID.Size = New System.Drawing.Size(302, 34)
         Me.txtAccID.TabIndex = 2
         Me.txtAccID.Text = "Account ID"
         '
         'txtPass
         '
-        Me.txtPass.Location = New System.Drawing.Point(463, 455)
+        Me.txtPass.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPass.Location = New System.Drawing.Point(463, 456)
         Me.txtPass.Multiline = True
         Me.txtPass.Name = "txtPass"
         Me.txtPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
-        Me.txtPass.Size = New System.Drawing.Size(302, 25)
+        Me.txtPass.Size = New System.Drawing.Size(302, 34)
         Me.txtPass.TabIndex = 3
         Me.txtPass.Text = "Password"
         '
@@ -122,7 +124,7 @@ Partial Class Login
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
         Me.MaximizeBox = False
-        Me.name = "Login"
+        Me.Name = "Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "LOGIN"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

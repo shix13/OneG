@@ -86,6 +86,7 @@ Partial Class ConfirmCode
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Name = "ConfirmCode"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ConfirmCode"
         Me.ResumeLayout(False)
         Me.PerformLayout()

@@ -50,18 +50,18 @@ Partial Class logout
         '
         'logOutBtn
         '
-        Me.logOutBtn.Location = New System.Drawing.Point(117, 164)
+        Me.logOutBtn.Location = New System.Drawing.Point(117, 156)
         Me.logOutBtn.Name = "logOutBtn"
-        Me.logOutBtn.Size = New System.Drawing.Size(75, 23)
+        Me.logOutBtn.Size = New System.Drawing.Size(82, 31)
         Me.logOutBtn.TabIndex = 4
         Me.logOutBtn.Text = "LOG OUT"
         Me.logOutBtn.UseVisualStyleBackColor = True
         '
         'CancelBtn
         '
-        Me.CancelBtn.Location = New System.Drawing.Point(216, 164)
+        Me.CancelBtn.Location = New System.Drawing.Point(227, 156)
         Me.CancelBtn.Name = "CancelBtn"
-        Me.CancelBtn.Size = New System.Drawing.Size(75, 23)
+        Me.CancelBtn.Size = New System.Drawing.Size(81, 31)
         Me.CancelBtn.TabIndex = 5
         Me.CancelBtn.Text = "CANCEL"
         Me.CancelBtn.UseVisualStyleBackColor = True
@@ -75,7 +75,9 @@ Partial Class logout
         Me.Controls.Add(Me.logOutBtn)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.MaximizeBox = False
         Me.Name = "logout"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "LOG OUT"
         Me.ResumeLayout(False)
         Me.PerformLayout()

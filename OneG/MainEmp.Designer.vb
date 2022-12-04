@@ -97,7 +97,7 @@ Partial Class MainEmp
         Me.leftSideBar.Location = New System.Drawing.Point(-1, -1)
         Me.leftSideBar.Margin = New System.Windows.Forms.Padding(1)
         Me.leftSideBar.Name = "leftSideBar"
-        Me.leftSideBar.Size = New System.Drawing.Size(133, 857)
+        Me.leftSideBar.Size = New System.Drawing.Size(75, 857)
         Me.leftSideBar.TabIndex = 0
         '
         'dtpSideBar
@@ -284,7 +284,7 @@ Partial Class MainEmp
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(133, 76)
+        Me.Panel1.Size = New System.Drawing.Size(75, 76)
         Me.Panel1.TabIndex = 1
         '
         'lblMenuBar
@@ -306,7 +306,7 @@ Partial Class MainEmp
         Me.MenuBarBtn.Dock = System.Windows.Forms.DockStyle.Right
         Me.MenuBarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.MenuBarBtn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.MenuBarBtn.Location = New System.Drawing.Point(73, 0)
+        Me.MenuBarBtn.Location = New System.Drawing.Point(15, 0)
         Me.MenuBarBtn.Name = "MenuBarBtn"
         Me.MenuBarBtn.Size = New System.Drawing.Size(60, 76)
         Me.MenuBarBtn.TabIndex = 0
@@ -382,7 +382,7 @@ Partial Class MainEmp
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.Transparent
         Me.Label8.Location = New System.Drawing.Point(594, 94)
@@ -410,7 +410,7 @@ Partial Class MainEmp
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.Transparent
         Me.Label7.Location = New System.Drawing.Point(118, 94)
@@ -431,7 +431,7 @@ Partial Class MainEmp
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.Transparent
         Me.Label6.Location = New System.Drawing.Point(118, 541)
@@ -443,7 +443,7 @@ Partial Class MainEmp
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Transparent
         Me.Label5.Location = New System.Drawing.Point(118, 448)
@@ -463,7 +463,7 @@ Partial Class MainEmp
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Transparent
         Me.Label4.Location = New System.Drawing.Point(118, 356)
@@ -483,7 +483,7 @@ Partial Class MainEmp
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.Transparent
         Me.Label3.Location = New System.Drawing.Point(118, 268)
@@ -503,7 +503,7 @@ Partial Class MainEmp
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Transparent
         Me.Label2.Location = New System.Drawing.Point(118, 181)
@@ -529,7 +529,7 @@ Partial Class MainEmp
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(245, 650)
+        Me.SaveBtn.Location = New System.Drawing.Point(217, 650)
         Me.SaveBtn.Name = "SaveBtn"
         Me.SaveBtn.Size = New System.Drawing.Size(121, 41)
         Me.SaveBtn.TabIndex = 21
@@ -541,7 +541,7 @@ Partial Class MainEmp
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(409, 650)
+        Me.DeleteBtn.Location = New System.Drawing.Point(344, 650)
         Me.DeleteBtn.Name = "DeleteBtn"
         Me.DeleteBtn.Size = New System.Drawing.Size(109, 41)
         Me.DeleteBtn.TabIndex = 20
@@ -550,6 +550,7 @@ Partial Class MainEmp
         '
         'dgvEmployeeAcc
         '
+        Me.dgvEmployeeAcc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvEmployeeAcc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEmployeeAcc.Location = New System.Drawing.Point(598, 127)
         Me.dgvEmployeeAcc.Name = "dgvEmployeeAcc"
@@ -605,7 +606,7 @@ Partial Class MainEmp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1382, 853)
         Me.Controls.Add(Me.leftSideBar)
         Me.Controls.Add(Me.Panel2)

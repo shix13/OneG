@@ -348,6 +348,7 @@ Partial Class Payment
         '
         'dgvPayment
         '
+        Me.dgvPayment.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvPayment.Location = New System.Drawing.Point(618, 199)
         Me.dgvPayment.Name = "dgvPayment"

@@ -77,7 +77,9 @@ Partial Class ConfirmationBox
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.MaximizeBox = False
         Me.Name = "ConfirmationBox"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ConfirmationBox"
         Me.ResumeLayout(False)
         Me.PerformLayout()

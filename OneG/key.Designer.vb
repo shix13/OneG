@@ -29,7 +29,7 @@ Partial Class key
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(63, 28)
+        Me.Label1.Location = New System.Drawing.Point(75, 28)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(121, 16)
         Me.Label1.TabIndex = 0
@@ -38,7 +38,7 @@ Partial Class key
         'lblKey
         '
         Me.lblKey.AutoSize = True
-        Me.lblKey.Location = New System.Drawing.Point(106, 54)
+        Me.lblKey.Location = New System.Drawing.Point(107, 54)
         Me.lblKey.Name = "lblKey"
         Me.lblKey.Size = New System.Drawing.Size(48, 16)
         Me.lblKey.TabIndex = 1
@@ -51,6 +51,7 @@ Partial Class key
         Me.ClientSize = New System.Drawing.Size(273, 116)
         Me.Controls.Add(Me.lblKey)
         Me.Controls.Add(Me.Label1)
+        Me.MaximizeBox = False
         Me.Name = "key"
         Me.Text = "key"
         Me.ResumeLayout(False)

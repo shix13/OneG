@@ -307,6 +307,7 @@ Partial Class PurchasesAll
         '
         'GroupBox1
         '
+        Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.GroupBox1.Controls.Add(Me.CmbSearchSup)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.Label8)
@@ -344,7 +345,7 @@ Partial Class PurchasesAll
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.Label8.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.Transparent
         Me.Label8.Location = New System.Drawing.Point(907, 137)
@@ -363,6 +364,7 @@ Partial Class PurchasesAll
         '
         'dgvPurchases
         '
+        Me.dgvPurchases.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvPurchases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvPurchases.Location = New System.Drawing.Point(48, 181)
         Me.dgvPurchases.Name = "dgvPurchases"
@@ -390,7 +392,7 @@ Partial Class PurchasesAll
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
         Me.SaveBtn.Location = New System.Drawing.Point(49, 670)
         Me.SaveBtn.Name = "SaveBtn"
-        Me.SaveBtn.Size = New System.Drawing.Size(121, 59)
+        Me.SaveBtn.Size = New System.Drawing.Size(102, 41)
         Me.SaveBtn.TabIndex = 21
         Me.SaveBtn.Text = "SAVE"
         Me.SaveBtn.UseVisualStyleBackColor = True
@@ -400,9 +402,9 @@ Partial Class PurchasesAll
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(176, 670)
+        Me.DeleteBtn.Location = New System.Drawing.Point(157, 670)
         Me.DeleteBtn.Name = "DeleteBtn"
-        Me.DeleteBtn.Size = New System.Drawing.Size(129, 59)
+        Me.DeleteBtn.Size = New System.Drawing.Size(153, 41)
         Me.DeleteBtn.TabIndex = 20
         Me.DeleteBtn.Text = "CANCEL ORDER"
         Me.DeleteBtn.UseVisualStyleBackColor = True
@@ -449,11 +451,11 @@ Partial Class PurchasesAll
         Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.Label1.Font = New System.Drawing.Font("Century Gothic", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(489, 25)
+        Me.Label1.Location = New System.Drawing.Point(583, 25)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(455, 70)
+        Me.Label1.Size = New System.Drawing.Size(362, 70)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "MAINTENANCE"
+        Me.Label1.Text = "PURCHASES"
         '
         'PurchasesAll
         '

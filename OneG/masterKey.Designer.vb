@@ -47,18 +47,18 @@ Partial Class masterKey
         '
         'confBtn
         '
-        Me.confBtn.Location = New System.Drawing.Point(129, 162)
+        Me.confBtn.Location = New System.Drawing.Point(115, 162)
         Me.confBtn.Name = "confBtn"
-        Me.confBtn.Size = New System.Drawing.Size(81, 38)
+        Me.confBtn.Size = New System.Drawing.Size(95, 38)
         Me.confBtn.TabIndex = 2
         Me.confBtn.Text = "CONFIRM"
         Me.confBtn.UseVisualStyleBackColor = True
         '
         'cancelBtn
         '
-        Me.cancelBtn.Location = New System.Drawing.Point(237, 162)
+        Me.cancelBtn.Location = New System.Drawing.Point(242, 162)
         Me.cancelBtn.Name = "cancelBtn"
-        Me.cancelBtn.Size = New System.Drawing.Size(81, 38)
+        Me.cancelBtn.Size = New System.Drawing.Size(93, 38)
         Me.cancelBtn.TabIndex = 3
         Me.cancelBtn.Text = "CANCEL"
         Me.cancelBtn.UseVisualStyleBackColor = True
@@ -72,7 +72,9 @@ Partial Class masterKey
         Me.Controls.Add(Me.confBtn)
         Me.Controls.Add(Me.txtInput)
         Me.Controls.Add(Me.Label1)
+        Me.MaximizeBox = False
         Me.Name = "masterKey"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "masterKey"
         Me.ResumeLayout(False)
         Me.PerformLayout()

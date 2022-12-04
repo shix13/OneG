@@ -329,9 +329,9 @@ Partial Class PurchaseOrder
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(1144, 395)
+        Me.Button1.Location = New System.Drawing.Point(1172, 395)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(124, 56)
+        Me.Button1.Size = New System.Drawing.Size(96, 40)
         Me.Button1.TabIndex = 39
         Me.Button1.Text = "REMOVE"
         Me.Button1.UseVisualStyleBackColor = True
@@ -339,7 +339,7 @@ Partial Class PurchaseOrder
         'SEARCHPO
         '
         Me.SEARCHPO.AutoSize = True
-        Me.SEARCHPO.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.SEARCHPO.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.SEARCHPO.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SEARCHPO.ForeColor = System.Drawing.Color.Transparent
         Me.SEARCHPO.Location = New System.Drawing.Point(462, 436)
@@ -383,6 +383,7 @@ Partial Class PurchaseOrder
         '
         'dgvSelect
         '
+        Me.dgvSelect.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvSelect.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSelect.Location = New System.Drawing.Point(48, 471)
         Me.dgvSelect.Name = "dgvSelect"
@@ -408,15 +409,16 @@ Partial Class PurchaseOrder
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(1006, 395)
+        Me.SaveBtn.Location = New System.Drawing.Point(1070, 395)
         Me.SaveBtn.Name = "SaveBtn"
-        Me.SaveBtn.Size = New System.Drawing.Size(132, 56)
+        Me.SaveBtn.Size = New System.Drawing.Size(96, 40)
         Me.SaveBtn.TabIndex = 21
         Me.SaveBtn.Text = "SAVE"
         Me.SaveBtn.UseVisualStyleBackColor = True
         '
         'dgvPO
         '
+        Me.dgvPO.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvPO.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvPO.Location = New System.Drawing.Point(48, 88)
         Me.dgvPO.Name = "dgvPO"
@@ -466,17 +468,17 @@ Partial Class PurchaseOrder
         Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.Label1.Font = New System.Drawing.Font("Century Gothic", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(489, 25)
+        Me.Label1.Location = New System.Drawing.Point(487, 25)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(455, 70)
+        Me.Label1.Size = New System.Drawing.Size(541, 70)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "MAINTENANCE"
+        Me.Label1.Text = "PURCHASE ORDER"
         '
         'PurchaseOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(106, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(124, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1382, 853)
         Me.Controls.Add(Me.leftSideBar)
         Me.Controls.Add(Me.Panel2)
