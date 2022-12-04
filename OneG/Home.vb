@@ -69,31 +69,30 @@ Public Class Home
     End Sub
 
     Private Sub OrderBtn_Click(sender As Object, e As EventArgs) Handles OrderBtn.Click
-
         Order.Show()
-        Me.Close()
+        Me.Hide()
     End Sub
 
     Private Sub PayBtn_Click(sender As Object, e As EventArgs) Handles PayBtn.Click
 
         Payment.Show()
-        Me.Close()
+        Me.Hide()
     End Sub
 
     Private Sub MainBtn_Click(sender As Object, e As EventArgs) Handles MainBtn.Click
 
         MainTable.Show()
-        Me.Close()
+        Me.Hide()
     End Sub
 
     Private Sub AccBtn_Click(sender As Object, e As EventArgs) Handles AccBtn.Click
         AccountUser.Show()
-        Me.Close()
+        Me.Hide()
     End Sub
 
     Private Sub PurcBtn_Click(sender As Object, e As EventArgs) Handles PurcBtn.Click
         PurchaseOrder.Show()
-        Me.Close()
+        Me.Hide()
     End Sub
 
     Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click

@@ -36,7 +36,7 @@ Public Class Login
                 rdr.Read()
                 Home.name = rdr.GetString(0)
                 Home.role = rdr.GetString(1)
-                Home.ACCID = rdr.GetString(2).ToString
+                Home.ACCID = rdr.GetString(2)
                 MsgBox("Welcome " + Home.name + "!")
 
                 Home.Show()
