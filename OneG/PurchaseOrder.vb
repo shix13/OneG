@@ -40,7 +40,7 @@ Public Class PurchaseOrder
             dgvPO.Columns(0).Width = 20
 
             With Me.dgvPO 'PO to be ordered
-                .ColumnCount = 11
+                .ColumnCount = 13
                 .Columns(1).Name = "PURCHASE ORDER NUMBER"
                 .Columns(2).Name = "PROCESSED BY"
                 .Columns(3).Name = "SUPPLIER"
@@ -51,7 +51,12 @@ Public Class PurchaseOrder
                 .Columns(8).Name = "SUBTOTAL"
                 .Columns(9).Name = "DELIVERY STATUS"
                 .Columns(10).Name = "DATE ORDERED"
+                .Columns(11).Name = "sup code"
+                .Columns(12).Name = "ing id"
             End With
+
+            dgvPO.Columns(11).Visible = False
+            dgvPO.Columns(12).Visible = False
 
             With Me.dgvSelect
                 .ColumnCount = 4
@@ -231,7 +236,7 @@ Public Class PurchaseOrder
             Try
 
                 While dgvPO.Rows(i).Cells(1).Value IsNot Nothing
-                    If dgvPO.Rows(i).Cells(4).Value = dgvSelect.CurrentRow.Cells(0).Value Then
+                    If dgvPO.Rows(i).Cells(4).Value = dgvSelect.CurrentRow.Cells(1).Value Then
                         similar = True
                     End If
                     i += 1
@@ -239,53 +244,59 @@ Public Class PurchaseOrder
 
 
 
+
                 'get the last po_no
                 Me.dgvPO.Rows.Add()
-                cmd = New DB2Command("select po_no from purchases order by po_no asc", conn)
-                rdr = cmd.ExecuteReader
-                If rdr.HasRows Then
-                    While rdr.Read
-                        poStr = rdr.GetString(0)
-                        Integer.TryParse(poStr, po)
-                    End While
-                Else
-                    po = 10000 'as start
-                End If
-
-
-                'increment last po_no 
-                If po <> 10000 Then
-                    po += 1
-                End If
-
-
-                'condition where if above cells are not empty then add 1 to current po
-                While count < i
-                    'if has similar purchase order existing in database then move on
-                    cmd = New DB2Command("select po_no from purchases where po_no='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                    cmd = New DB2Command("select po_no from purchases order by po_no asc", conn)
                     rdr = cmd.ExecuteReader
                     If rdr.HasRows Then
-                        count += 1
+                        While rdr.Read
+                            poStr = rdr.GetString(0)
+                            Integer.TryParse(poStr, po)
+                        End While
                     Else
-                        'current row is equal to po +1
-                        po += 1
-                        count += 1
+                        po = 10000 'as start
                     End If
-                End While
 
-                Me.dgvPO.Rows(i).Cells(1).Value = po
-                Me.dgvPO.Rows(i).Cells(4).Value = Me.dgvSelect.CurrentRow.Cells(0).Value
-                Me.dgvPO.Rows(i).Cells(2).Value = Login.ACCID.ToString
-                Me.dgvPO.Rows(i).Cells(6).Value = Me.dgvSelect.CurrentRow.Cells(3).Value
-                Me.dgvPO.Rows(i).Cells(8).Value = "0"
-                Me.dgvPO.Rows(i).Cells(10).Value = Me.dtpSideBar.Value.ToShortDateString
-                Me.dgvPO.Rows(i).Cells(9).Value = "NOT DELIVERED"
+
+                    'increment last po_no 
+                    If po <> 10000 Then
+                        po += 1
+                    End If
+
+
+                    'condition where if above cells are not empty then add 1 to current po
+                    While count < i
+                        'if has similar purchase order existing in database then move on
+                        cmd = New DB2Command("select po_no from purchases where po_no='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                        rdr = cmd.ExecuteReader
+                        If rdr.HasRows Then
+                            count += 1
+                        Else
+                            'current row is equal to po +1
+                            po += 1
+                            count += 1
+                        End If
+                    End While
+
+                    Me.dgvPO.Rows(i).Cells(1).Value = po
+                    Me.dgvPO.Rows(i).Cells(12).Value = Me.dgvSelect.CurrentRow.Cells(0).Value
+                    Me.dgvPO.Rows(i).Cells(4).Value = Me.dgvSelect.CurrentRow.Cells(1).Value
+                    Me.dgvPO.Rows(i).Cells(2).Value = Login.ACCID.ToString
+                    Me.dgvPO.Rows(i).Cells(6).Value = Me.dgvSelect.CurrentRow.Cells(3).Value
+                    Me.dgvPO.Rows(i).Cells(8).Value = "0"
+                    Me.dgvPO.Rows(i).Cells(10).Value = Me.dtpSideBar.Value.ToShortDateString
+                    Me.dgvPO.Rows(i).Cells(9).Value = "NOT DELIVERED"
 
                 If similar = True Then
-                    MsgBox("Reminder: Ingredient already ordered in the list")
-                    dgvPO.Rows.RemoveAt(i)
+                    Dim answer As DialogResult
+                    answer = MessageBox.Show("Ingredient Order Already Exist, Continue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    If answer = vbYes Then
+                        Debug.Print("He waz")
+                    Else
+                        dgvPO.Rows.RemoveAt(i)
+                    End If
                 End If
-
             Catch ex As Exception
                 MsgBox(ex.ToString)
                 dgvPO.ClearSelection()
@@ -302,10 +313,12 @@ Public Class PurchaseOrder
 
                 'if ingredient is filled  and supplier empty then add supplier to same row
                 If dgvPO.Rows(j).Cells(4).Value IsNot Nothing And dgvPO.Rows(j).Cells(3).Value Is Nothing Then
-                    Me.dgvPO.Rows(j).Cells(3).Value = Me.dgvSelect.CurrentRow.Cells(0).Value
-
+                    Me.dgvPO.Rows(j).Cells(3).Value = Me.dgvSelect.CurrentRow.Cells(1).Value
+                    Me.dgvPO.Rows(j).Cells(11).Value = Me.dgvSelect.CurrentRow.Cells(0).Value
                 ElseIf j = 0 Then
                     MsgBox("Select Ingredient to assign supplier ID")
+
+
 
                 End If
             Catch ex As Exception
@@ -424,8 +437,8 @@ Public Class PurchaseOrder
                         cmdInsert = New DB2Command("insert into purchases(po_no,empid,ing_id,supid,qtypur,pricepur,subtotal,delvstat,purdate,purunit) values(@po,@emp,@ing,@supid,@qty,@price,@sub,@delv,@date,@unit)", conn)
                         cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(1).Value
                         cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(2).Value
-                        cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(4).Value
-                        cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(3).Value
+                        cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(12).Value
+                        cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(11).Value
                         cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
                         cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(6).Value
                         cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(7).Value

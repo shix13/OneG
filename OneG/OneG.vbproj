@@ -153,6 +153,12 @@
     <Compile Include="MainEmp.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="masterKey.Designer.vb">
+      <DependentUpon>masterKey.vb</DependentUpon>
+    </Compile>
+    <Compile Include="masterKey.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PurchasesAll.Designer.vb">
       <DependentUpon>PurchasesAll.vb</DependentUpon>
     </Compile>
@@ -246,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainEmp.resx">
       <DependentUpon>MainEmp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="masterKey.resx">
+      <DependentUpon>masterKey.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PurchasesAll.resx">
       <DependentUpon>PurchasesAll.vb</DependentUpon>

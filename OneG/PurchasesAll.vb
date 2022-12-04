@@ -1,4 +1,5 @@
 ﻿Imports System.Data.Common
+Imports System.Net.Security
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
 Imports IBM.Data.DB2
 
@@ -38,7 +39,7 @@ Public Class PurchasesAll
 
 
             With Me.dgvPurchases 'PO to be ordered
-                .ColumnCount = 10
+                .ColumnCount = 12
                 .Columns(0).Name = "PURCHASE ORDER NUMBER"
                 .Columns(1).Name = "PROCESSED BY"
                 .Columns(2).Name = "SUPPLIER"
@@ -49,13 +50,12 @@ Public Class PurchasesAll
                 .Columns(7).Name = "SUBTOTAL"
                 .Columns(8).Name = "DELIVERY STATUS"
                 .Columns(9).Name = "DATE ORDERED"
+                .Columns(10).Name = "sup id"
+                .Columns(11).Name = "ing id"
             End With
 
-            Dim dtadapt2 As DB2DataAdapter
-            Dim ds2 As DataSet = New DataSet()
-
-
-
+            'dgvPurchases.Columns(10).Visible = False
+            'dgvPurchases.Columns(11).Visible = False
 
             Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
             Call RefreshorderDataGrid()
@@ -68,16 +68,30 @@ Public Class PurchasesAll
 
             Dim cmd As DB2Command
             Dim rdr As DB2DataReader
-            Dim rows As String()
+            Dim i As Integer = 0
             CmbSearchSup.Text = "NOT DELIVERED"
 
 
-            cmd = New DB2Command("Select * from purchases order by po_no desc", conn)
+            cmd = New DB2Command("select * from table( db2admin.purchaseOrder_leftJoin()) as udf", conn)
             rdr = cmd.ExecuteReader
             Me.dgvPurchases.Rows.Clear()
             While rdr.Read
-                rows = New String() {rdr.GetString(0), rdr.GetString(7), rdr.GetString(8), rdr.GetString(9), rdr.GetString(6), rdr.GetString(5), rdr.GetString(4), rdr.GetString(3), rdr.GetString(2), rdr.GetString(1)}
-                Me.dgvPurchases.Rows.Add(rows)
+                dgvPurchases.Rows.Add()
+
+                Me.dgvPurchases.Rows(i).Cells(0).Value = rdr.GetString(0)
+                Me.dgvPurchases.Rows(i).Cells(1).Value = rdr.GetString(7)
+                Me.dgvPurchases.Rows(i).Cells(2).Value = rdr.GetString(15)
+                Me.dgvPurchases.Rows(i).Cells(3).Value = rdr.GetString(11)
+                Me.dgvPurchases.Rows(i).Cells(4).Value = rdr.GetString(6)
+                Me.dgvPurchases.Rows(i).Cells(5).Value = rdr.GetString(5)
+                Me.dgvPurchases.Rows(i).Cells(6).Value = rdr.GetString(4)
+                Me.dgvPurchases.Rows(i).Cells(7).Value = rdr.GetString(3)
+                Me.dgvPurchases.Rows(i).Cells(8).Value = rdr.GetString(2)
+                Me.dgvPurchases.Rows(i).Cells(9).Value = rdr.GetString(1)
+                Me.dgvPurchases.Rows(i).Cells(10).Value = rdr.GetString(8)
+                Me.dgvPurchases.Rows(i).Cells(11).Value = rdr.GetString(9)
+                i += 1
+
             End While
 
 
@@ -120,21 +134,35 @@ Public Class PurchasesAll
     End Sub
 
     Private Sub searchPurchases_TextChanged(sender As Object, e As EventArgs) Handles searchPurchases.TextChanged
-        Dim strsearchkey As String
-        Dim cmdsearch As DB2Command
-        Dim rdr As DB2DataReader
-        Dim rows As String()
 
+        Dim cmd As DB2Command
+        Dim rdr As DB2DataReader
+
+        Dim i As Integer = 0
 
         Try
-            strsearchkey = Me.searchPurchases.Text + "%"
-            cmdsearch = New DB2Command("select * from purchases where ING_ID like '" & strsearchkey & "'", conn)
-            rdr = cmdsearch.ExecuteReader
-
+            cmd = New DB2Command("select * from table( db2admin.purchaseOrder_leftJoin()) as udf", conn)
+            rdr = cmd.ExecuteReader
             Me.dgvPurchases.Rows.Clear()
             While rdr.Read
-                rows = New String() {rdr.GetString(0), rdr.GetString(7), rdr.GetString(8), rdr.GetString(9), rdr.GetString(6), rdr.GetString(5), rdr.GetString(4), rdr.GetString(3), rdr.GetString(2), rdr.GetString(1)}
-                Me.dgvPurchases.Rows.Add(rows)
+                If rdr.GetString(11).StartsWith(searchPurchases.Text) Then
+                    dgvPurchases.Rows.Add()
+                    Me.dgvPurchases.Rows(i).Cells(0).Value = rdr.GetString(0)
+                    Me.dgvPurchases.Rows(i).Cells(1).Value = rdr.GetString(7)
+                    Me.dgvPurchases.Rows(i).Cells(2).Value = rdr.GetString(15)
+                    Me.dgvPurchases.Rows(i).Cells(3).Value = rdr.GetString(11)
+                    Me.dgvPurchases.Rows(i).Cells(4).Value = rdr.GetString(6)
+                    Me.dgvPurchases.Rows(i).Cells(5).Value = rdr.GetString(5)
+                    Me.dgvPurchases.Rows(i).Cells(6).Value = rdr.GetString(4)
+                    Me.dgvPurchases.Rows(i).Cells(7).Value = rdr.GetString(3)
+                    Me.dgvPurchases.Rows(i).Cells(8).Value = rdr.GetString(2)
+                    Me.dgvPurchases.Rows(i).Cells(9).Value = rdr.GetString(1)
+                    Me.dgvPurchases.Rows(i).Cells(10).Value = rdr.GetString(8)
+                    Me.dgvPurchases.Rows(i).Cells(11).Value = rdr.GetString(9)
+                    i += 1
+                End If
+
+
             End While
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -142,19 +170,35 @@ Public Class PurchasesAll
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbSearchSup.SelectedIndexChanged
-        Dim cmdsearch As DB2Command
+        Dim cmd As DB2Command
         Dim rdr As DB2DataReader
-        Dim rows As String()
-        Try
 
-            cmdsearch = New DB2Command("select * from purchases where delvstat ='" & Me.CmbSearchSup.Text & "'", conn)
-            rdr = cmdsearch.ExecuteReader
+        Dim i As Integer = 0
+
+        Try
+            cmd = New DB2Command("select * from table( db2admin.purchaseOrder_leftJoin()) as udf", conn)
+            rdr = cmd.ExecuteReader
             Me.dgvPurchases.Rows.Clear()
             While rdr.Read
-                rows = New String() {rdr.GetString(0), rdr.GetString(7), rdr.GetString(8), rdr.GetString(9), rdr.GetString(6), rdr.GetString(5), rdr.GetString(4), rdr.GetString(3), rdr.GetString(2), rdr.GetString(1)}
-                Me.dgvPurchases.Rows.Add(rows)
-            End While
+                If rdr.GetString(2).StartsWith(CmbSearchSup.Text) Then
+                    dgvPurchases.Rows.Add()
+                    Me.dgvPurchases.Rows(i).Cells(0).Value = rdr.GetString(0)
+                    Me.dgvPurchases.Rows(i).Cells(1).Value = rdr.GetString(7)
+                    Me.dgvPurchases.Rows(i).Cells(2).Value = rdr.GetString(15)
+                    Me.dgvPurchases.Rows(i).Cells(3).Value = rdr.GetString(11)
+                    Me.dgvPurchases.Rows(i).Cells(4).Value = rdr.GetString(6)
+                    Me.dgvPurchases.Rows(i).Cells(5).Value = rdr.GetString(5)
+                    Me.dgvPurchases.Rows(i).Cells(6).Value = rdr.GetString(4)
+                    Me.dgvPurchases.Rows(i).Cells(7).Value = rdr.GetString(3)
+                    Me.dgvPurchases.Rows(i).Cells(8).Value = rdr.GetString(2)
+                    Me.dgvPurchases.Rows(i).Cells(9).Value = rdr.GetString(1)
+                    Me.dgvPurchases.Rows(i).Cells(10).Value = rdr.GetString(8)
+                    Me.dgvPurchases.Rows(i).Cells(11).Value = rdr.GetString(9)
+                    i += 1
+                End If
 
+
+            End While
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -164,16 +208,25 @@ Public Class PurchasesAll
         Dim StrDelete As String
         Dim CmdDelete As DB2Command
 
-        Try
-            StrDelete = "delete from purchases where po_no= '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'"
-            CmdDelete = New DB2Command(StrDelete, conn)
-            CmdDelete.ExecuteNonQuery()
-        Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
+        If dgvPurchases.CurrentRow.Cells(8).Value = "DELIVERED" Then
+            MsgBox("Delivered Items cannot be deleted")
+        Else
+            masterKey.ShowDialog()
+            If masterKey.CONFIRM = True Then
+                Try
+                    StrDelete = "delete from purchases where po_no= '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'"
+                    CmdDelete = New DB2Command(StrDelete, conn)
+                    CmdDelete.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+                MsgBox("Purchase Order has been Canceled.")
+            Else
+                MsgBox("Purchase Deletion has been Canceled.")
+            End If
+        End If
 
 
-        MsgBox("Purchase Order has been Canceled")
         Call RefreshorderDataGrid()
     End Sub
 
@@ -185,21 +238,37 @@ Public Class PurchasesAll
         Dim count As Integer = dgvPurchases.Rows.Count - 1
         Dim i As Integer = 0
         Dim cmdInsert As DB2Command
-        While i < count
-            If Me.dgvPurchases.Rows(count).Cells(8).Value = "DELIVERED" Then
+        Dim updated As Boolean = False
+        Try
+
+            While i < count
+                If Me.dgvPurchases.Rows(i).Cells(8).Value = "DELIVERED" Then
+
+                Else
+                    cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,delvstat=@delv,purunit=@unit where po_no= '" & Me.dgvPurchases.Rows(i).Cells(0).Value & "'", conn)
+                    cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(11).Value
+                    cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(10).Value
+                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(4).Value
+                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(5).Value
+                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(6).Value
+                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(7).Value
+                    cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(8).Value
+                    cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(1).Value
+                    cmdInsert.ExecuteNonQuery()
+                    updated = True
+                End If
+                i += 1
+            End While
+            If updated = False Then
                 MsgBox("Delivered Items cannot be updated")
             Else
-                cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,purunit=@unit where po_no= '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'", conn)
-                cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(3).Value
-                cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(2).Value
-                cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
-                cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(5).Value
-                cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(6).Value
-                cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(7).Value
-                cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(1).Value
-                cmdInsert.ExecuteNonQuery()
+                MsgBox("Purchase Order Updated Succesfully")
             End If
-        End While
+
+            Call RefreshorderDataGrid()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
     End Sub
 
     Private Sub dgvPurchases_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvPurchases.MouseUp
@@ -228,69 +297,68 @@ Public Class PurchasesAll
                 Try
 
                     cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,delvstat=@delv,purunit=@unit where po_no= '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'", conn)
-                    cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(3).Value
-                    cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(2).Value
-                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
-                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(5).Value
-                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(6).Value
-                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.Rows(count).Cells(7).Value
-                    cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(8).Value
-                    cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(count).Cells(1).Value
+                    cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.CurrentRow.Cells(11).Value
+                    cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.CurrentRow.Cells(10).Value
+                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.CurrentRow.Cells(4).Value
+                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.CurrentRow.Cells(5).Value
+                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.CurrentRow.Cells(6).Value
+                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.CurrentRow.Cells(7).Value
+                    cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPurchases.CurrentRow.Cells(8).Value
+                    cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.CurrentRow.Cells(1).Value
                     cmdInsert.ExecuteNonQuery()
 
 
 
-                    Dim stat As String = Me.dgvPurchases.Rows(count).Cells(8).Value
+                    Dim stat As String = Me.dgvPurchases.CurrentRow.Cells(8).Value
                     Dim unit As String
 
                     If stat = "DELIVERED" Then
                         Dim Cmdunit As DB2Command
                         Dim rdrunit As DB2DataReader
 
-                        Cmdunit = New DB2Command("select ingunit from ingredients where ing_ID= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
+                        Cmdunit = New DB2Command("select ingunit from ingredients where ing_ID= '" & Me.dgvPurchases.CurrentRow.Cells(11).Value & "'", conn)
                         rdrunit = Cmdunit.ExecuteReader
                         rdrunit.Read()
 
                         unit = rdrunit.GetString(0)
 
-                        If unit = "KILOGRAMS" And Me.dgvPurchases.Rows(count).Cells(5).Value = "KILOGRAMS" Then
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
+                        If unit = "KILOGRAMS" And Me.dgvPurchases.CurrentRow.Cells(5).Value = "KILOGRAMS" Then
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.CurrentRow.Cells(11).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.CurrentRow.Cells(4).Value
                             cmdupdate2.ExecuteNonQuery()
 
-                        ElseIf unit = "KILOGRAMS" And Me.dgvPurchases.Rows(count).Cells(5).Value = "GRAMS" Then
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value / 1000
+                        ElseIf unit = "KILOGRAMS" And Me.dgvPurchases.CurrentRow.Cells(5).Value = "GRAMS" Then
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.CurrentRow.Cells(11).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.CurrentRow.Cells(4).Value / 1000
                             cmdupdate2.ExecuteNonQuery()
 
 
-                        ElseIf unit = "GRAMS" And Me.dgvPurchases.Rows(count).Cells(5).Value = "KILOGRAMS" Then
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value * 1000
+                        ElseIf unit = "GRAMS" And Me.dgvPurchases.CurrentRow.Cells(5).Value = "KILOGRAMS" Then
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_id= '" & Me.dgvPurchases.CurrentRow.Cells(11).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.CurrentRow.Cells(4).Value * 1000
                             cmdupdate2.ExecuteNonQuery()
 
-                        ElseIf unit = "GRAMS" And Me.dgvPurchases.Rows(count).Cells(5).Value = "GRAMS" Then
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_ID= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
+                        ElseIf unit = "GRAMS" And Me.dgvPurchases.CurrentRow.Cells(5).Value = "GRAMS" Then
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_ID= '" & Me.dgvPurchases.CurrentRow.Cells(11).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.CurrentRow.Cells(4).Value
                             cmdupdate2.ExecuteNonQuery()
                         Else
-                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_ID= '" & Me.dgvPurchases.Rows(count).Cells(3).Value & "'", conn)
-                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.Rows(count).Cells(4).Value
+                            cmdupdate2 = New DB2Command("update ingredients set ingqty = ingqty +@sqty where ing_ID= '" & Me.dgvPurchases.CurrentRow.Cells(11).Value & "'", conn)
+                            cmdupdate2.Parameters.Add("@sqty", DB2Type.Decimal).Value = Me.dgvPurchases.CurrentRow.Cells(4).Value
                             cmdupdate2.ExecuteNonQuery()
                         End If
                     End If
 
 
-                    MsgBox("Purchase Order Saved Succesfully")
+                    MsgBox("Purchase Order Updated Succesfully")
 
                 Catch ex As Exception
                     MsgBox("Tables with missing information is/are not recorded")
 
                 End Try
-            Else
-                MsgBox("Incorrect Key")
+
             End If
         End If
-
+        Call RefreshorderDataGrid()
     End Sub
 End Class

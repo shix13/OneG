@@ -1,5 +1,5 @@
 ﻿Public Class logout
-    Dim out As Boolean = False
+    Public out As Boolean = False
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles logOutBtn.Click
         out = True
         Me.Close()

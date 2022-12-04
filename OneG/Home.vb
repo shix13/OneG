@@ -95,9 +95,13 @@ Public Class Home
 
     Private Sub LogoutBtn_Click(sender As Object, e As EventArgs) Handles LogoutBtn.Click
         logout.ShowDialog()
+        If logout.out = True Then
+            MsgBox("Logging out of account.")
+            Login.Show()
+            Me.Close()
+        Else
+            MsgBox("Log out Cancelled.")
+        End If
 
-        MsgBox("Please Log in Again.")
-        Login.Show()
-        Me.Close()
     End Sub
 End Class
