@@ -57,7 +57,7 @@ Public Class MainInventory
         txtIngID.Text = "ING_" + value.ToString
 
         Me.cmbUnit.Text = "SELECT"
-        Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
+        Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + "!"
         Dim str As String
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader

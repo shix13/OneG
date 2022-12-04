@@ -63,7 +63,7 @@ Public Class MainMenu
                 .Columns(3).Name = "QTY USED"
                 .Columns(4).Name = "UNIT"
             End With
-            Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
+            Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + "!"
             Call REFRESHORDERDATAGRID()
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -296,7 +296,7 @@ Public Class MainMenu
             dgvMENUANDUSED.Columns(0).Visible = True
             With Me.dgvMENUANDUSED
                 .ColumnCount = 5
-                .Columns(0).Name = "-"
+
                 .Columns(1).Name = "VIAND CODE"
                 .Columns(2).Name = "INGREDIENT"
                 .Columns(3).Name = "QTY USED"
@@ -421,7 +421,7 @@ Public Class MainMenu
                 dgvMENUANDUSED.Columns(0).Visible = True
                 With Me.dgvMENUANDUSED
                     .ColumnCount = 5
-                    .Columns(0).Name = "-"
+
                     .Columns(1).Name = "VIAND CODE"
                     .Columns(2).Name = "INGREDIENT"
                     .Columns(3).Name = "QTY USED"
@@ -566,5 +566,9 @@ Public Class MainMenu
     Private Sub EmployeeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmployeeToolStripMenuItem.Click
         MainEmp.Show()
         Me.Close()
+    End Sub
+
+    Private Sub dgvIng_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvIng.CellContentClick
+
     End Sub
 End Class

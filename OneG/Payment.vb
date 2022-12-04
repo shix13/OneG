@@ -54,7 +54,7 @@ Public Class Payment
 
     Private Sub REFRESHORDERDATAGRID()
 
-        Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + " !"
+        Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + " !"
 
         Dim str As String
         Dim cmd As DB2Command
@@ -177,7 +177,7 @@ Public Class Payment
                     cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Text
                     cmdInsert.Parameters.Add("@amt", DB2Type.Decimal).Value = txtAmountToPay.Text
                     cmdInsert.Parameters.Add("@table", DB2Type.Integer).Value = cmbTableNo.Text()
-                    cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Login.ACCID.ToString
+                    cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Home.ACCID.ToString
                     cmdInsert.Parameters.Add("@rcpt", DB2Type.Integer).Value = txtReceiptNo.Text
                     cmdInsert.ExecuteNonQuery()
 

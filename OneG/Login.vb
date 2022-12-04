@@ -2,9 +2,7 @@
 Imports IBM.Data.DB2
 Public Class Login
     Private conn As IDbConnection
-    Public role As String = "ADMIN"
-    Public ACCID As String = "admin"
-    Public name As String
+
     Dim i As Integer = 0
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -36,12 +34,14 @@ Public Class Login
             rdr = cmd.ExecuteReader
             If rdr.HasRows Then
                 rdr.Read()
-                name = rdr.GetString(0)
-                role = rdr.GetString(1)
-                ACCID = rdr.GetString(2)
-                MsgBox("Welcome " + name + "!")
+                Home.name = rdr.GetString(0)
+                Home.role = rdr.GetString(1)
+                Home.ACCID = rdr.GetString(2).ToString
+                MsgBox("Welcome " + Home.name + "!")
+
                 Home.Show()
                 Me.Close()
+
 
             Else
                 MsgBox("Account not found in the system")

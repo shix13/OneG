@@ -2,6 +2,9 @@
 
 Public Class Home
     Dim conn As Common.DbConnection
+    Public role As String
+    Public ACCID As String
+    Public name As String
     Dim sidebar As String = "Close"
 
     Sub clear()
@@ -36,8 +39,8 @@ Public Class Home
             MsgBox(ex.ToString)
         End Try
 
-        Me.lblWelcomeHome.Text = "WELCOME, " + Login.name.ToString + "!"
-        Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
+        Me.lblWelcomeHome.Text = "WELCOME, " + name.ToString + "!"
+        Me.lblWelcomeBar.Text = "WELCOME, " + name.ToString + "!"
 
     End Sub
 

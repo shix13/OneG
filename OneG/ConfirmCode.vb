@@ -30,7 +30,7 @@ Public Class ConfirmCode
 
             txtpw.Clear()
 
-            If Login.role.ToString.Equals("CASHIER") Then
+            If Home.role.ToString.Equals("CASHIER") Then
                 MsgBox("User Account Not Authorized")
             Else
                 key.Show()

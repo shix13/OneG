@@ -57,7 +57,7 @@ Public Class PurchasesAll
             'dgvPurchases.Columns(10).Visible = False
             'dgvPurchases.Columns(11).Visible = False
 
-            Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
+            Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + "!"
             Call RefreshorderDataGrid()
         Catch ex As Exception
 

@@ -56,7 +56,7 @@ Public Class MainSupp
         Dim value As Integer = randNum.Next(1, 10000)
         txtSupID.Text = "SUP_" + value.ToString
 
-        Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + " !"
+        Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + " !"
         Dim str As String
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
@@ -260,5 +260,9 @@ Public Class MainSupp
     Private Sub TableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TableToolStripMenuItem.Click
         MainTable.Show()
         Me.Close()
+    End Sub
+
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+
     End Sub
 End Class

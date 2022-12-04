@@ -65,7 +65,7 @@ Public Class PurchaseOrder
                 .Columns(2).Name = "IN STOCK"
                 .Columns(3).Name = "UNIT"
             End With
-            Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
+            Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + "!"
             Call RefreshorderDataGrid()
         Catch ex As Exception
 
@@ -282,8 +282,8 @@ Public Class PurchaseOrder
                     Me.dgvPO.Rows(i).Cells(1).Value = po
                     Me.dgvPO.Rows(i).Cells(12).Value = Me.dgvSelect.CurrentRow.Cells(0).Value
                     Me.dgvPO.Rows(i).Cells(4).Value = Me.dgvSelect.CurrentRow.Cells(1).Value
-                    Me.dgvPO.Rows(i).Cells(2).Value = Login.ACCID.ToString
-                    Me.dgvPO.Rows(i).Cells(6).Value = Me.dgvSelect.CurrentRow.Cells(3).Value
+                Me.dgvPO.Rows(i).Cells(2).Value = Home.ACCID.ToString
+                Me.dgvPO.Rows(i).Cells(6).Value = Me.dgvSelect.CurrentRow.Cells(3).Value
                     Me.dgvPO.Rows(i).Cells(8).Value = "0"
                     Me.dgvPO.Rows(i).Cells(10).Value = Me.dtpSideBar.Value.ToShortDateString
                     Me.dgvPO.Rows(i).Cells(9).Value = "NOT DELIVERED"
@@ -419,7 +419,7 @@ Public Class PurchaseOrder
         Dim save As Boolean = False
         Dim rdrInsert As DB2DataReader
 
-        If Login.role.Contains("CASHIER") Then
+        If Home.role.Contains("CASHIER") Then
             MsgBox("Error: User Acount Not Authorized")
 
 

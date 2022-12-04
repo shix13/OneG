@@ -34,18 +34,16 @@ Public Class AccountUser
         Dim rdr As DB2DataReader
         Try
 
-
             CONN = New DB2Connection("server=localhost;database=oneg;" + "uid=db2admin;password=db2admin;")
             CONN.Open()
 
-            cmd = New DB2Command("select * from EMPLOYEE where ACCID ='" & Login.ACCID.ToString & "'", CONN)
+            cmd = New DB2Command("select * from EMPLOYEE where ACCID ='" & Home.ACCID.ToString & "'", CONN)
             rdr = cmd.ExecuteReader
             If rdr.Read Then
                 TXTACCID.Text = rdr.GetString(0)
                 txtFName.Text = rdr.GetString(1)
                 txtMName.Text = rdr.GetString(2)
                 txtLName.Text = rdr.GetString(3)
-
                 TXTPOSITION.Text = rdr.GetString(5)
                 Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
                 Call REFRESHORDERDATAGRID()
@@ -82,7 +80,7 @@ Public Class AccountUser
     Private Sub REFRESHORDERDATAGRID()
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
-        cmd = New DB2Command("select * from EMPLOYEE where ACCID ='" & Login.ACCID.ToString & "'", CONN)
+        cmd = New DB2Command("select * from EMPLOYEE where ACCID ='" & Home.ACCID.ToString & "'", CONN)
         rdr = cmd.ExecuteReader
 
         If rdr.Read Then
