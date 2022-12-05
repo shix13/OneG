@@ -36,16 +36,15 @@ Public Class MainTransLogs
 
 
         Try
-
-
             With Me.dgvSystemLogs
-                .ColumnCount = 3
-                .Columns(0).Name = "TABLE NO"
-                .Columns(1).Name = "NUM OF SEATS"
-                .Columns(2).Name = "AVAILABILITY"
+                .ColumnCount = 2
+                .Columns(0).Name = "DATE"
+                .Columns(1).Name = "TRANSACTION HISTORY"
+
                 Call REFRESHORDERDATAGRID()
             End With
-
+            dgvSystemLogs.Columns(0).Width = 80
+            'dgvSystemLogs.RowTemplate.Height = 30
 
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -55,29 +54,20 @@ Public Class MainTransLogs
     End Sub
 
     Private Sub REFRESHORDERDATAGRID()
-        Me.cmbNoOfSeat.Text = "SELECT"
+        Me.cmbSystemLogs.Text = "SELECT"
         Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + " !"
-        Dim str As String
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
-        Dim param1 As DB2Parameter
         Dim rows As String()
-        str = "call db2admin.getlasttableno(?)"
-        cmd = New DB2Command(str, conn)
-        param1 = cmd.Parameters.Add("@1", DB2Type.Integer)
-        param1.Direction = ParameterDirection.Output
-
-        rdr = cmd.ExecuteReader
-        Me.txtTableNo.Text = param1.Value.ToString
 
 
-        str = "select * from table( db2admin.tablelist()) as udf"
-        cmd = New DB2Command(str, conn)
+
+        cmd = New DB2Command("Select * from transactlog", conn)
         rdr = cmd.ExecuteReader
 
         Me.dgvSystemLogs.Rows.Clear()
         While rdr.Read
-            rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2)}
+            rows = New String() {rdr.GetString(0), rdr.GetString(1)}
             Me.dgvSystemLogs.Rows.Add(rows)
         End While
     End Sub
@@ -111,109 +101,6 @@ Public Class MainTransLogs
 
     End Sub
 
-    Private Sub SaveBtn_Click(sender As Object, e As EventArgs)
-
-        Dim str As String
-        Dim cmd As DB2Command
-        Dim RDR As DB2DataReader
-        Dim param1 As DB2Parameter
-        Dim param2 As DB2Parameter
-
-
-
-        cmd = New DB2Command("select TABLENO from TABLES where TABLENO ='" & txtTableNo.Text & "'", conn)
-        RDR = cmd.ExecuteReader
-        If RDR.HasRows Then
-
-            Try
-
-                str = "call updatetable(?,?)"
-                cmd = New DB2Command(str, conn)
-
-                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-                param1.Direction = ParameterDirection.Input
-                cmd.Parameters("@1").Value = Me.txtTableNo.Text
-
-                param2 = cmd.Parameters.Add("@2", DB2Type.Integer)
-                param2.Direction = ParameterDirection.Input
-                cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
-
-
-                cmd.ExecuteNonQuery()
-                MsgBox("Table has been Updated!")
-                Call REFRESHORDERDATAGRID()
-            Catch ex As Exception
-                MsgBox("Something went wrong please try again!")
-
-            End Try
-        Else
-            If cmbNoOfSeat.Text = "SELECT" Or cmbNoOfSeat.Text = "" Then
-                MsgBox("Please Select the Number of Seats")
-            Else
-
-
-                Try
-
-
-                    str = "call INSERTTABLE(?,?)"
-                    cmd = New DB2Command(str, conn)
-
-                    param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-                    param1.Direction = ParameterDirection.Input
-                    cmd.Parameters("@1").Value = Me.txtTableNo.Text
-
-                    param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-                    param2.Direction = ParameterDirection.Input
-                    cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
-
-
-
-                    cmd.ExecuteNonQuery()
-                    MsgBox("Table Added Successfully!")
-                    Call REFRESHORDERDATAGRID()
-                Catch ex As Exception
-                    MsgBox("Something went wrong please try again!")
-                End Try
-            End If
-        End If
-    End Sub
-
-    Private Sub DeleteBtn_Click(sender As Object, e As EventArgs)
-        Dim str As String
-        Dim cmd As DB2Command
-        Dim param1 As DB2Parameter
-
-        Try
-
-
-            str = "call DELETETABLE(?)"
-            cmd = New DB2Command(str, conn)
-
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtTableNo.Text
-
-
-            cmd.ExecuteNonQuery()
-            MsgBox("Table has been Deleted!")
-            Call REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
-
-    End Sub
-
-
-
-    Private Sub dgvTable_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvSystemLogs.MouseUp
-        Try
-            Me.txtTableNo.Text = Me.dgvSystemLogs.CurrentRow.Cells(0).Value
-            Me.cmbNoOfSeat.Text = Me.dgvSystemLogs.CurrentRow.Cells(1).Value
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
 
 
     Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
@@ -326,5 +213,54 @@ Public Class MainTransLogs
         End If
     End Sub
 
+    Private Sub dgvSystemLogs_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSystemLogs.CellContentClick
 
+    End Sub
+
+    Private Sub cmbSystemLogs_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSystemLogs.SelectedIndexChanged
+        Dim cmd As DB2Command
+        Dim rdr As DB2DataReader
+        Dim rows As String()
+
+        If cmbSystemLogs.Text = "ALL" Then
+            cmd = New DB2Command("Select * from transactlog", conn)
+            rdr = cmd.ExecuteReader
+
+            Me.dgvSystemLogs.Rows.Clear()
+            While rdr.Read
+                rows = New String() {rdr.GetString(0), rdr.GetString(1)}
+                Me.dgvSystemLogs.Rows.Add(rows)
+            End While
+
+        Else
+
+            cmd = New DB2Command("Select * from transactlog where comment like '" & cmbSystemLogs.Text & "%'", conn)
+            rdr = cmd.ExecuteReader
+
+            Me.dgvSystemLogs.Rows.Clear()
+            While rdr.Read
+                rows = New String() {rdr.GetString(0), rdr.GetString(1)}
+                Me.dgvSystemLogs.Rows.Add(rows)
+            End While
+        End If
+    End Sub
+
+    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
+        Dim cmd As DB2Command
+        Dim rdr As DB2DataReader
+        Dim rows As String()
+
+
+
+        cmd = New DB2Command("select * from transactlog where logdate = @d ", conn)
+
+        cmd.Parameters.Add("@d", DB2Type.Date).Value = DateTimePicker1.Value
+        rdr = cmd.ExecuteReader
+
+        Me.dgvSystemLogs.Rows.Clear()
+        While rdr.Read
+            rows = New String() {rdr.GetString(0), rdr.GetString(1)}
+            Me.dgvSystemLogs.Rows.Add(rows)
+        End While
+    End Sub
 End Class

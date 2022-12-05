@@ -54,8 +54,8 @@ Public Class PurchasesAll
                 .Columns(11).Name = "ing id"
             End With
 
-            'dgvPurchases.Columns(10).Visible = False
-            'dgvPurchases.Columns(11).Visible = False
+            dgvPurchases.Columns(10).Visible = False
+            dgvPurchases.Columns(11).Visible = False
 
             Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
             Call RefreshorderDataGrid()
@@ -158,7 +158,7 @@ Public Class PurchasesAll
                     i += 1
                 End If
 
-
+                MsgBox("jere")
             End While
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -459,5 +459,19 @@ Public Class PurchasesAll
         Me.Close()
     End Sub
 
+    Private Sub dgvPurchases_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPurchases.CellValueChanged
+        Dim subtotal As Double
 
+        If Me.dgvPurchases.CurrentRow.Cells(4).Value = "" Then
+            Me.dgvPurchases.CurrentRow.Cells(7).Value = "0.00"
+        ElseIf Me.dgvPurchases.CurrentRow.Cells(6).Value = "" Then
+            Me.dgvPurchases.CurrentRow.Cells(7).Value = "0.00"
+        Else
+            Dim qty As Decimal = Me.dgvPurchases.CurrentRow.Cells(4).Value
+            Dim price As Decimal = Me.dgvPurchases.CurrentRow.Cells(6).Value
+            subtotal = qty * price
+            Me.dgvPurchases.CurrentRow.Cells(7).Value = subtotal
+        End If
+
+    End Sub
 End Class

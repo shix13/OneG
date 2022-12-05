@@ -44,7 +44,7 @@ Public Class Login
 
 
             Else
-                MsgBox("Account not found in the system")
+                MsgBox("AccountId/Password Incorrect. Please Try Again!")
                 i += 1
                 If (i > 4) Then
                     MsgBox("Maximum Attempt Reached! (5)")
@@ -102,5 +102,9 @@ Public Class Login
 
     Private Sub txtPass_MouseClick(sender As Object, e As MouseEventArgs) Handles txtPass.MouseClick
 
+    End Sub
+
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
+        Me.Close()
     End Sub
 End Class

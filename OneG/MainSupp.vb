@@ -208,8 +208,10 @@ Public Class MainSupp
         Dim str As String
         Dim cmd As DB2Command
         Dim param1 As DB2Parameter
-
-        Try
+        Dim answer As DialogResult
+        answer = MessageBox.Show("Supplier info will be deleted?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If answer = vbYes Then
+            Try
 
                 str = "call DELETESUPPLIER(?)"
                 cmd = New DB2Command(str, conn)
@@ -225,7 +227,7 @@ Public Class MainSupp
             Catch ex As Exception
                 MsgBox("Something went wrong please try again!")
             End Try
-
+        End If
     End Sub
 
     Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click

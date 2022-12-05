@@ -47,7 +47,7 @@ Partial Class Login
         Me.PictureBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.PictureBox2.BackgroundImage = Global.OneG.My.Resources.Resources.logo_small_2
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox2.Location = New System.Drawing.Point(463, 135)
+        Me.PictureBox2.Location = New System.Drawing.Point(463, 119)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(302, 236)
         Me.PictureBox2.TabIndex = 1
@@ -56,7 +56,7 @@ Partial Class Login
         'txtAccID
         '
         Me.txtAccID.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAccID.Location = New System.Drawing.Point(463, 408)
+        Me.txtAccID.Location = New System.Drawing.Point(463, 387)
         Me.txtAccID.Multiline = True
         Me.txtAccID.Name = "txtAccID"
         Me.txtAccID.Size = New System.Drawing.Size(302, 34)
@@ -65,7 +65,7 @@ Partial Class Login
         'txtPass
         '
         Me.txtPass.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPass.Location = New System.Drawing.Point(463, 473)
+        Me.txtPass.Location = New System.Drawing.Point(463, 452)
         Me.txtPass.Multiline = True
         Me.txtPass.Name = "txtPass"
         Me.txtPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
@@ -76,7 +76,7 @@ Partial Class Login
         '
         Me.LoginBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.LoginBtn.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LoginBtn.Location = New System.Drawing.Point(569, 543)
+        Me.LoginBtn.Location = New System.Drawing.Point(569, 522)
         Me.LoginBtn.Name = "LoginBtn"
         Me.LoginBtn.Size = New System.Drawing.Size(100, 44)
         Me.LoginBtn.TabIndex = 4
@@ -89,7 +89,7 @@ Partial Class Login
         Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.Label1.Font = New System.Drawing.Font("Century Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(514, 617)
+        Me.Label1.Location = New System.Drawing.Point(514, 602)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(208, 21)
         Me.Label1.TabIndex = 5
@@ -102,7 +102,7 @@ Partial Class Login
         Me.SignUpLink.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
         Me.SignUpLink.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SignUpLink.LinkColor = System.Drawing.Color.Yellow
-        Me.SignUpLink.Location = New System.Drawing.Point(580, 638)
+        Me.SignUpLink.Location = New System.Drawing.Point(580, 631)
         Me.SignUpLink.Name = "SignUpLink"
         Me.SignUpLink.Size = New System.Drawing.Size(77, 25)
         Me.SignUpLink.TabIndex = 6

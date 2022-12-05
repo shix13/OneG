@@ -267,24 +267,27 @@ Public Class MainEmp
         Dim str As String
         Dim cmd As DB2Command
         Dim param1 As DB2Parameter
+        Dim answer As DialogResult
+        answer = MessageBox.Show("Employee info will be deleted?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If answer = vbYes Then
+
+            Try
+
+                str = "call DELETEemployee(?)"
+                cmd = New DB2Command(str, conn)
+
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtAccID.Text
 
 
-        Try
-
-            str = "call DELETEemployee(?)"
-            cmd = New DB2Command(str, conn)
-
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtAccID.Text
-
-
-            cmd.ExecuteNonQuery()
-            MsgBox("Employee Account has been Deleted!")
-            Call REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
+                cmd.ExecuteNonQuery()
+                MsgBox("Employee Account has been Deleted!")
+                Call REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+            End Try
+        End If
     End Sub
 
     Private Sub txtSearch_Click(sender As Object, e As EventArgs)

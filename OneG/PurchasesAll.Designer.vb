@@ -327,9 +327,9 @@ Partial Class PurchasesAll
         '
         Me.CmbSearchSup.FormattingEnabled = True
         Me.CmbSearchSup.Items.AddRange(New Object() {"NOT DELIVERED", "DELIVERED"})
-        Me.CmbSearchSup.Location = New System.Drawing.Point(528, 137)
+        Me.CmbSearchSup.Location = New System.Drawing.Point(605, 135)
         Me.CmbSearchSup.Name = "CmbSearchSup"
-        Me.CmbSearchSup.Size = New System.Drawing.Size(121, 24)
+        Me.CmbSearchSup.Size = New System.Drawing.Size(211, 24)
         Me.CmbSearchSup.TabIndex = 40
         '
         'PictureBox1

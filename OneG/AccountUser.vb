@@ -105,7 +105,7 @@ Public Class AccountUser
             Dim param6 As DB2Parameter
             Dim PW As String = Me.txtPass.Text
 
-            If (PW = "") Then
+            If (PW Is Nothing) Then
                 str = "call updateemployee_WO_PW(?,?,?,?,?)"
                 cmd = New DB2Command(str, CONN)
 

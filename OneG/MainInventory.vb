@@ -201,23 +201,26 @@ Public Class MainInventory
         Dim cmd As DB2Command
         Dim param1 As DB2Parameter
 
+        Dim answer As DialogResult
+        answer = MessageBox.Show("Inventory info will be deleted?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If answer = vbYes Then
+            Try
 
-        Try
+                str = "call DELETEINGREDIENT(?)"
+                cmd = New DB2Command(str, conn)
 
-            str = "call DELETEINGREDIENT(?)"
-            cmd = New DB2Command(str, conn)
-
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtIngID.Text
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtIngID.Text
 
 
-            cmd.ExecuteNonQuery()
-            MsgBox("Ingredient Information has been Deleted!")
-            Call REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
+                cmd.ExecuteNonQuery()
+                MsgBox("Ingredient Information has been Deleted!")
+                Call REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+            End Try
+        End If
     End Sub
 
     Private Sub searchIngr_TextChanged(sender As Object, e As EventArgs) Handles searchIngr.TextChanged

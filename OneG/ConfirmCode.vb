@@ -3,7 +3,7 @@
 Public Class ConfirmCode
     Private conn As Common.DbConnection
     Public randNum As New Random
-    Public value As Integer = randNum.Next(1, 100000)
+    Public value As Integer
     Public CONFIRM As Boolean = False
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -29,7 +29,7 @@ Public Class ConfirmCode
             conn.Open()
 
             txtpw.Clear()
-
+            value = randNum.Next(1, 100000)
             If Home.role.ToString.Equals("CASHIER") Then
                 MsgBox("User Account Not Authorized")
             Else

@@ -183,25 +183,26 @@ Public Class MainTable
         Dim str As String
         Dim cmd As DB2Command
         Dim param1 As DB2Parameter
+        Dim answer As DialogResult
+        answer = MessageBox.Show("Table info will be delete?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If answer = vbYes Then
+            Try
 
-        Try
+                str = "call DELETETABLE(?)"
+                cmd = New DB2Command(str, conn)
+
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtTableNo.Text
 
 
-            str = "call DELETETABLE(?)"
-            cmd = New DB2Command(str, conn)
-
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtTableNo.Text
-
-
-            cmd.ExecuteNonQuery()
-            MsgBox("Table has been Deleted!")
-            Call REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
-
+                cmd.ExecuteNonQuery()
+                MsgBox("Table has been Deleted!")
+                Call REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+            End Try
+        End If
     End Sub
 
 

@@ -353,28 +353,33 @@ Public Class MainMenu
         Dim CmdDelete As DB2Command
         Dim count As Integer = 0
         Dim i As Integer
-        If txtMenuNo.Text = "" Then
-            MsgBox("Select Viand to Remove from the Menu")
-        Else
-            While dgvMENUANDUSED.Rows(i).Cells(1).Value IsNot Nothing And dgvMENUANDUSED.Rows(i).Cells(2).Value IsNot Nothing
-                i += 1
-            End While
 
-            Try
-                StrDelete = "delete from menu where menu_no = '" & Me.txtMenuNo.Text & "'"
-                CmdDelete = New DB2Command(StrDelete, conn)
-                CmdDelete.ExecuteNonQuery()
+        Dim answer As DialogResult
+        answer = MessageBox.Show("Menu info will be deleted?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If answer = vbYes Then
+            If txtMenuNo.Text = "" Then
+                MsgBox("Select Viand to Remove from the Menu")
+            Else
+                While dgvMENUANDUSED.Rows(i).Cells(1).Value IsNot Nothing And dgvMENUANDUSED.Rows(i).Cells(2).Value IsNot Nothing
+                    i += 1
+                End While
 
-                StrDelete = "delete from INGREDIENTS_USED where menu_no = '" & Me.txtMenuNo.Text & "'"
-                CmdDelete = New DB2Command(StrDelete, conn)
-                CmdDelete.ExecuteNonQuery()
+                Try
+                    StrDelete = "delete from menu where menu_no = '" & Me.txtMenuNo.Text & "'"
+                    CmdDelete = New DB2Command(StrDelete, conn)
+                    CmdDelete.ExecuteNonQuery()
 
-                MsgBox("Viand remove from menu...")
+                    StrDelete = "delete from INGREDIENTS_USED where menu_no = '" & Me.txtMenuNo.Text & "'"
+                    CmdDelete = New DB2Command(StrDelete, conn)
+                    CmdDelete.ExecuteNonQuery()
 
-                Call REFRESHORDERDATAGRID()
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
+                    MsgBox("Viand remove from menu...")
+
+                    Call REFRESHORDERDATAGRID()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+            End If
         End If
     End Sub
 

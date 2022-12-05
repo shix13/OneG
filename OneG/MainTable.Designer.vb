@@ -370,6 +370,7 @@ Partial Class MainTable
         Me.cmbNoOfSeat.Name = "cmbNoOfSeat"
         Me.cmbNoOfSeat.Size = New System.Drawing.Size(328, 31)
         Me.cmbNoOfSeat.TabIndex = 19
+        Me.cmbNoOfSeat.Text = "SELECT"
         '
         'Label2
         '

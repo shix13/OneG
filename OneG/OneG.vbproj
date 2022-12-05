@@ -111,6 +111,12 @@
     <Compile Include="ConfirmationBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="pwCheck.Designer.vb">
+      <DependentUpon>pwCheck.vb</DependentUpon>
+    </Compile>
+    <Compile Include="pwCheck.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ConfirmCode.Designer.vb">
       <DependentUpon>ConfirmCode.vb</DependentUpon>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfirmationBox.resx">
       <DependentUpon>ConfirmationBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pwCheck.resx">
+      <DependentUpon>pwCheck.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfirmCode.resx">
       <DependentUpon>ConfirmCode.vb</DependentUpon>
