@@ -23,6 +23,8 @@ Partial Class Order
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.leftSideBar = New System.Windows.Forms.Panel()
         Me.dtpSideBar = New System.Windows.Forms.DateTimePicker()
         Me.lblWelcomeBar = New System.Windows.Forms.Label()
@@ -352,6 +354,14 @@ Partial Class Order
         '
         Me.dgvOrder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SlateGray
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvOrder.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvOrder.Location = New System.Drawing.Point(123, 308)
         Me.dgvOrder.Name = "dgvOrder"
         Me.dgvOrder.RowHeadersWidth = 51
@@ -363,6 +373,15 @@ Partial Class Order
         '
         Me.dgvMenu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvMenu.Cursor = System.Windows.Forms.Cursors.Default
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SlateGray
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvMenu.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvMenu.Location = New System.Drawing.Point(769, 308)
         Me.dgvMenu.Name = "dgvMenu"
         Me.dgvMenu.RowHeadersWidth = 51
@@ -440,11 +459,11 @@ Partial Class Order
         '
         'cmbTableNo
         '
-        Me.cmbTableNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbTableNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbTableNo.FormattingEnabled = True
         Me.cmbTableNo.Location = New System.Drawing.Point(233, 180)
         Me.cmbTableNo.Name = "cmbTableNo"
-        Me.cmbTableNo.Size = New System.Drawing.Size(289, 33)
+        Me.cmbTableNo.Size = New System.Drawing.Size(289, 31)
         Me.cmbTableNo.TabIndex = 16
         '
         'Panel2
@@ -492,6 +511,7 @@ Partial Class Order
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtOrderNo)
         Me.Controls.Add(Me.Label2)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "Order"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

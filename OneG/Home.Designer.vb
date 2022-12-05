@@ -323,8 +323,9 @@ Partial Class Home
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.lblWelcomeHome)
         Me.Controls.Add(Me.PictureBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.name = "Home"
+        Me.Name = "Home"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "HOME"
         Me.leftSideBar.ResumeLayout(False)

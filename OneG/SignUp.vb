@@ -72,6 +72,8 @@ Public Class SignUp
                 cmd.ExecuteNonQuery()
                 MsgBox("Account Saved Successfully!")
                 Call REFRESHORDERDATAGRID()
+                Login.Show()
+                Me.Close()
             Catch ex As Exception
                 MsgBox("Something went wrong please try again!")
             End Try
@@ -85,6 +87,10 @@ Public Class SignUp
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+    End Sub
+
+    Private Sub txtAccID_TextChanged(sender As Object, e As EventArgs) Handles txtAccID.TextChanged
 
     End Sub
 End Class

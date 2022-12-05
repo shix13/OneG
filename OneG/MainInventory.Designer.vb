@@ -363,13 +363,13 @@ Partial Class MainInventory
         '
         'cmbUnit
         '
-        Me.cmbUnit.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbUnit.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbUnit.ForeColor = System.Drawing.SystemColors.WindowFrame
         Me.cmbUnit.FormattingEnabled = True
         Me.cmbUnit.Items.AddRange(New Object() {"KILOGRAMS", "PIECES"})
         Me.cmbUnit.Location = New System.Drawing.Point(110, 436)
         Me.cmbUnit.Name = "cmbUnit"
-        Me.cmbUnit.Size = New System.Drawing.Size(330, 33)
+        Me.cmbUnit.Size = New System.Drawing.Size(330, 31)
         Me.cmbUnit.TabIndex = 37
         Me.cmbUnit.Text = "Select"
         '
@@ -387,18 +387,18 @@ Partial Class MainInventory
         '
         'searchIngr
         '
-        Me.searchIngr.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.searchIngr.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.searchIngr.Location = New System.Drawing.Point(893, 94)
         Me.searchIngr.Name = "searchIngr"
-        Me.searchIngr.Size = New System.Drawing.Size(330, 27)
+        Me.searchIngr.Size = New System.Drawing.Size(330, 32)
         Me.searchIngr.TabIndex = 35
         '
         'txtIngID
         '
-        Me.txtIngID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIngID.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtIngID.Location = New System.Drawing.Point(110, 182)
         Me.txtIngID.Name = "txtIngID"
-        Me.txtIngID.Size = New System.Drawing.Size(330, 30)
+        Me.txtIngID.Size = New System.Drawing.Size(330, 32)
         Me.txtIngID.TabIndex = 34
         '
         'Label7
@@ -438,10 +438,10 @@ Partial Class MainInventory
         '
         'txtQty
         '
-        Me.txtQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQty.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtQty.Location = New System.Drawing.Point(111, 353)
         Me.txtQty.Name = "txtQty"
-        Me.txtQty.Size = New System.Drawing.Size(330, 30)
+        Me.txtQty.Size = New System.Drawing.Size(330, 32)
         Me.txtQty.TabIndex = 26
         '
         'Label3
@@ -458,10 +458,10 @@ Partial Class MainInventory
         '
         'txtIngName
         '
-        Me.txtIngName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIngName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtIngName.Location = New System.Drawing.Point(111, 266)
         Me.txtIngName.Name = "txtIngName"
-        Me.txtIngName.Size = New System.Drawing.Size(330, 30)
+        Me.txtIngName.Size = New System.Drawing.Size(330, 32)
         Me.txtIngName.TabIndex = 24
         '
         'Label2
@@ -526,9 +526,9 @@ Partial Class MainInventory
         Me.dgvIngredients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SlateGray
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvIngredients.DefaultCellStyle = DataGridViewCellStyle2

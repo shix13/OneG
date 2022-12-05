@@ -34,10 +34,10 @@ Public Class Login
             rdr = cmd.ExecuteReader
             If rdr.HasRows Then
                 rdr.Read()
-                Home.name = rdr.GetString(0)
+                Home.nameU = rdr.GetString(0)
                 Home.role = rdr.GetString(1)
                 Home.ACCID = rdr.GetString(2)
-                MsgBox("Welcome " + Home.name + "!")
+                MsgBox("Welcome " + Home.nameU + "!")
 
                 Home.Show()
                 Me.Close()
@@ -60,5 +60,43 @@ Public Class Login
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
+    End Sub
+
+    Private Sub txtAccID_MouseEnter(sender As Object, e As EventArgs) Handles txtAccID.MouseEnter
+        If txtAccID.Text = "Type Your Account ID" Then
+            txtAccID.Text = ""
+            txtAccID.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub txtAccID_MouseLeave(sender As Object, e As EventArgs) Handles txtAccID.MouseLeave
+        If txtAccID.Text = "" Then
+            txtAccID.Text = "Type Your Account ID"
+            txtAccID.ForeColor = Color.Gray
+        End If
+    End Sub
+
+    Private Sub txtPass_MouseEnter(sender As Object, e As EventArgs) Handles txtPass.MouseEnter
+        If txtPass.Text = "Type Your Password" Then
+            txtPass.Text = ""
+            txtPass.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub txtPass_MouseLeave(sender As Object, e As EventArgs) Handles txtPass.MouseLeave
+        If txtPass.Text = "" Then
+            txtPass.Text = "Password"
+            txtPass.ForeColor = Color.Gray
+        End If
+    End Sub
+
+    Private Sub txtPass_TextChanged(sender As Object, e As EventArgs) Handles txtPass.TextChanged
+
+    End Sub
+
+    Private Sub SignUpLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles SignUpLink.LinkClicked
+        Me.Hide()
+        SignUp.ShowDialog()
+        Me.Show()
     End Sub
 End Class

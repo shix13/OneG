@@ -57,7 +57,7 @@ Public Class PurchasesAll
             'dgvPurchases.Columns(10).Visible = False
             'dgvPurchases.Columns(11).Visible = False
 
-            Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + "!"
+            Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
             Call RefreshorderDataGrid()
         Catch ex As Exception
 
@@ -400,7 +400,7 @@ Public Class PurchasesAll
     Private Sub MainBtn_Click(sender As Object, e As EventArgs) Handles MainBtn.Click
         If Home.role = "Cashier" Or Home.role = "CASHIER" Then
             MsgBox("Account Type Not Authorized.")
-        ElseIf Home.role = "Cook" Then
+        ElseIf Home.role = "Cook" Or Home.role = "COOK" Then
             MainMenu.Show()
             Me.Close()
         Else
@@ -446,7 +446,7 @@ Public Class PurchasesAll
     Private Sub IconMainBtn_Click(sender As Object, e As EventArgs) Handles IconMainBtn.Click
         If Home.role = "Cashier" Or Home.role = "CASHIER" Then
             MsgBox("Account Type Not Authorized.")
-        ElseIf Home.role = "Cook" Then
+        ElseIf Home.role = "Cook" Or Home.role = "COOK" Then
             MainMenu.Show()
             Me.Close()
         Else

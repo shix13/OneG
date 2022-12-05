@@ -4,7 +4,7 @@ Public Class Home
     Dim conn As Common.DbConnection
     Public role As String
     Public ACCID As String
-    Public name As String
+    Public nameU As String
     Dim sidebar As String = "Close"
 
     Sub clear()
@@ -39,8 +39,8 @@ Public Class Home
             MsgBox(ex.ToString)
         End Try
 
-        Me.lblWelcomeHome.Text = "WELCOME, " + name.ToString + "!"
-        Me.lblWelcomeBar.Text = "WELCOME, " + name.ToString + "!"
+        Me.lblWelcomeHome.Text = "WELCOME, " + nameU.ToString + "!"
+        Me.lblWelcomeBar.Text = "WELCOME, " + nameU.ToString + "!"
 
     End Sub
 
@@ -91,7 +91,7 @@ Public Class Home
     Private Sub MainBtn_Click(sender As Object, e As EventArgs) Handles MainBtn.Click
         If role = "Cashier" Or role = "CASHIER" Then
             MsgBox("Account Type Not Authorized.")
-        ElseIf role = "Cook" Then
+        ElseIf role = "Cook" Or role = "COOK" Then
             MainMenu.Show()
             Me.Hide()
         Else

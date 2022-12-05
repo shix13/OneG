@@ -56,7 +56,7 @@ Public Class MainSupp
         Dim value As Integer = randNum.Next(1, 10000)
         txtSupID.Text = "SUP_" + value.ToString
 
-        Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + " !"
+        Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + " !"
         Dim str As String
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
@@ -209,23 +209,23 @@ Public Class MainSupp
         Dim cmd As DB2Command
         Dim param1 As DB2Parameter
 
-
         Try
 
-            str = "call DELETESUPPLIER(?)"
-            cmd = New DB2Command(str, conn)
+                str = "call DELETESUPPLIER(?)"
+                cmd = New DB2Command(str, conn)
 
-            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-            param1.Direction = ParameterDirection.Input
-            cmd.Parameters("@1").Value = Me.txtSupID.Text
+                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = Me.txtSupID.Text
 
 
-            cmd.ExecuteNonQuery()
-            MsgBox("Supplier Information has been Deleted!")
-            Call REFRESHORDERDATAGRID()
-        Catch ex As Exception
-            MsgBox("Something went wrong please try again!")
-        End Try
+                cmd.ExecuteNonQuery()
+                MsgBox("Supplier Information has been Deleted!")
+                Call REFRESHORDERDATAGRID()
+            Catch ex As Exception
+                MsgBox("Something went wrong please try again!")
+            End Try
+
     End Sub
 
     Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click

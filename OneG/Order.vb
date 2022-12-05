@@ -58,8 +58,9 @@ Public Class Order
                 .Columns(5).Name = "SUBTOTAL"
                 .Columns(6).Name = "MENU CODE"
             End With
+
             dgvOrder.Columns(6).Visible = False
-            Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + "!"
+            Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
             Call RefreshorderDataGrid1()
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -305,11 +306,13 @@ Public Class Order
                                     End If
                                 End If
                             Else
+
+
                                 'order didnt exist
                                 cmdInsert = New DB2Command("insert into order(ORDERNO,ORDERTOTAL,ORDERDATE,TABLENO,ACCID)  values (@Ord, @total,@date,@cust,@emp)", conn)
                                 cmdInsert.Parameters.Add("@cust", DB2Type.Integer).Value = cmbTableNo.Text
                                 cmdInsert.Parameters.Add("@Ord", DB2Type.Integer).Value = txtOrderNo.Text
-                                cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Home.ACCID.ToString
+                                cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Home.ACCID
                                 cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
                                 cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Text
                                 cmdInsert.ExecuteNonQuery()

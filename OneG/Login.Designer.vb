@@ -55,30 +55,28 @@ Partial Class Login
         '
         'txtAccID
         '
-        Me.txtAccID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAccID.Location = New System.Drawing.Point(463, 399)
+        Me.txtAccID.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAccID.Location = New System.Drawing.Point(463, 408)
         Me.txtAccID.Multiline = True
         Me.txtAccID.Name = "txtAccID"
         Me.txtAccID.Size = New System.Drawing.Size(302, 34)
         Me.txtAccID.TabIndex = 2
-        Me.txtAccID.Text = "Account ID"
         '
         'txtPass
         '
-        Me.txtPass.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPass.Location = New System.Drawing.Point(463, 456)
+        Me.txtPass.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPass.Location = New System.Drawing.Point(463, 473)
         Me.txtPass.Multiline = True
         Me.txtPass.Name = "txtPass"
         Me.txtPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
         Me.txtPass.Size = New System.Drawing.Size(302, 34)
         Me.txtPass.TabIndex = 3
-        Me.txtPass.Text = "Password"
         '
         'LoginBtn
         '
         Me.LoginBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.LoginBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LoginBtn.Location = New System.Drawing.Point(563, 517)
+        Me.LoginBtn.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LoginBtn.Location = New System.Drawing.Point(569, 543)
         Me.LoginBtn.Name = "LoginBtn"
         Me.LoginBtn.Size = New System.Drawing.Size(100, 44)
         Me.LoginBtn.TabIndex = 4
@@ -89,10 +87,11 @@ Partial Class Login
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(547, 598)
+        Me.Label1.Location = New System.Drawing.Point(514, 617)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(131, 16)
+        Me.Label1.Size = New System.Drawing.Size(208, 21)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "Create new account?"
         '
@@ -101,10 +100,11 @@ Partial Class Login
         Me.SignUpLink.ActiveLinkColor = System.Drawing.Color.Pink
         Me.SignUpLink.AutoSize = True
         Me.SignUpLink.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.SignUpLink.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SignUpLink.LinkColor = System.Drawing.Color.Yellow
-        Me.SignUpLink.Location = New System.Drawing.Point(584, 634)
+        Me.SignUpLink.Location = New System.Drawing.Point(580, 638)
         Me.SignUpLink.Name = "SignUpLink"
-        Me.SignUpLink.Size = New System.Drawing.Size(55, 16)
+        Me.SignUpLink.Size = New System.Drawing.Size(77, 25)
         Me.SignUpLink.TabIndex = 6
         Me.SignUpLink.TabStop = True
         Me.SignUpLink.Text = "Sign Up"
@@ -123,6 +123,7 @@ Partial Class Login
         Me.Controls.Add(Me.txtAccID)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "Login"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

@@ -23,6 +23,7 @@ Partial Class MainSupp
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.leftSideBar = New System.Windows.Forms.Panel()
         Me.dtpSideBar = New System.Windows.Forms.DateTimePicker()
         Me.lblWelcomeBar = New System.Windows.Forms.Label()
@@ -345,18 +346,18 @@ Partial Class MainSupp
         '
         'searchSupp
         '
-        Me.searchSupp.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.searchSupp.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.searchSupp.Location = New System.Drawing.Point(893, 94)
         Me.searchSupp.Name = "searchSupp"
-        Me.searchSupp.Size = New System.Drawing.Size(330, 27)
+        Me.searchSupp.Size = New System.Drawing.Size(330, 32)
         Me.searchSupp.TabIndex = 35
         '
         'txtSupID
         '
-        Me.txtSupID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSupID.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSupID.Location = New System.Drawing.Point(122, 186)
         Me.txtSupID.Name = "txtSupID"
-        Me.txtSupID.Size = New System.Drawing.Size(330, 30)
+        Me.txtSupID.Size = New System.Drawing.Size(330, 32)
         Me.txtSupID.TabIndex = 34
         '
         'Label7
@@ -373,10 +374,10 @@ Partial Class MainSupp
         '
         'txtContactNo
         '
-        Me.txtContactNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtContactNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtContactNo.Location = New System.Drawing.Point(123, 402)
         Me.txtContactNo.Name = "txtContactNo"
-        Me.txtContactNo.Size = New System.Drawing.Size(330, 30)
+        Me.txtContactNo.Size = New System.Drawing.Size(330, 32)
         Me.txtContactNo.TabIndex = 26
         '
         'Label3
@@ -393,10 +394,10 @@ Partial Class MainSupp
         '
         'txtSupName
         '
-        Me.txtSupName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSupName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSupName.Location = New System.Drawing.Point(123, 291)
         Me.txtSupName.Name = "txtSupName"
-        Me.txtSupName.Size = New System.Drawing.Size(330, 30)
+        Me.txtSupName.Size = New System.Drawing.Size(330, 32)
         Me.txtSupName.TabIndex = 24
         '
         'Label2
@@ -451,6 +452,14 @@ Partial Class MainSupp
         '
         Me.dgvSupplier.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvSupplier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SlateGray
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSupplier.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvSupplier.Location = New System.Drawing.Point(598, 127)
         Me.dgvSupplier.Name = "dgvSupplier"
         Me.dgvSupplier.RowHeadersWidth = 51

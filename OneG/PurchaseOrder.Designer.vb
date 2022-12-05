@@ -342,7 +342,7 @@ Partial Class PurchaseOrder
         Me.SEARCHPO.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.SEARCHPO.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SEARCHPO.ForeColor = System.Drawing.Color.Transparent
-        Me.SEARCHPO.Location = New System.Drawing.Point(462, 436)
+        Me.SEARCHPO.Location = New System.Drawing.Point(447, 436)
         Me.SEARCHPO.Name = "SEARCHPO"
         Me.SEARCHPO.Size = New System.Drawing.Size(164, 21)
         Me.SEARCHPO.TabIndex = 38

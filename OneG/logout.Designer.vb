@@ -52,7 +52,7 @@ Partial Class logout
         '
         Me.logOutBtn.Location = New System.Drawing.Point(117, 156)
         Me.logOutBtn.Name = "logOutBtn"
-        Me.logOutBtn.Size = New System.Drawing.Size(82, 31)
+        Me.logOutBtn.Size = New System.Drawing.Size(104, 31)
         Me.logOutBtn.TabIndex = 4
         Me.logOutBtn.Text = "LOG OUT"
         Me.logOutBtn.UseVisualStyleBackColor = True

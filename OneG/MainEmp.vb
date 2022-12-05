@@ -56,7 +56,7 @@ Public Class MainEmp
 
     Private Sub REFRESHORDERDATAGRID()
         Me.cmbPosition.Text = "SELECT"
-        Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + " !"
+        Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + " !"
         Dim str As String
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader

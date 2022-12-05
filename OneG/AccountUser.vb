@@ -45,7 +45,7 @@ Public Class AccountUser
                 txtMName.Text = rdr.GetString(2)
                 txtLName.Text = rdr.GetString(3)
                 TXTPOSITION.Text = rdr.GetString(5)
-                Me.lblWelcomeBar.Text = "WELCOME, " + Login.name.ToString + "!"
+                Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
                 Call REFRESHORDERDATAGRID()
             End If
         Catch ex As Exception
@@ -211,7 +211,7 @@ Public Class AccountUser
     Private Sub MainBtn_Click(sender As Object, e As EventArgs) Handles MainBtn.Click
         If Home.role = "Cashier" Or Home.role = "CASHIER" Then
             MsgBox("Account Type Not Authorized.")
-        ElseIf Home.role = "Cook" Then
+        ElseIf Home.role = "Cook" Or Home.role = "COOK" Then
             MainMenu.Show()
             Me.Close()
         Else
@@ -260,7 +260,7 @@ Public Class AccountUser
     Private Sub IconMainBtn_Click(sender As Object, e As EventArgs) Handles IconMainBtn.Click
         If Home.role = "Cashier" Or Home.role = "CASHIER" Then
             MsgBox("Account Type Not Authorized.")
-        ElseIf Home.role = "Cook" Then
+        ElseIf Home.role = "Cook" Or Home.role = "COOK" Then
             MainMenu.Show()
             Me.Close()
         Else

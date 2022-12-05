@@ -23,6 +23,7 @@ Partial Class MainTable
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.leftSideBar = New System.Windows.Forms.Panel()
         Me.dtpSideBar = New System.Windows.Forms.DateTimePicker()
         Me.lblWelcomeBar = New System.Windows.Forms.Label()
@@ -384,12 +385,12 @@ Partial Class MainTable
         '
         'cmbNoOfSeat
         '
-        Me.cmbNoOfSeat.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbNoOfSeat.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbNoOfSeat.FormattingEnabled = True
         Me.cmbNoOfSeat.Items.AddRange(New Object() {"2", "3", "4", "6"})
         Me.cmbNoOfSeat.Location = New System.Drawing.Point(119, 337)
         Me.cmbNoOfSeat.Name = "cmbNoOfSeat"
-        Me.cmbNoOfSeat.Size = New System.Drawing.Size(328, 33)
+        Me.cmbNoOfSeat.Size = New System.Drawing.Size(328, 31)
         Me.cmbNoOfSeat.TabIndex = 19
         '
         'Label2
@@ -427,6 +428,14 @@ Partial Class MainTable
         '
         Me.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SlateGray
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvTable.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvTable.Location = New System.Drawing.Point(598, 108)
         Me.dgvTable.Name = "dgvTable"
         Me.dgvTable.RowHeadersWidth = 51

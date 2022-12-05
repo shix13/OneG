@@ -23,6 +23,7 @@ Partial Class MainEmp
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.leftSideBar = New System.Windows.Forms.Panel()
         Me.dtpSideBar = New System.Windows.Forms.DateTimePicker()
         Me.lblWelcomeBar = New System.Windows.Forms.Label()
@@ -368,13 +369,13 @@ Partial Class MainEmp
         'cmbPosition
         '
         Me.cmbPosition.DisplayMember = "Admin"
-        Me.cmbPosition.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbPosition.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbPosition.ForeColor = System.Drawing.SystemColors.WindowFrame
         Me.cmbPosition.FormattingEnabled = True
         Me.cmbPosition.Items.AddRange(New Object() {"ADMIN", "ADMIN/MANAGER", "CASHIER", "COOK"})
         Me.cmbPosition.Location = New System.Drawing.Point(123, 489)
         Me.cmbPosition.Name = "cmbPosition"
-        Me.cmbPosition.Size = New System.Drawing.Size(330, 33)
+        Me.cmbPosition.Size = New System.Drawing.Size(330, 31)
         Me.cmbPosition.TabIndex = 37
         Me.cmbPosition.Text = "Select"
         Me.cmbPosition.ValueMember = "Cashier"
@@ -393,18 +394,18 @@ Partial Class MainEmp
         '
         'searchAccID
         '
-        Me.searchAccID.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.searchAccID.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.searchAccID.Location = New System.Drawing.Point(789, 90)
         Me.searchAccID.Name = "searchAccID"
-        Me.searchAccID.Size = New System.Drawing.Size(330, 27)
+        Me.searchAccID.Size = New System.Drawing.Size(330, 32)
         Me.searchAccID.TabIndex = 35
         '
         'txtAccID
         '
-        Me.txtAccID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAccID.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAccID.Location = New System.Drawing.Point(122, 128)
         Me.txtAccID.Name = "txtAccID"
-        Me.txtAccID.Size = New System.Drawing.Size(330, 30)
+        Me.txtAccID.Size = New System.Drawing.Size(330, 32)
         Me.txtAccID.TabIndex = 34
         '
         'Label7
@@ -421,11 +422,11 @@ Partial Class MainEmp
         '
         'txtPass
         '
-        Me.txtPass.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPass.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPass.Location = New System.Drawing.Point(123, 572)
         Me.txtPass.Name = "txtPass"
         Me.txtPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtPass.Size = New System.Drawing.Size(330, 30)
+        Me.txtPass.Size = New System.Drawing.Size(330, 32)
         Me.txtPass.TabIndex = 31
         '
         'Label6
@@ -454,10 +455,10 @@ Partial Class MainEmp
         '
         'txtMName
         '
-        Me.txtMName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMName.Location = New System.Drawing.Point(123, 387)
         Me.txtMName.Name = "txtMName"
-        Me.txtMName.Size = New System.Drawing.Size(330, 30)
+        Me.txtMName.Size = New System.Drawing.Size(330, 32)
         Me.txtMName.TabIndex = 28
         '
         'Label4
@@ -474,10 +475,10 @@ Partial Class MainEmp
         '
         'txtFName
         '
-        Me.txtFName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtFName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFName.Location = New System.Drawing.Point(123, 299)
         Me.txtFName.Name = "txtFName"
-        Me.txtFName.Size = New System.Drawing.Size(330, 30)
+        Me.txtFName.Size = New System.Drawing.Size(330, 32)
         Me.txtFName.TabIndex = 26
         '
         'Label3
@@ -494,10 +495,10 @@ Partial Class MainEmp
         '
         'txtLName
         '
-        Me.txtLName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLName.Location = New System.Drawing.Point(123, 212)
         Me.txtLName.Name = "txtLName"
-        Me.txtLName.Size = New System.Drawing.Size(330, 30)
+        Me.txtLName.Size = New System.Drawing.Size(330, 32)
         Me.txtLName.TabIndex = 24
         '
         'Label2
@@ -552,6 +553,14 @@ Partial Class MainEmp
         '
         Me.dgvEmployeeAcc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvEmployeeAcc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SlateGray
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvEmployeeAcc.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvEmployeeAcc.Location = New System.Drawing.Point(598, 127)
         Me.dgvEmployeeAcc.Name = "dgvEmployeeAcc"
         Me.dgvEmployeeAcc.RowHeadersWidth = 51

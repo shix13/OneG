@@ -23,6 +23,8 @@ Partial Class MainMenu
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.leftSideBar = New System.Windows.Forms.Panel()
         Me.dtpSideBar = New System.Windows.Forms.DateTimePicker()
         Me.lblWelcomeBar = New System.Windows.Forms.Label()
@@ -354,10 +356,10 @@ Partial Class MainMenu
         '
         'TextBox1
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.Location = New System.Drawing.Point(422, 212)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(197, 27)
+        Me.TextBox1.Size = New System.Drawing.Size(197, 32)
         Me.TextBox1.TabIndex = 40
         '
         'SWITCHBTN
@@ -374,10 +376,10 @@ Partial Class MainMenu
         '
         'searchAll
         '
-        Me.searchAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.searchAll.Location = New System.Drawing.Point(1031, 206)
+        Me.searchAll.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.searchAll.Location = New System.Drawing.Point(1067, 205)
         Me.searchAll.Name = "searchAll"
-        Me.searchAll.Size = New System.Drawing.Size(197, 27)
+        Me.searchAll.Size = New System.Drawing.Size(197, 32)
         Me.searchAll.TabIndex = 38
         '
         'Label2
@@ -396,6 +398,14 @@ Partial Class MainMenu
         '
         Me.dgvMENUANDUSED.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvMENUANDUSED.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SlateGray
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvMENUANDUSED.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvMENUANDUSED.Location = New System.Drawing.Point(693, 248)
         Me.dgvMENUANDUSED.Name = "dgvMENUANDUSED"
         Me.dgvMENUANDUSED.RowHeadersWidth = 51
@@ -407,6 +417,14 @@ Partial Class MainMenu
         '
         Me.dgvIng.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvIng.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SlateGray
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvIng.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvIng.Location = New System.Drawing.Point(48, 248)
         Me.dgvIng.Name = "dgvIng"
         Me.dgvIng.RowHeadersWidth = 51
@@ -416,10 +434,10 @@ Partial Class MainMenu
         '
         'txtMenuNo
         '
-        Me.txtMenuNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMenuNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMenuNo.Location = New System.Drawing.Point(80, 118)
         Me.txtMenuNo.Name = "txtMenuNo"
-        Me.txtMenuNo.Size = New System.Drawing.Size(330, 30)
+        Me.txtMenuNo.Size = New System.Drawing.Size(330, 32)
         Me.txtMenuNo.TabIndex = 34
         '
         'Label6
@@ -436,10 +454,10 @@ Partial Class MainMenu
         '
         'txtPrice
         '
-        Me.txtPrice.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPrice.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPrice.Location = New System.Drawing.Point(915, 118)
         Me.txtPrice.Name = "txtPrice"
-        Me.txtPrice.Size = New System.Drawing.Size(330, 30)
+        Me.txtPrice.Size = New System.Drawing.Size(330, 32)
         Me.txtPrice.TabIndex = 26
         '
         'Label5
@@ -456,10 +474,10 @@ Partial Class MainMenu
         '
         'txtMenuItemName
         '
-        Me.txtMenuItemName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMenuItemName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMenuItemName.Location = New System.Drawing.Point(498, 118)
         Me.txtMenuItemName.Name = "txtMenuItemName"
-        Me.txtMenuItemName.Size = New System.Drawing.Size(330, 30)
+        Me.txtMenuItemName.Size = New System.Drawing.Size(330, 32)
         Me.txtMenuItemName.TabIndex = 24
         '
         'Label4

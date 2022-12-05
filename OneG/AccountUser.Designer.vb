@@ -331,10 +331,10 @@ Partial Class AccountUser
         'TXTACCID
         '
         Me.TXTACCID.Enabled = False
-        Me.TXTACCID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXTACCID.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXTACCID.Location = New System.Drawing.Point(893, 222)
         Me.TXTACCID.Name = "TXTACCID"
-        Me.TXTACCID.Size = New System.Drawing.Size(330, 30)
+        Me.TXTACCID.Size = New System.Drawing.Size(330, 32)
         Me.TXTACCID.TabIndex = 48
         '
         'Label7
@@ -352,19 +352,19 @@ Partial Class AccountUser
         'TXTPOSITION
         '
         Me.TXTPOSITION.Enabled = False
-        Me.TXTPOSITION.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TXTPOSITION.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TXTPOSITION.Location = New System.Drawing.Point(894, 573)
         Me.TXTPOSITION.Name = "TXTPOSITION"
-        Me.TXTPOSITION.Size = New System.Drawing.Size(330, 30)
+        Me.TXTPOSITION.Size = New System.Drawing.Size(330, 32)
         Me.TXTPOSITION.TabIndex = 46
         '
         'txtPass
         '
-        Me.txtPass.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPass.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPass.Location = New System.Drawing.Point(894, 666)
         Me.txtPass.Name = "txtPass"
         Me.txtPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
-        Me.txtPass.Size = New System.Drawing.Size(330, 30)
+        Me.txtPass.Size = New System.Drawing.Size(330, 32)
         Me.txtPass.TabIndex = 45
         '
         'Label6
@@ -393,10 +393,10 @@ Partial Class AccountUser
         '
         'txtMName
         '
-        Me.txtMName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMName.Location = New System.Drawing.Point(894, 481)
         Me.txtMName.Name = "txtMName"
-        Me.txtMName.Size = New System.Drawing.Size(330, 30)
+        Me.txtMName.Size = New System.Drawing.Size(330, 32)
         Me.txtMName.TabIndex = 42
         '
         'Label4
@@ -413,10 +413,10 @@ Partial Class AccountUser
         '
         'txtFName
         '
-        Me.txtFName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtFName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFName.Location = New System.Drawing.Point(894, 393)
         Me.txtFName.Name = "txtFName"
-        Me.txtFName.Size = New System.Drawing.Size(330, 30)
+        Me.txtFName.Size = New System.Drawing.Size(330, 32)
         Me.txtFName.TabIndex = 40
         '
         'Label3
@@ -433,10 +433,10 @@ Partial Class AccountUser
         '
         'txtLName
         '
-        Me.txtLName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLName.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLName.Location = New System.Drawing.Point(894, 306)
         Me.txtLName.Name = "txtLName"
-        Me.txtLName.Size = New System.Drawing.Size(330, 30)
+        Me.txtLName.Size = New System.Drawing.Size(330, 32)
         Me.txtLName.TabIndex = 38
         '
         'Label2

@@ -54,7 +54,7 @@ Public Class Payment
 
     Private Sub REFRESHORDERDATAGRID()
 
-        Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + " !"
+        Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + " !"
 
         Dim str As String
         Dim cmd As DB2Command

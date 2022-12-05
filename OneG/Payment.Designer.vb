@@ -23,6 +23,7 @@ Partial Class Payment
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.leftSideBar = New System.Windows.Forms.Panel()
         Me.dtpSideBar = New System.Windows.Forms.DateTimePicker()
         Me.lblWelcomeBar = New System.Windows.Forms.Label()
@@ -350,6 +351,14 @@ Partial Class Payment
         '
         Me.dgvPayment.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SlateGray
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPayment.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvPayment.Location = New System.Drawing.Point(618, 199)
         Me.dgvPayment.Name = "dgvPayment"
         Me.dgvPayment.RowHeadersWidth = 51
@@ -383,11 +392,11 @@ Partial Class Payment
         '
         'cmbTableNo
         '
-        Me.cmbTableNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbTableNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbTableNo.FormattingEnabled = True
         Me.cmbTableNo.Location = New System.Drawing.Point(175, 354)
         Me.cmbTableNo.Name = "cmbTableNo"
-        Me.cmbTableNo.Size = New System.Drawing.Size(317, 33)
+        Me.cmbTableNo.Size = New System.Drawing.Size(317, 31)
         Me.cmbTableNo.TabIndex = 18
         '
         'Label5

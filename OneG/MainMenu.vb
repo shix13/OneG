@@ -63,7 +63,7 @@ Public Class MainMenu
                 .Columns(3).Name = "QTY USED"
                 .Columns(4).Name = "UNIT"
             End With
-            Me.lblWelcomeBar.Text = "WELCOME, " + Home.name.ToString + "!"
+            Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
             Call REFRESHORDERDATAGRID()
         Catch ex As Exception
             MsgBox(ex.ToString)
