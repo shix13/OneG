@@ -69,6 +69,7 @@ Partial Class MainEmp
         Me.SupplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SystemLogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -572,7 +573,7 @@ Partial Class MainEmp
         '
         Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI Semibold", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TableToolStripMenuItem, Me.EmployeeToolStripMenuItem, Me.SupplierToolStripMenuItem, Me.MenuToolStripMenuItem, Me.InventoryToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SystemLogsToolStripMenuItem, Me.TableToolStripMenuItem, Me.EmployeeToolStripMenuItem, Me.SupplierToolStripMenuItem, Me.MenuToolStripMenuItem, Me.InventoryToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(3, 18)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1307, 33)
@@ -610,6 +611,12 @@ Partial Class MainEmp
         Me.InventoryToolStripMenuItem.Name = "InventoryToolStripMenuItem"
         Me.InventoryToolStripMenuItem.Size = New System.Drawing.Size(107, 29)
         Me.InventoryToolStripMenuItem.Text = "Inventory"
+        '
+        'SystemLogsToolStripMenuItem
+        '
+        Me.SystemLogsToolStripMenuItem.Name = "SystemLogsToolStripMenuItem"
+        Me.SystemLogsToolStripMenuItem.Size = New System.Drawing.Size(130, 29)
+        Me.SystemLogsToolStripMenuItem.Text = "System Logs"
         '
         'MainEmp
         '
@@ -685,4 +692,5 @@ Partial Class MainEmp
     Friend WithEvents txtAccID As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents cmbPosition As ComboBox
+    Friend WithEvents SystemLogsToolStripMenuItem As ToolStripMenuItem
 End Class

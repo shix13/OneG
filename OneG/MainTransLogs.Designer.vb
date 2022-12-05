@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class MainTable
+Partial Class MainTransLogs
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -42,15 +42,13 @@ Partial Class MainTable
         Me.lblMenuBar = New System.Windows.Forms.Label()
         Me.MenuBarBtn = New System.Windows.Forms.Button()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.cmbSystemLogs = New System.Windows.Forms.ComboBox()
         Me.CloseBtn = New System.Windows.Forms.Button()
-        Me.savebtn = New System.Windows.Forms.Button()
-        Me.DeleteBtn = New System.Windows.Forms.Button()
-        Me.cmbNoOfSeat = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtTableNo = New System.Windows.Forms.TextBox()
-        Me.dgvTable = New System.Windows.Forms.DataGridView()
+        Me.dgvSystemLogs = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.SystemLogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -58,14 +56,12 @@ Partial Class MainTable
         Me.SupplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        CType(Me.dgvTable, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MenuStrip1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        CType(Me.dgvSystemLogs, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'leftSideBar
@@ -307,17 +303,36 @@ Partial Class MainTable
         'Timer1
         '
         '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.Panel2.BackgroundImage = Global.OneG.My.Resources.Resources.Background_1
+        Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.Panel2.Controls.Add(Me.Label1)
+        Me.Panel2.Location = New System.Drawing.Point(-34, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1502, 129)
+        Me.Panel2.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
+        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.Transparent
+        Me.Label1.Location = New System.Drawing.Point(489, 25)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(455, 70)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "MAINTENANCE"
+        '
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
+        Me.GroupBox1.Controls.Add(Me.DateTimePicker1)
+        Me.GroupBox1.Controls.Add(Me.cmbSystemLogs)
         Me.GroupBox1.Controls.Add(Me.CloseBtn)
-        Me.GroupBox1.Controls.Add(Me.savebtn)
-        Me.GroupBox1.Controls.Add(Me.DeleteBtn)
-        Me.GroupBox1.Controls.Add(Me.cmbNoOfSeat)
-        Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.txtTableNo)
-        Me.GroupBox1.Controls.Add(Me.dgvTable)
+        Me.GroupBox1.Controls.Add(Me.dgvSystemLogs)
         Me.GroupBox1.Controls.Add(Me.MenuStrip1)
         Me.GroupBox1.Location = New System.Drawing.Point(71, 112)
         Me.GroupBox1.Name = "GroupBox1"
@@ -325,87 +340,40 @@ Partial Class MainTable
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Font = New System.Drawing.Font("Malgun Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(97, 104)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(200, 30)
+        Me.DateTimePicker1.TabIndex = 24
+        '
+        'cmbSystemLogs
+        '
+        Me.cmbSystemLogs.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSystemLogs.FormattingEnabled = True
+        Me.cmbSystemLogs.Location = New System.Drawing.Point(912, 105)
+        Me.cmbSystemLogs.Name = "cmbSystemLogs"
+        Me.cmbSystemLogs.Size = New System.Drawing.Size(308, 31)
+        Me.cmbSystemLogs.TabIndex = 23
+        '
         'CloseBtn
         '
         Me.CloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CloseBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CloseBtn.ForeColor = System.Drawing.Color.White
-        Me.CloseBtn.Location = New System.Drawing.Point(1061, 649)
+        Me.CloseBtn.Location = New System.Drawing.Point(1111, 667)
         Me.CloseBtn.Name = "CloseBtn"
         Me.CloseBtn.Size = New System.Drawing.Size(109, 41)
         Me.CloseBtn.TabIndex = 22
         Me.CloseBtn.Text = "CLOSE"
         Me.CloseBtn.UseVisualStyleBackColor = True
         '
-        'savebtn
+        'dgvSystemLogs
         '
-        Me.savebtn.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.savebtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.savebtn.ForeColor = System.Drawing.Color.White
-        Me.savebtn.Location = New System.Drawing.Point(211, 516)
-        Me.savebtn.Name = "savebtn"
-        Me.savebtn.Size = New System.Drawing.Size(121, 41)
-        Me.savebtn.TabIndex = 21
-        Me.savebtn.Text = "SAVE"
-        Me.savebtn.UseVisualStyleBackColor = True
-        '
-        'DeleteBtn
-        '
-        Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(338, 516)
-        Me.DeleteBtn.Name = "DeleteBtn"
-        Me.DeleteBtn.Size = New System.Drawing.Size(109, 41)
-        Me.DeleteBtn.TabIndex = 20
-        Me.DeleteBtn.Text = "DELETE"
-        Me.DeleteBtn.UseVisualStyleBackColor = True
-        '
-        'cmbNoOfSeat
-        '
-        Me.cmbNoOfSeat.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbNoOfSeat.FormattingEnabled = True
-        Me.cmbNoOfSeat.Items.AddRange(New Object() {"2", "3", "4", "6"})
-        Me.cmbNoOfSeat.Location = New System.Drawing.Point(119, 337)
-        Me.cmbNoOfSeat.Name = "cmbNoOfSeat"
-        Me.cmbNoOfSeat.Size = New System.Drawing.Size(328, 31)
-        Me.cmbNoOfSeat.TabIndex = 19
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(115, 311)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(164, 23)
-        Me.Label2.TabIndex = 11
-        Me.Label2.Text = "Number of Seat"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(115, 178)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(149, 23)
-        Me.Label4.TabIndex = 9
-        Me.Label4.Text = "Table Number"
-        '
-        'txtTableNo
-        '
-        Me.txtTableNo.Enabled = False
-        Me.txtTableNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTableNo.Location = New System.Drawing.Point(119, 204)
-        Me.txtTableNo.Name = "txtTableNo"
-        Me.txtTableNo.Size = New System.Drawing.Size(328, 32)
-        Me.txtTableNo.TabIndex = 8
-        '
-        'dgvTable
-        '
-        Me.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSystemLogs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvSystemLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -413,13 +381,13 @@ Partial Class MainTable
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SlateGray
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvTable.DefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvTable.Location = New System.Drawing.Point(598, 108)
-        Me.dgvTable.Name = "dgvTable"
-        Me.dgvTable.RowHeadersWidth = 51
-        Me.dgvTable.RowTemplate.Height = 24
-        Me.dgvTable.Size = New System.Drawing.Size(572, 519)
-        Me.dgvTable.TabIndex = 1
+        Me.dgvSystemLogs.DefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvSystemLogs.Location = New System.Drawing.Point(97, 142)
+        Me.dgvSystemLogs.Name = "dgvSystemLogs"
+        Me.dgvSystemLogs.RowHeadersWidth = 51
+        Me.dgvSystemLogs.RowTemplate.Height = 24
+        Me.dgvSystemLogs.Size = New System.Drawing.Size(1125, 519)
+        Me.dgvSystemLogs.TabIndex = 1
         '
         'MenuStrip1
         '
@@ -434,13 +402,14 @@ Partial Class MainTable
         '
         'SystemLogsToolStripMenuItem
         '
+        Me.SystemLogsToolStripMenuItem.ForeColor = System.Drawing.Color.SteelBlue
         Me.SystemLogsToolStripMenuItem.Name = "SystemLogsToolStripMenuItem"
         Me.SystemLogsToolStripMenuItem.Size = New System.Drawing.Size(130, 29)
         Me.SystemLogsToolStripMenuItem.Text = "System Logs"
         '
         'TableToolStripMenuItem
         '
-        Me.TableToolStripMenuItem.ForeColor = System.Drawing.Color.SteelBlue
+        Me.TableToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText
         Me.TableToolStripMenuItem.Name = "TableToolStripMenuItem"
         Me.TableToolStripMenuItem.Size = New System.Drawing.Size(69, 29)
         Me.TableToolStripMenuItem.Text = "Table"
@@ -469,30 +438,7 @@ Partial Class MainTable
         Me.InventoryToolStripMenuItem.Size = New System.Drawing.Size(107, 29)
         Me.InventoryToolStripMenuItem.Text = "Inventory"
         '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.Panel2.BackgroundImage = Global.OneG.My.Resources.Resources.Background_1
-        Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Panel2.Controls.Add(Me.Label1)
-        Me.Panel2.Location = New System.Drawing.Point(-34, 0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1502, 129)
-        Me.Panel2.TabIndex = 1
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(49, Byte), Integer), CType(CType(58, Byte), Integer))
-        Me.Label1.Font = New System.Drawing.Font("Century Gothic", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(489, 25)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(455, 70)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "MAINTENANCE"
-        '
-        'MainTable
+        'MainTransLogs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -503,20 +449,20 @@ Partial Class MainTable
         Me.Controls.Add(Me.GroupBox1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.Name = "MainTable"
+        Me.Name = "MainTransLogs"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = " Maintenance (TABLE)"
+        Me.Text = " Maintenance (SYSTEM LOGS)"
         Me.leftSideBar.ResumeLayout(False)
         Me.leftSideBar.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        CType(Me.dgvTable, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        CType(Me.dgvSystemLogs, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -548,13 +494,9 @@ Partial Class MainTable
     Friend WithEvents SupplierToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MenuToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents InventoryToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents dgvTable As DataGridView
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents txtTableNo As TextBox
-    Friend WithEvents cmbNoOfSeat As ComboBox
+    Friend WithEvents dgvSystemLogs As DataGridView
     Friend WithEvents CloseBtn As Button
-    Friend WithEvents savebtn As Button
-    Friend WithEvents DeleteBtn As Button
     Friend WithEvents SystemLogsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents cmbSystemLogs As ComboBox
+    Friend WithEvents DateTimePicker1 As DateTimePicker
 End Class

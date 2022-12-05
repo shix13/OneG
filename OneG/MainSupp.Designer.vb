@@ -63,6 +63,7 @@ Partial Class MainSupp
         Me.InventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.SystemLogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -471,7 +472,7 @@ Partial Class MainSupp
         '
         Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI Semibold", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TableToolStripMenuItem, Me.EmployeeToolStripMenuItem, Me.SupplierToolStripMenuItem, Me.MenuToolStripMenuItem, Me.InventoryToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SystemLogsToolStripMenuItem, Me.TableToolStripMenuItem, Me.EmployeeToolStripMenuItem, Me.SupplierToolStripMenuItem, Me.MenuToolStripMenuItem, Me.InventoryToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(3, 18)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1307, 33)
@@ -533,6 +534,12 @@ Partial Class MainSupp
         Me.Label1.Size = New System.Drawing.Size(455, 70)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "MAINTENANCE"
+        '
+        'SystemLogsToolStripMenuItem
+        '
+        Me.SystemLogsToolStripMenuItem.Name = "SystemLogsToolStripMenuItem"
+        Me.SystemLogsToolStripMenuItem.Size = New System.Drawing.Size(130, 29)
+        Me.SystemLogsToolStripMenuItem.Text = "System Logs"
         '
         'MainSupp
         '
@@ -602,4 +609,5 @@ Partial Class MainSupp
     Friend WithEvents searchSupp As TextBox
     Friend WithEvents txtSupID As TextBox
     Friend WithEvents Label7 As Label
+    Friend WithEvents SystemLogsToolStripMenuItem As ToolStripMenuItem
 End Class

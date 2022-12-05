@@ -77,7 +77,7 @@ Public Class Login
     End Sub
 
     Private Sub txtPass_MouseEnter(sender As Object, e As EventArgs) Handles txtPass.MouseEnter
-        If txtPass.Text = "Type Your Password" Then
+        If txtPass.Text = "Password" Then
             txtPass.Text = ""
             txtPass.ForeColor = Color.Black
         End If
@@ -98,5 +98,9 @@ Public Class Login
         Me.Hide()
         SignUp.ShowDialog()
         Me.Show()
+    End Sub
+
+    Private Sub txtPass_MouseClick(sender As Object, e As MouseEventArgs) Handles txtPass.MouseClick
+
     End Sub
 End Class

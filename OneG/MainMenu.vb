@@ -574,6 +574,15 @@ Public Class MainMenu
         End If
     End Sub
 
+    Private Sub SystemLogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SystemLogsToolStripMenuItem.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            MainTransLogs.Show()
+            Me.Close()
+        End If
+    End Sub
+
 
 
 

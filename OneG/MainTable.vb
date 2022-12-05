@@ -106,10 +106,7 @@ Public Class MainTable
         End If
     End Sub
 
-    Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
-        Me.Hide()
-        MainEmp.Show()
-    End Sub
+
 
     Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
 
@@ -219,20 +216,30 @@ Public Class MainTable
 
     End Sub
 
+    Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
+
+    End Sub
+    Private Sub EmployeeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmployeeToolStripMenuItem.Click
+        MainEmp.Show()
+        Me.Close()
+    End Sub
     Private Sub SupplierToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupplierToolStripMenuItem.Click
         MainSupp.Show()
         Me.Close()
     End Sub
 
     Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
-
         MainMenu.Show()
         Me.Close()
     End Sub
 
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
-
         MainInventory.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub TransactionLogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SystemLogsToolStripMenuItem.Click
+        MainTransLogs.Show()
         Me.Close()
     End Sub
 
@@ -322,11 +329,5 @@ Public Class MainTable
             Me.Close()
         End If
     End Sub
-
-
-
-
-
-
 
 End Class

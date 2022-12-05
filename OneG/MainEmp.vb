@@ -335,6 +335,10 @@ Public Class MainEmp
         MainInventory.Show()
         Me.Close()
     End Sub
+    Private Sub SystemLogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SystemLogsToolStripMenuItem.Click
+        MainTransLogs.Show()
+        Me.Close()
+    End Sub
 
 
 

@@ -153,6 +153,12 @@
     <Compile Include="MainEmp.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainTransLogs.Designer.vb">
+      <DependentUpon>MainTransLogs.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainTransLogs.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="masterKey.Designer.vb">
       <DependentUpon>masterKey.vb</DependentUpon>
     </Compile>
@@ -252,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainEmp.resx">
       <DependentUpon>MainEmp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainTransLogs.resx">
+      <DependentUpon>MainTransLogs.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="masterKey.resx">
       <DependentUpon>masterKey.vb</DependentUpon>

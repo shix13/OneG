@@ -1,9 +1,7 @@
 ﻿Imports IBM.Data.DB2
-
-Public Class MainSupp
-    Private conn As Common.DbConnection
+Public Class MainTransLogs
     Dim sidebar As String = "Close"
-
+    Private conn As Common.DbConnection
     Sub clear()
         lblWelcomeBar.Visible = False
         dtpSideBar.Visible = False
@@ -28,7 +26,7 @@ Public Class MainSupp
     End Sub
 
 
-    Private Sub MainSupp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub MainTable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             conn = New DB2Connection("server=localhost;database=oneg;" + "uid=db2admin;password=db2admin;")
             conn.Open()
@@ -38,43 +36,52 @@ Public Class MainSupp
 
 
         Try
-            With Me.dgvSupplier
-                .ColumnCount = 3
-                .Columns(0).Name = "SUPPLIER ID"
-                .Columns(1).Name = "NAME"
-                .Columns(2).Name = "CONTACT NO"
 
+
+            With Me.dgvSystemLogs
+                .ColumnCount = 3
+                .Columns(0).Name = "TABLE NO"
+                .Columns(1).Name = "NUM OF SEATS"
+                .Columns(2).Name = "AVAILABILITY"
                 Call REFRESHORDERDATAGRID()
             End With
+
 
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-    End Sub
-    Private Sub REFRESHORDERDATAGRID()
-        Dim randNum As New Random
-        Dim value As Integer = randNum.Next(1, 10000)
-        txtSupID.Text = "SUP_" + value.ToString
 
+
+    End Sub
+
+    Private Sub REFRESHORDERDATAGRID()
+        Me.cmbNoOfSeat.Text = "SELECT"
         Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + " !"
         Dim str As String
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
+        Dim param1 As DB2Parameter
         Dim rows As String()
-        Me.txtContactNo.Clear()
-        Me.txtSupName.Clear()
+        str = "call db2admin.getlasttableno(?)"
+        cmd = New DB2Command(str, conn)
+        param1 = cmd.Parameters.Add("@1", DB2Type.Integer)
+        param1.Direction = ParameterDirection.Output
+
+        rdr = cmd.ExecuteReader
+        Me.txtTableNo.Text = param1.Value.ToString
 
 
-        str = "select * from table( db2admin.SUPPLIERLIST()) as udf"
+        str = "select * from table( db2admin.tablelist()) as udf"
         cmd = New DB2Command(str, conn)
         rdr = cmd.ExecuteReader
 
-        Me.dgvSupplier.Rows.Clear()
+        Me.dgvSystemLogs.Rows.Clear()
         While rdr.Read
             rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2)}
-            Me.dgvSupplier.Rows.Add(rows)
+            Me.dgvSystemLogs.Rows.Add(rows)
         End While
     End Sub
+
     Private Sub MenuBarBtn_Click(sender As Object, e As EventArgs) Handles MenuBarBtn.Click
         Timer1.Start()
     End Sub
@@ -100,159 +107,137 @@ Public Class MainSupp
     End Sub
 
 
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
 
-    Private Sub SaveBtn_Click(sender As Object, e As EventArgs) Handles SaveBtn.Click
+    End Sub
+
+    Private Sub SaveBtn_Click(sender As Object, e As EventArgs)
+
         Dim str As String
         Dim cmd As DB2Command
+        Dim RDR As DB2DataReader
         Dim param1 As DB2Parameter
         Dim param2 As DB2Parameter
-        Dim param3 As DB2Parameter
-        Dim RDR As DB2DataReader
 
 
-        cmd = New DB2Command("select SUPID from SUPPLIER where SUPID ='" & txtSupID.Text & "'", conn)
+
+        cmd = New DB2Command("select TABLENO from TABLES where TABLENO ='" & txtTableNo.Text & "'", conn)
         RDR = cmd.ExecuteReader
         If RDR.HasRows Then
+
             Try
-                str = "call updatesupplier(?,?,?)"
+
+                str = "call updatetable(?,?)"
                 cmd = New DB2Command(str, conn)
 
                 param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
                 param1.Direction = ParameterDirection.Input
-                cmd.Parameters("@1").Value = Me.txtSupID.Text
+                cmd.Parameters("@1").Value = Me.txtTableNo.Text
 
-                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                param2 = cmd.Parameters.Add("@2", DB2Type.Integer)
                 param2.Direction = ParameterDirection.Input
-                cmd.Parameters("@2").Value = Me.txtSupName.Text
+                cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
 
-                param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
-                param3.Direction = ParameterDirection.Input
-                cmd.Parameters("@3").Value = Me.txtContactNo.Text
 
                 cmd.ExecuteNonQuery()
-                MsgBox("Supplier Information has been Updated!")
+                MsgBox("Table has been Updated!")
                 Call REFRESHORDERDATAGRID()
-
             Catch ex As Exception
                 MsgBox("Something went wrong please try again!")
 
             End Try
         Else
-
-            Try
-                str = "call INSERTSUPPLIER(?,?,?)"
-                cmd = New DB2Command(str, conn)
-
-                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-                param1.Direction = ParameterDirection.Input
-                cmd.Parameters("@1").Value = Me.txtSupID.Text
-
-                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-                param2.Direction = ParameterDirection.Input
-                cmd.Parameters("@2").Value = Me.txtSupName.Text
-
-                param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
-                param3.Direction = ParameterDirection.Input
-                cmd.Parameters("@3").Value = Me.txtContactNo.Text
+            If cmbNoOfSeat.Text = "SELECT" Or cmbNoOfSeat.Text = "" Then
+                MsgBox("Please Select the Number of Seats")
+            Else
 
 
-
-                cmd.ExecuteNonQuery()
-                MsgBox("Supplier Information Saved Successfully!")
-                REFRESHORDERDATAGRID()
-            Catch ex As Exception
-                MsgBox("Something went wrong please try again!")
+                Try
 
 
-            End Try
+                    str = "call INSERTTABLE(?,?)"
+                    cmd = New DB2Command(str, conn)
 
+                    param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                    param1.Direction = ParameterDirection.Input
+                    cmd.Parameters("@1").Value = Me.txtTableNo.Text
+
+                    param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                    param2.Direction = ParameterDirection.Input
+                    cmd.Parameters("@2").Value = Me.cmbNoOfSeat.Text
+
+
+
+                    cmd.ExecuteNonQuery()
+                    MsgBox("Table Added Successfully!")
+                    Call REFRESHORDERDATAGRID()
+                Catch ex As Exception
+                    MsgBox("Something went wrong please try again!")
+                End Try
+            End If
         End If
-
     End Sub
 
-    Private Sub searchSupp_TextChanged(sender As Object, e As EventArgs) Handles searchSupp.TextChanged
-        Dim strsearchkey As String
-        Dim cmdsearch As DB2Command
-        Dim rdr As DB2DataReader
-        Dim rows As String()
-
-        Try
-            strsearchkey = Me.searchSupp.Text + "%"
-            cmdsearch = New DB2Command("select * from supplier where supname like '" & strsearchkey & "'", conn)
-            rdr = cmdsearch.ExecuteReader
-            Me.dgvSupplier.Rows.Clear()
-
-            While rdr.Read
-                rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2)}
-                Me.dgvSupplier.Rows.Add(rows)
-            End While
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-
-    End Sub
-
-
-    Private Sub dgvSupplier_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvSupplier.MouseUp
-        Try
-            Me.txtSupID.Text = Me.dgvSupplier.CurrentRow.Cells(0).Value
-            Me.txtSupName.Text = Me.dgvSupplier.CurrentRow.Cells(1).Value
-            Me.txtContactNo.Text = Me.dgvSupplier.CurrentRow.Cells(2).Value
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-    End Sub
-
-    Private Sub DeleteBtn_Click(sender As Object, e As EventArgs) Handles DeleteBtn.Click
+    Private Sub DeleteBtn_Click(sender As Object, e As EventArgs)
         Dim str As String
         Dim cmd As DB2Command
         Dim param1 As DB2Parameter
 
         Try
 
-                str = "call DELETESUPPLIER(?)"
-                cmd = New DB2Command(str, conn)
 
-                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-                param1.Direction = ParameterDirection.Input
-                cmd.Parameters("@1").Value = Me.txtSupID.Text
+            str = "call DELETETABLE(?)"
+            cmd = New DB2Command(str, conn)
+
+            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+            param1.Direction = ParameterDirection.Input
+            cmd.Parameters("@1").Value = Me.txtTableNo.Text
 
 
-                cmd.ExecuteNonQuery()
-                MsgBox("Supplier Information has been Deleted!")
-                Call REFRESHORDERDATAGRID()
-            Catch ex As Exception
-                MsgBox("Something went wrong please try again!")
-            End Try
+            cmd.ExecuteNonQuery()
+            MsgBox("Table has been Deleted!")
+            Call REFRESHORDERDATAGRID()
+        Catch ex As Exception
+            MsgBox("Something went wrong please try again!")
+        End Try
 
+    End Sub
+
+
+
+    Private Sub dgvTable_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvSystemLogs.MouseUp
+        Try
+            Me.txtTableNo.Text = Me.dgvSystemLogs.CurrentRow.Cells(0).Value
+            Me.cmbNoOfSeat.Text = Me.dgvSystemLogs.CurrentRow.Cells(1).Value
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+
+    Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
+        MainEmp.Show()
+        Me.Hide()
+    End Sub
+    Private Sub TableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TableToolStripMenuItem.Click
+        MainTable.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub SupplierToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupplierToolStripMenuItem.Click
+        MainSupp.Show()
+        Me.Close()
     End Sub
 
     Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
         MainMenu.Show()
         Me.Close()
     End Sub
-
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
         MainInventory.Show()
         Me.Close()
     End Sub
-
-    Private Sub EmployeeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmployeeToolStripMenuItem.Click
-        MainEmp.Show()
-        Me.Close()
-    End Sub
-
-    Private Sub TableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TableToolStripMenuItem.Click
-        MainTable.Show()
-        Me.Close()
-    End Sub
-
-    Private Sub SystemLogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SystemLogsToolStripMenuItem.Click
-        MainTransLogs.Show()
-        Me.Close()
-    End Sub
-
 
 
 
@@ -340,8 +325,6 @@ Public Class MainSupp
             Me.Close()
         End If
     End Sub
-
-
 
 
 End Class

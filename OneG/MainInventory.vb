@@ -269,14 +269,20 @@ Public Class MainInventory
 
     Private Sub EmployeeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmployeeToolStripMenuItem.Click
         If Home.role = "COOK" Or Home.role = "Cook" Then
-            MainEmp.Enabled = False
             MsgBox("Account Type Not Authorized.")
         Else
             MainEmp.Show()
             Me.Close()
         End If
     End Sub
-
+    Private Sub SystemLogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SystemLogsToolStripMenuItem.Click
+        If Home.role = "COOK" Or Home.role = "Cook" Then
+            MsgBox("Account Type Not Authorized.")
+        Else
+            MainTransLogs.Show()
+            Me.Close()
+        End If
+    End Sub
 
 
 
@@ -365,10 +371,5 @@ Public Class MainInventory
             Me.Close()
         End If
     End Sub
-
-
-
-
-
 
 End Class
