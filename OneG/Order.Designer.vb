@@ -325,6 +325,7 @@ Partial Class Order
         '
         'txtOrderNo
         '
+        Me.txtOrderNo.Enabled = False
         Me.txtOrderNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOrderNo.Location = New System.Drawing.Point(588, 181)
         Me.txtOrderNo.Name = "txtOrderNo"

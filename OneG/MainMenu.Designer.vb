@@ -61,6 +61,7 @@ Partial Class MainMenu
         Me.SaveBtn = New System.Windows.Forms.Button()
         Me.DeleteBtn = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.SystemLogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmployeeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SupplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -68,7 +69,6 @@ Partial Class MainMenu
         Me.InventoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.SystemLogsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -435,6 +435,7 @@ Partial Class MainMenu
         '
         'txtMenuNo
         '
+        Me.txtMenuNo.Enabled = False
         Me.txtMenuNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMenuNo.Location = New System.Drawing.Point(80, 118)
         Me.txtMenuNo.Name = "txtMenuNo"
@@ -540,6 +541,12 @@ Partial Class MainMenu
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
+        'SystemLogsToolStripMenuItem
+        '
+        Me.SystemLogsToolStripMenuItem.Name = "SystemLogsToolStripMenuItem"
+        Me.SystemLogsToolStripMenuItem.Size = New System.Drawing.Size(130, 29)
+        Me.SystemLogsToolStripMenuItem.Text = "System Logs"
+        '
         'TableToolStripMenuItem
         '
         Me.TableToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText
@@ -596,12 +603,6 @@ Partial Class MainMenu
         Me.Label1.Size = New System.Drawing.Size(455, 70)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "MAINTENANCE"
-        '
-        'SystemLogsToolStripMenuItem
-        '
-        Me.SystemLogsToolStripMenuItem.Name = "SystemLogsToolStripMenuItem"
-        Me.SystemLogsToolStripMenuItem.Size = New System.Drawing.Size(130, 29)
-        Me.SystemLogsToolStripMenuItem.Text = "System Logs"
         '
         'MainMenu
         '

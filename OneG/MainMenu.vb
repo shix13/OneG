@@ -273,11 +273,11 @@ Public Class MainMenu
             End While
             If save = True Then
                 MsgBox("Menu Item Information Saved Successfully!")
+                Call REFRESHORDERDATAGRID()
             Else
-                MsgBox("Menu Item Not Saved.")
+                MsgBox("Menu Item has missing Information(s).")
             End If
 
-            Call REFRESHORDERDATAGRID()
         End If
     End Sub
 

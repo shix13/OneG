@@ -341,6 +341,7 @@ Partial Class Payment
         '
         'txtReceiptNo
         '
+        Me.txtReceiptNo.Enabled = False
         Me.txtReceiptNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReceiptNo.Location = New System.Drawing.Point(175, 258)
         Me.txtReceiptNo.Name = "txtReceiptNo"

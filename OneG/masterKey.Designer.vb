@@ -35,7 +35,7 @@ Partial Class masterKey
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(65, 58)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(344, 60)
+        Me.Label1.Size = New System.Drawing.Size(334, 58)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "INPUT MASTER KEY"
         '
@@ -43,6 +43,7 @@ Partial Class masterKey
         '
         Me.txtInput.Location = New System.Drawing.Point(100, 121)
         Me.txtInput.Name = "txtInput"
+        Me.txtInput.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
         Me.txtInput.Size = New System.Drawing.Size(257, 22)
         Me.txtInput.TabIndex = 1
         '
