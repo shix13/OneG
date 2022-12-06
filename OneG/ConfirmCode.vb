@@ -25,7 +25,7 @@ Public Class ConfirmCode
 
     Private Sub ConfirmCode_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            conn = New DB2Connection("server=localhost;database=JMG;" + "uid=db2admin;password=db2admin;")
+            conn = New DB2Connection("server=localhost;database=ONEG;" + "uid=db2admin;password=db2admin;")
             conn.Open()
 
             txtpw.Clear()

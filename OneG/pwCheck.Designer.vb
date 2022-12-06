@@ -25,7 +25,7 @@ Partial Class pwCheck
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.txtpw = New System.Windows.Forms.TextBox()
+        Me.txtpw1 = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -57,20 +57,20 @@ Partial Class pwCheck
         Me.Button1.Text = "SUBMIT"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'txtpw
+        'txtpw1
         '
-        Me.txtpw.Location = New System.Drawing.Point(254, 209)
-        Me.txtpw.MinimumSize = New System.Drawing.Size(4, 30)
-        Me.txtpw.Name = "txtpw"
-        Me.txtpw.Size = New System.Drawing.Size(277, 22)
-        Me.txtpw.TabIndex = 5
+        Me.txtpw1.Location = New System.Drawing.Point(254, 209)
+        Me.txtpw1.MinimumSize = New System.Drawing.Size(4, 30)
+        Me.txtpw1.Name = "txtpw1"
+        Me.txtpw1.Size = New System.Drawing.Size(277, 22)
+        Me.txtpw1.TabIndex = 5
         '
         'pwCheck
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.txtpw)
+        Me.Controls.Add(Me.txtpw1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -85,5 +85,5 @@ Partial Class pwCheck
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Button1 As Button
-    Friend WithEvents txtpw As TextBox
+    Friend WithEvents txtpw1 As TextBox
 End Class

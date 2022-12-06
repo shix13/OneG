@@ -7,14 +7,19 @@ Public Class pwCheck
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim CMD As DB2Command
         Dim RDR As DB2DataReader
-
-        CMD = New DB2Command("select password from EMPLOYEE where ACCID ='" & txtpw.Text & "'", CONN)
-        RDR = cmd.ExecuteReader
+        Dim STR As String
+        CMD = New DB2Command("select PASSWORD from EMPLOYEE where ACCID ='" & Home.ACCID.ToString & "'", CONN)
+        RDR = CMD.ExecuteReader
         RDR.Read()
+        STR = RDR.GetString(0).ToString
         If RDR.HasRows Then
-            PwCONFIRM = True
-        Else
-            PwCONFIRM = False
+
+            MsgBox(STR)
+            If STR = txtpw1.Text Then
+                PwCONFIRM = True
+            Else
+                PwCONFIRM = False
+            End If
         End If
         key.Close()
         Me.Close()
@@ -23,10 +28,10 @@ Public Class pwCheck
 
     Private Sub ConfirmCode_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            conn = New DB2Connection("server=localhost;database=JMG;" + "uid=db2admin;password=db2admin;")
-            conn.Open()
+            CONN = New DB2Connection("server=localhost;database=ONEG;" + "uid=db2admin;password=db2admin;")
+            CONN.Open()
 
-            txtpw.Clear()
+            txtpw1.Clear()
 
 
         Catch ex As Exception
