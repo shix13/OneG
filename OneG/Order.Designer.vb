@@ -365,7 +365,7 @@ Partial Class Order
         Me.dgvOrder.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvOrder.Location = New System.Drawing.Point(123, 308)
         Me.dgvOrder.Name = "dgvOrder"
-        Me.dgvOrder.RowHeadersWidth = 51
+        Me.dgvOrder.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
         Me.dgvOrder.RowTemplate.Height = 24
         Me.dgvOrder.Size = New System.Drawing.Size(559, 429)
         Me.dgvOrder.TabIndex = 8

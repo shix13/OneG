@@ -103,9 +103,9 @@ Public Class MainTransLogs
 
 
 
-    Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
+    Private Sub EmployeeToolStripMenuItem_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles EmployeeToolStripMenuItem.Click
         MainEmp.Show()
-        Me.Hide()
+        Me.Close()
     End Sub
     Private Sub TableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TableToolStripMenuItem.Click
         MainTable.Show()

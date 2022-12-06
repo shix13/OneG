@@ -158,7 +158,6 @@ Public Class PurchasesAll
                     i += 1
                 End If
 
-                MsgBox("jere")
             End While
         Catch ex As Exception
             MsgBox(ex.ToString)

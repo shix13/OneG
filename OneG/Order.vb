@@ -47,7 +47,7 @@ Public Class Order
             End With
             Dim chkBoxCol As New DataGridViewCheckBoxColumn
             dgvOrder.Columns.Add(chkBoxCol)
-            dgvOrder.Columns(0).Width = 20
+            dgvOrder.Columns(0).Width = 10
 
             With Me.dgvOrder 'viandOrder to be ordered
                 .ColumnCount = 7
@@ -60,6 +60,8 @@ Public Class Order
             End With
 
             dgvOrder.Columns(6).Visible = False
+            dgvOrder.Columns(1).Visible = False
+            dgvOrder.Columns(2).Visible = False
             Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
             Call RefreshorderDataGrid1()
         Catch ex As Exception

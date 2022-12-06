@@ -64,6 +64,7 @@ Public Class MainMenu
                 .Columns(4).Name = "UNIT"
             End With
             Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
+            dgvMENUANDUSED.Columns(1).Visible = False
             Call REFRESHORDERDATAGRID()
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -190,7 +191,7 @@ Public Class MainMenu
 
             While count < dgvMENUANDUSED.Rows.Count - 1
             If dgvMENUANDUSED.Rows(count).Cells(3).Value Is Nothing Then
-                MsgBox("Reminder: Fill the qty of ingredients used: Rows with lacking information will not be saved... (Row: " & count + 1 & ")")
+                    MsgBox("Row: " & count + 1 & " has lacking information.")
 
                 Else
                 cmd = New DB2Command("select * from menu where menu_no= '" & txtMenuNo.Text & "'", conn)
@@ -275,7 +276,7 @@ Public Class MainMenu
                 MsgBox("Menu Item Information Saved Successfully!")
                 Call REFRESHORDERDATAGRID()
             Else
-                MsgBox("Menu Item has missing Information(s).")
+                MsgBox("Menu Information Not Saved.")
             End If
 
         End If
@@ -373,7 +374,7 @@ Public Class MainMenu
                     CmdDelete = New DB2Command(StrDelete, conn)
                     CmdDelete.ExecuteNonQuery()
 
-                    MsgBox("Viand remove from menu...")
+                    MsgBox("Menu item has been remove.")
 
                     Call REFRESHORDERDATAGRID()
                 Catch ex As Exception
