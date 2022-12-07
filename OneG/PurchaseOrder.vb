@@ -1,4 +1,7 @@
-﻿Imports System.DirectoryServices.ActiveDirectory
+﻿Imports System.ComponentModel
+Imports System.Data.Common
+Imports System.DirectoryServices.ActiveDirectory
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
 Imports IBM.Data.DB2
 
 Public Class PurchaseOrder
@@ -40,23 +43,18 @@ Public Class PurchaseOrder
             dgvPO.Columns(0).Width = 20
 
             With Me.dgvPO 'PO to be ordered
-                .ColumnCount = 13
-                .Columns(1).Name = "PURCHASE ORDER NUMBER"
-                .Columns(2).Name = "PROCESSED BY"
-                .Columns(3).Name = "SUPPLIER"
-                .Columns(4).Name = "INGREDIENT"
-                .Columns(5).Name = "QTY"
-                .Columns(6).Name = "UNIT"
-                .Columns(7).Name = "PURCHASE PRICE"
-                .Columns(8).Name = "SUBTOTAL"
-                .Columns(9).Name = "DELIVERY STATUS"
-                .Columns(10).Name = "DATE ORDERED"
-                .Columns(11).Name = "sup code"
-                .Columns(12).Name = "ing id"
+                .ColumnCount = 8
+                .Columns(1).Name = "PURCHASE LINE ITEM"
+                .Columns(2).Name = "INGREDIENT"
+                .Columns(3).Name = "QTY"
+                .Columns(4).Name = "UNIT"
+                .Columns(5).Name = "PRICE"
+                .Columns(6).Name = "SUBTOTAL"
+                .Columns(7).Name = "ING_ID"
             End With
 
-            dgvPO.Columns(11).Visible = False
-            dgvPO.Columns(12).Visible = False
+            ' dgvPO.Columns(7).Visible = False
+
 
             With Me.dgvSelect
                 .ColumnCount = 4
@@ -65,7 +63,7 @@ Public Class PurchaseOrder
                 .Columns(2).Name = "IN STOCK"
                 .Columns(3).Name = "UNIT"
             End With
-            Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
+            'Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
             Call RefreshorderDataGrid()
         Catch ex As Exception
 
@@ -76,9 +74,9 @@ Public Class PurchaseOrder
 
             Dim cmd As DB2Command
             Dim rdr As DB2DataReader
-
+            Dim poStr As String
             Dim rows As String()
-
+            ingbtn.PerformClick()
             cmd = New DB2Command("select * from INGREDIENTS", conn)
             rdr = cmd.ExecuteReader
 
@@ -90,7 +88,22 @@ Public Class PurchaseOrder
 
             dgvPO.Rows.Clear()
 
+            cmd = New DB2Command("select po_no from purchases order by po_no asc", conn)
+            rdr = cmd.ExecuteReader
+            If rdr.HasRows Then
+                While rdr.Read
+                    poStr = rdr.GetString(0)
+                    Integer.TryParse(poStr, po)
+                End While
+                po += 1
+            Else
+                po = 10000 'as start
+            End If
 
+            txtPoNum.Text = po
+            txtsearch.Clear()
+            txtSup.Clear()
+            txtTotal.Clear()
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -229,62 +242,84 @@ Public Class PurchaseOrder
         Dim count As Integer = 0
         Dim similar As Boolean = False
         Dim po As Integer = 0
+
+        If SwitchBtn.Text = "CREATE ORDER" Then
+
+            SwitchBtn.Text = "ORDER LISTS"
+            dgvPO.Columns(0).Visible = True
+            dgvPO.Rows.Clear()
+            With Me.dgvPO 'PO to be ordered
+                .ColumnCount = 8
+                .Columns(1).Name = "PURCHASE LINE ITEM"
+                .Columns(2).Name = "INGREDIENT"
+                .Columns(3).Name = "QTY"
+                .Columns(4).Name = "UNIT"
+                .Columns(5).Name = "PRICE"
+                .Columns(6).Name = "SUBTOTAL"
+                .Columns(7).Name = "ING_ID"
+            End With
+            Call RefreshorderDataGrid()
+        End If
+
         If SEARCHPO.Text = "Search Ingredients" Then
             Try
 
                 While dgvPO.Rows(i).Cells(1).Value IsNot Nothing
-                    If dgvPO.Rows(i).Cells(4).Value = dgvSelect.CurrentRow.Cells(1).Value Then
+                    If dgvPO.Rows(i).Cells(2).Value = dgvSelect.CurrentRow.Cells(1).Value Then
                         similar = True
                     End If
                     i += 1
                 End While
 
 
-
-
                 'get the last po_no
                 Me.dgvPO.Rows.Add()
-                    cmd = New DB2Command("select po_no from purchases order by po_no asc", conn)
+                cmd = New DB2Command("select po_list from po_lineitem order by po_list asc", conn)
+                rdr = cmd.ExecuteReader
+                If rdr.HasRows Then
+                    While rdr.Read
+                        poStr = rdr.GetString(0)
+                        Integer.TryParse(poStr, po)
+                    End While
+                    po += 1
+                Else
+                    po = 10000 'as start
+                End If
+
+
+                'condition where if above cells are not empty then add 1 to current po
+                While count < i
+                    'if has similar purchase order existing in database then move on
+                    cmd = New DB2Command("select po_list from po_lineitem where po_list='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
                     rdr = cmd.ExecuteReader
                     If rdr.HasRows Then
-                        While rdr.Read
-                            poStr = rdr.GetString(0)
-                            Integer.TryParse(poStr, po)
-                        End While
+                        count += 1
                     Else
-                        po = 10000 'as start
-                    End If
-
-
-                    'increment last po_no 
-                    If po <> 10000 Then
+                        'current row is equal to po +1
                         po += 1
+                        count += 1
                     End If
 
+                End While
+                ' Dim one As Decimal = 1
+                Me.dgvPO.Rows(i).Cells(1).Value = po
+                Me.dgvPO.Rows(i).Cells(7).Value = Me.dgvSelect.CurrentRow.Cells(0).Value
+                Me.dgvPO.Rows(i).Cells(2).Value = Me.dgvSelect.CurrentRow.Cells(1).Value
+                Me.dgvPO.Rows(i).Cells(4).Value = Me.dgvSelect.CurrentRow.Cells(3).Value
+                Me.dgvPO.Rows(i).Cells(5).Value = "0.00"
+                Me.dgvPO.Rows(i).Cells(3).Value = 1
+                Me.dgvPO.Rows(i).Cells(6).Value = "0.00"
 
-                    'condition where if above cells are not empty then add 1 to current po
-                    While count < i
-                        'if has similar purchase order existing in database then move on
-                        cmd = New DB2Command("select po_no from purchases where po_no='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
-                        rdr = cmd.ExecuteReader
-                        If rdr.HasRows Then
-                            count += 1
-                        Else
-                            'current row is equal to po +1
-                            po += 1
-                            count += 1
+                cmd = New DB2Command("select po_list from po_lineitem where po_list='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                rdr = cmd.ExecuteReader
+                If rdr.HasRows Then
+                Else
+                    If i > 0 Then
+                        If Me.dgvPO.Rows(i - 1).Cells(1).Value = po Then
+                            Me.dgvPO.Rows(i).Cells(1).Value = po + 1
                         End If
-                    End While
-
-                    Me.dgvPO.Rows(i).Cells(1).Value = po
-                    Me.dgvPO.Rows(i).Cells(12).Value = Me.dgvSelect.CurrentRow.Cells(0).Value
-                    Me.dgvPO.Rows(i).Cells(4).Value = Me.dgvSelect.CurrentRow.Cells(1).Value
-                Me.dgvPO.Rows(i).Cells(2).Value = Home.ACCID.ToString
-                Me.dgvPO.Rows(i).Cells(6).Value = Me.dgvSelect.CurrentRow.Cells(3).Value
-                    Me.dgvPO.Rows(i).Cells(8).Value = "0"
-                    Me.dgvPO.Rows(i).Cells(10).Value = Me.dtpSideBar.Value.ToShortDateString
-                    Me.dgvPO.Rows(i).Cells(9).Value = "NOT DELIVERED"
-
+                    End If
+                End If
                 If similar = True Then
                     Dim answer As DialogResult
                     answer = MessageBox.Show("Ingredient Order Already Exist, Continue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -299,30 +334,9 @@ Public Class PurchaseOrder
                 dgvPO.ClearSelection()
             End Try
         Else
-            Try
-
-                Dim j As Integer = 0
-
-                'if supplier and ingredient is filled increment count
-                While dgvPO.Rows(j).Cells(3).Value IsNot Nothing And dgvPO.Rows(j).Cells(4).Value IsNot Nothing
-                    j += 1
-                End While
-
-                'if ingredient is filled  and supplier empty then add supplier to same row
-                If dgvPO.Rows(j).Cells(4).Value IsNot Nothing And dgvPO.Rows(j).Cells(3).Value Is Nothing Then
-                    Me.dgvPO.Rows(j).Cells(3).Value = Me.dgvSelect.CurrentRow.Cells(1).Value
-                    Me.dgvPO.Rows(j).Cells(11).Value = Me.dgvSelect.CurrentRow.Cells(0).Value
-                ElseIf j = 0 Then
-                    MsgBox("Select Ingredient to assign supplier ID")
-
-
-
-                End If
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-                dgvPO.ClearSelection()
-            End Try
+            txtSup.Text = dgvSelect.CurrentRow.Cells(0).Value.ToString
         End If
+
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
@@ -334,51 +348,49 @@ Public Class PurchaseOrder
         Dim j As Integer = 0
         Dim none As Boolean = True
 
+        If SwitchBtn.Text = "ORDER LISTS" Then
+            Try
+                k = dgvPO.Rows.Count - 1
 
-        Try
-            k = dgvPO.Rows.Count - 1
 
+                While count < k
 
-            While count < k
+                    If dgvPO.Rows(count).Cells(0).Value = True Then
+                        dgvPO.Rows(count).Cells(0).Value = False
+                        dgvPO.Rows.RemoveAt(count)
+                        k -= 1
+                        none = False
+                    Else
+                        count += 1
+                    End If
+                End While
 
-                If dgvPO.Rows(count).Cells(0).Value = True Then
-                    dgvPO.Rows(count).Cells(0).Value = False
-                    dgvPO.Rows.RemoveAt(count)
-                    k -= 1
-                    none = False
-                Else
-                    count += 1
+                If none = True And k > 0 Then
+                    dgvPO.Rows.RemoveAt(k - 1)
                 End If
-            End While
 
-            If none = True And k > 0 Then
-                dgvPO.Rows.RemoveAt(k - 1)
-            End If
-
-            cmd = New DB2Command("select po_no from purchases order by po_no asc", conn)
+                cmd = New DB2Command("select po_list from po_lineitem order by po_list asc", conn)
                 rdr = cmd.ExecuteReader
                 If rdr.HasRows Then
                     While rdr.Read
                         postr = rdr.GetString(0)
                         Integer.TryParse(postr, po)
-
-                End While
+                    End While
                 Else
-                    po = 10000 'as start
+                    po = 9999 'as start
                 End If
 
                 'increment last po_no 
                 po += 1
+                k = 0
+                While Me.dgvPO.Rows(k).Cells(1).Value IsNot Nothing
+                    k += 1
+                End While
 
-            k = 0
-            While Me.dgvPO.Rows(k).Cells(1).Value IsNot Nothing
-                k += 1
-            End While
 
-
-            While j < k
+                While j < k
                     'if has similar purchase order existing inside db then move on and dont change po_no 
-                    cmd = New DB2Command("select po_no from purchases where po_no='" & Me.dgvPO.Rows(j).Cells(1).Value & "'", conn)
+                    cmd = New DB2Command("select po_list from po_lineitem where po_list='" & Me.dgvPO.Rows(j).Cells(1).Value & "'", conn)
                     rdr = cmd.ExecuteReader
                     If rdr.HasRows Then
                         j += 1
@@ -402,11 +414,14 @@ Public Class PurchaseOrder
                     End If
                 End While
 
-        Catch ex As Exception
-            MsgBox(ex.ToString)
+            Catch ex As Exception
+                MsgBox(ex.ToString)
 
 
-        End Try
+            End Try
+        Else
+            MsgBox("Click 'All Purchases' tab to cancel a purchase order.")
+        End If
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles SaveBtn.Click
@@ -417,56 +432,96 @@ Public Class PurchaseOrder
         Dim rdrInsert As DB2DataReader
 
         If Home.role.Contains("CASHIER") Then
-            MsgBox("Error: User Acount Not Authorized")
+                MsgBox("Error: User Acount Not Authorized")
+
+            ElseIf txtSup.Text = "" Then
+                MsgBox("Please Select the Supplier.")
+            ElseIf txtTotal.Text = 0 Then
+                MsgBox("Please input the price for each item.")
 
 
-        Else
+            Else
 
-            Try
-                While Me.dgvPO.Rows(i).Cells(1).Value IsNot Nothing
-                    i += 1
-                    save = True
-                End While
+                Try
+                    While Me.dgvPO.Rows(i).Cells(1).Value IsNot Nothing
+                        i += 1
+                        save = True
+                    End While
 
-                If save = True Then
-                    Dim answer As DialogResult
-                    answer = MessageBox.Show("Purchase Order will be saved, Continue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                    If answer = vbYes Then
+                    If save = True Then
+                        Dim answer As DialogResult
+                        answer = MessageBox.Show("Purchase Order will be saved, Continue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                        If answer = vbYes Then
 
-                        While count < i
+                            While count < i
 
-                            cmdInsert = New DB2Command("select po_no from purchases where po_no ='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
-                            rdrInsert = cmdInsert.ExecuteReader
+                                cmdInsert = New DB2Command("select po_no from purchases where po_no ='" & txtPoNum.Text & "'", conn)
+                                rdrInsert = cmdInsert.ExecuteReader
                             If rdrInsert.HasRows Then
 
-                            Else
-                                cmdInsert = New DB2Command("insert into purchases(po_no,empid,ing_id,supid,qtypur,pricepur,subtotal,delvstat,purdate,purunit) values(@po,@emp,@ing,@supid,@qty,@price,@sub,@delv,@date,@unit)", conn)
-                                cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(1).Value
-                                cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(2).Value
-                                cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(12).Value
-                                cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(11).Value
-                                cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                                cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(6).Value
-                                cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(7).Value
-                                cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(8).Value
-                                cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(9).Value
-                                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = Me.dgvPO.Rows(count).Cells(10).Value
+                                cmdInsert = New DB2Command("update purchases set po_total=@total,po_date=@date,accid=@accid where po_no ='" & txtPoNum.Text & "'", conn)
+                                cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Home.ACCID.ToString
+                                cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
+                                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Value
                                 cmdInsert.ExecuteNonQuery()
 
-                            End If
+                                cmdInsert = New DB2Command("select po_list from po_lineitem where po_list ='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                                rdrInsert = cmdInsert.ExecuteReader
+                                If rdrInsert.HasRows Then
+                                    cmdInsert = New DB2Command("update po_lineitem set purqty=@qty ,unit=@unit,price=@price,subtotal=@sub where po_list ='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(3).Value
+                                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(4).Value
+                                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
+                                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(6).Value
+                                    cmdInsert.ExecuteNonQuery()
+                                Else
+                                    cmdInsert = New DB2Command("insert into po_lineitem(po_list,po_no,ing_id,purqty ,unit,price,subtotal) values(@list,@po,@ing,@qty,@unit,@price,@sub)", conn)
+                                    cmdInsert.Parameters.Add("@list", DB2Type.Integer).Value = Me.dgvPO.Rows(count).Cells(1).Value
+                                    cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = txtPoNum.Text
+                                    cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(7).Value
+                                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(3).Value
+                                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(4).Value
+                                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
+                                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(6).Value
+                                    cmdInsert.ExecuteNonQuery()
+                                End If
 
-                            count += 1
-                        End While
-                        MsgBox("Purchase Order Saved Succesfully")
-                        dgvPO.Rows.Clear()
+                            Else
+
+                                    cmdInsert = New DB2Command("insert into purchases(po_no,supid,po_total,po_date ,accid,delvstat) values(@po,@supid,@total,@date,@accid,@delv)", conn)
+                                    cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = txtPoNum.Text
+                                    cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Home.ACCID.ToString
+                                    cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = txtSup.Text
+                                    cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
+                                    cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = "NOT DELIVERED"
+                                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Value
+                                cmdInsert.ExecuteNonQuery()
+
+                                    cmdInsert = New DB2Command("insert into po_lineitem(po_list,po_no,ing_id,purqty ,unit,price,subtotal) values(@list,@po,@ing,@qty,@unit,@price,@sub)", conn)
+                                    cmdInsert.Parameters.Add("@list", DB2Type.Integer).Value = Me.dgvPO.Rows(count).Cells(1).Value
+                                    cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = txtPoNum.Text
+                                cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(7).Value
+                                cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(3).Value
+                                cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(4).Value
+                                cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
+                                cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(6).Value
+
+                                cmdInsert.ExecuteNonQuery()
+                                End If
+
+                                count += 1
+                            End While
+                            MsgBox("Purchase Order Saved Succesfully")
+                        Call RefreshorderDataGrid()
                     End If
 
-                End If
+                    End If
 
-            Catch ex As Exception
-                MsgBox("Table(s) has missing information.")
-            End Try
-        End If
+                Catch ex As Exception
+                    MsgBox("Table(s) has missing information.")
+                    MsgBox(ex.ToString)
+                End Try
+            End If
 
     End Sub
 
@@ -495,22 +550,49 @@ Public Class PurchaseOrder
     End Sub
 
     Private Sub dgvPO_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPO.CellContentClick
+        If SwitchBtn.Text = "ORDER LISTS" Then
 
+        Else
+
+        End If
     End Sub
 
     Private Sub dgvPO_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPO.CellValueChanged
         Dim subtotal As Double
+        Dim i As Integer = 0
+        Dim count As Integer = 0
+        Dim total As Decimal = 0
 
-        If Me.dgvPO.CurrentRow.Cells(5).Value = "" Then
-            Me.dgvPO.CurrentRow.Cells(8).Value = "0.00"
-        ElseIf Me.dgvPO.CurrentRow.Cells(7).Value = "" Then
-            Me.dgvPO.CurrentRow.Cells(8).Value = "0.00"
-        Else
-            Dim qty As Decimal = Me.dgvPO.CurrentRow.Cells(5).Value
-            Dim price As Decimal = Me.dgvPO.CurrentRow.Cells(7).Value
-            subtotal = qty * price
-            Me.dgvPO.CurrentRow.Cells(8).Value = subtotal
+
+        If SwitchBtn.Text = "ORDER LISTS" Then
+
+            If Me.dgvPO.CurrentRow.Cells(3).Value Is Nothing Then
+                Me.dgvPO.CurrentRow.Cells(6).Value = "0.00"
+            ElseIf Me.dgvPO.CurrentRow.Cells(5).Value Is Nothing Then
+                Me.dgvPO.CurrentRow.Cells(6).Value = "0.00"
+            Else
+                Dim qty As Decimal = Me.dgvPO.CurrentRow.Cells(3).Value
+                Dim price As Decimal = Me.dgvPO.CurrentRow.Cells(5).Value
+                subtotal = qty * price
+                Me.dgvPO.CurrentRow.Cells(6).Value = subtotal
+            End If
+
+            While Me.dgvPO.Rows(i).Cells(1).Value IsNot Nothing
+                i += 1
+            End While
+
+            While count < i
+                total += Me.dgvPO.Rows(count).Cells(6).Value
+                count += 1
+
+            End While
+
+            txtTotal.Text = total
+
+            Dim j As Integer = 0
+
         End If
+
 
     End Sub
 
@@ -608,4 +690,99 @@ Public Class PurchaseOrder
         Me.Close()
     End Sub
 
+    Private Sub TextBox3_TextChanged_1(sender As Object, e As EventArgs) Handles txtTotal.TextChanged
+
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles SwitchBtn.Click
+        Dim cmd As DB2Command
+        Dim rdr As DB2DataReader
+        If SwitchBtn.Text = "ORDER LISTS" Then
+            SwitchBtn.Text = "CREATE ORDER"
+            dgvPO.Rows.Clear()
+            dgvPO.Columns(0).Visible = False
+            With Me.dgvPO
+                .ColumnCount = 5
+                .Columns(1).Name = "PURCHASE NUMBER"
+                .Columns(2).Name = "SUPPLIER ID"
+                .Columns(3).Name = "TOTAL"
+                .Columns(4).Name = "ORDER DATE"
+            End With
+
+            cmd = New DB2Command("select * from PURCHASES where delvstat='NOT DELIVERED'", conn)
+            rdr = cmd.ExecuteReader
+            Dim i As Integer = 0
+            While rdr.Read
+                dgvPO.Rows.Add()
+                Me.dgvPO.Rows(i).Cells(1).Value = rdr.GetString(0)
+                Me.dgvPO.Rows(i).Cells(2).Value = rdr.GetString(1)
+                Me.dgvPO.Rows(i).Cells(3).Value = rdr.GetString(2)
+                Me.dgvPO.Rows(i).Cells(4).Value = rdr.GetString(3)
+
+                i += 1
+            End While
+
+        Else
+            SwitchBtn.Text = "ORDER LISTS"
+            dgvPO.Columns(0).Visible = True
+            dgvPO.Rows.Clear()
+            With Me.dgvPO 'PO to be ordered
+                .ColumnCount = 8
+                .Columns(1).Name = "PURCHASE LINE ITEM"
+                .Columns(2).Name = "INGREDIENT"
+                .Columns(3).Name = "QTY"
+                .Columns(4).Name = "UNIT"
+                .Columns(5).Name = "PRICE"
+                .Columns(6).Name = "SUBTOTAL"
+                .Columns(7).Name = "ING_ID"
+            End With
+            Call RefreshorderDataGrid()
+
+        End If
+    End Sub
+
+    Private Sub dgvPO_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPO.CellDoubleClick
+        Dim cmd As DB2Command
+        Dim rdr As DB2DataReader
+        Dim param1 As DB2Parameter
+        If SwitchBtn.Text = "ORDER LISTS" Then
+
+        Else
+
+            txtPoNum.Text = dgvPO.CurrentRow.Cells(1).Value
+            SwitchBtn.Text = "ORDER LISTS"
+            dgvPO.Columns(0).Visible = True
+            dgvPO.Rows.Clear()
+            With Me.dgvPO 'PO to be ordered
+                .ColumnCount = 8
+                .Columns(1).Name = "PURCHASE LINE ITEM"
+                .Columns(2).Name = "INGREDIENT"
+                .Columns(3).Name = "QTY"
+                .Columns(4).Name = "UNIT"
+                .Columns(5).Name = "PRICE"
+                .Columns(6).Name = "SUBTOTAL"
+                .Columns(7).Name = "ING_ID"
+            End With
+
+            cmd = New DB2Command("select * from table( db2admin.Po_lineitemleftjoin_ingredients(?)) as udf ", conn)
+            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+            param1.Direction = ParameterDirection.Input
+            cmd.Parameters("@1").Value = Me.txtPoNum.Text
+
+            rdr = cmd.ExecuteReader
+            Dim i As Integer = 0
+            While rdr.Read
+                dgvPO.Rows.Add()
+                Me.dgvPO.Rows(i).Cells(1).Value = rdr.GetString(0)
+                Me.dgvPO.Rows(i).Cells(2).Value = rdr.GetString(7)
+                Me.dgvPO.Rows(i).Cells(3).Value = rdr.GetString(3)
+                Me.dgvPO.Rows(i).Cells(4).Value = rdr.GetString(4)
+                Me.dgvPO.Rows(i).Cells(5).Value = rdr.GetString(5)
+                Me.dgvPO.Rows(i).Cells(6).Value = rdr.GetString(6)
+                Me.dgvPO.Rows(i).Cells(7).Value = rdr.GetString(2)
+                txtSup.Text = rdr.GetString(8)
+                i += 1
+            End While
+        End If
+    End Sub
 End Class

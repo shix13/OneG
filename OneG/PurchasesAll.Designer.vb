@@ -45,16 +45,15 @@ Partial Class PurchasesAll
         Me.CmbSearchSup = New System.Windows.Forms.ComboBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.searchPurchases = New System.Windows.Forms.TextBox()
         Me.dgvPurchases = New System.Windows.Forms.DataGridView()
         Me.CloseBtn = New System.Windows.Forms.Button()
-        Me.SaveBtn = New System.Windows.Forms.Button()
         Me.DeleteBtn = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.CreatePOStrip = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmployeeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -308,13 +307,12 @@ Partial Class PurchasesAll
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
+        Me.GroupBox1.Controls.Add(Me.DateTimePicker1)
         Me.GroupBox1.Controls.Add(Me.CmbSearchSup)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.Label8)
-        Me.GroupBox1.Controls.Add(Me.searchPurchases)
         Me.GroupBox1.Controls.Add(Me.dgvPurchases)
         Me.GroupBox1.Controls.Add(Me.CloseBtn)
-        Me.GroupBox1.Controls.Add(Me.SaveBtn)
         Me.GroupBox1.Controls.Add(Me.DeleteBtn)
         Me.GroupBox1.Controls.Add(Me.MenuStrip1)
         Me.GroupBox1.Location = New System.Drawing.Point(71, 112)
@@ -327,7 +325,7 @@ Partial Class PurchasesAll
         '
         Me.CmbSearchSup.FormattingEnabled = True
         Me.CmbSearchSup.Items.AddRange(New Object() {"NOT DELIVERED", "DELIVERED"})
-        Me.CmbSearchSup.Location = New System.Drawing.Point(605, 135)
+        Me.CmbSearchSup.Location = New System.Drawing.Point(185, 134)
         Me.CmbSearchSup.Name = "CmbSearchSup"
         Me.CmbSearchSup.Size = New System.Drawing.Size(211, 24)
         Me.CmbSearchSup.TabIndex = 40
@@ -348,19 +346,11 @@ Partial Class PurchasesAll
         Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.Label8.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.Transparent
-        Me.Label8.Location = New System.Drawing.Point(907, 137)
+        Me.Label8.Location = New System.Drawing.Point(986, 134)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(67, 21)
         Me.Label8.TabIndex = 38
         Me.Label8.Text = "Search"
-        '
-        'searchPurchases
-        '
-        Me.searchPurchases.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.searchPurchases.Location = New System.Drawing.Point(989, 132)
-        Me.searchPurchases.Name = "searchPurchases"
-        Me.searchPurchases.Size = New System.Drawing.Size(279, 27)
-        Me.searchPurchases.TabIndex = 37
         '
         'dgvPurchases
         '
@@ -385,24 +375,12 @@ Partial Class PurchasesAll
         Me.CloseBtn.Text = "CLOSE"
         Me.CloseBtn.UseVisualStyleBackColor = True
         '
-        'SaveBtn
-        '
-        Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(49, 670)
-        Me.SaveBtn.Name = "SaveBtn"
-        Me.SaveBtn.Size = New System.Drawing.Size(102, 41)
-        Me.SaveBtn.TabIndex = 21
-        Me.SaveBtn.Text = "SAVE"
-        Me.SaveBtn.UseVisualStyleBackColor = True
-        '
         'DeleteBtn
         '
         Me.DeleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.DeleteBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteBtn.ForeColor = System.Drawing.Color.White
-        Me.DeleteBtn.Location = New System.Drawing.Point(157, 670)
+        Me.DeleteBtn.Location = New System.Drawing.Point(990, 670)
         Me.DeleteBtn.Name = "DeleteBtn"
         Me.DeleteBtn.Size = New System.Drawing.Size(153, 41)
         Me.DeleteBtn.TabIndex = 20
@@ -456,6 +434,15 @@ Partial Class PurchasesAll
         Me.Label1.Size = New System.Drawing.Size(362, 70)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "PURCHASES"
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(1080, 128)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(176, 32)
+        Me.DateTimePicker1.TabIndex = 14
         '
         'PurchasesAll
         '
@@ -512,11 +499,10 @@ Partial Class PurchasesAll
     Friend WithEvents CreatePOStrip As ToolStripMenuItem
     Friend WithEvents EmployeeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CloseBtn As Button
-    Friend WithEvents SaveBtn As Button
     Friend WithEvents DeleteBtn As Button
     Friend WithEvents dgvPurchases As DataGridView
     Friend WithEvents Label8 As Label
-    Friend WithEvents searchPurchases As TextBox
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents CmbSearchSup As ComboBox
+    Friend WithEvents DateTimePicker1 As DateTimePicker
 End Class

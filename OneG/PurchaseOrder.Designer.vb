@@ -56,6 +56,13 @@ Partial Class PurchaseOrder
         Me.EmployeeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtPoNum = New System.Windows.Forms.TextBox()
+        Me.txtSup = New System.Windows.Forms.TextBox()
+        Me.txtTotal = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.SwitchBtn = New System.Windows.Forms.Button()
         Me.leftSideBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -308,6 +315,13 @@ Partial Class PurchaseOrder
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.SwitchBtn)
+        Me.GroupBox1.Controls.Add(Me.Label4)
+        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.txtTotal)
+        Me.GroupBox1.Controls.Add(Me.txtSup)
+        Me.GroupBox1.Controls.Add(Me.txtPoNum)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.SEARCHPO)
         Me.GroupBox1.Controls.Add(Me.txtsearch)
@@ -329,7 +343,7 @@ Partial Class PurchaseOrder
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.Button1.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(1172, 395)
+        Me.Button1.Location = New System.Drawing.Point(1172, 489)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(96, 40)
         Me.Button1.TabIndex = 39
@@ -342,7 +356,7 @@ Partial Class PurchaseOrder
         Me.SEARCHPO.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
         Me.SEARCHPO.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SEARCHPO.ForeColor = System.Drawing.Color.Transparent
-        Me.SEARCHPO.Location = New System.Drawing.Point(447, 436)
+        Me.SEARCHPO.Location = New System.Drawing.Point(449, 462)
         Me.SEARCHPO.Name = "SEARCHPO"
         Me.SEARCHPO.Size = New System.Drawing.Size(164, 21)
         Me.SEARCHPO.TabIndex = 38
@@ -351,7 +365,7 @@ Partial Class PurchaseOrder
         'txtsearch
         '
         Me.txtsearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtsearch.Location = New System.Drawing.Point(632, 434)
+        Me.txtsearch.Location = New System.Drawing.Point(632, 452)
         Me.txtsearch.Name = "txtsearch"
         Me.txtsearch.Size = New System.Drawing.Size(224, 27)
         Me.txtsearch.TabIndex = 37
@@ -362,7 +376,7 @@ Partial Class PurchaseOrder
         Me.ingbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ingbtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ingbtn.ForeColor = System.Drawing.Color.White
-        Me.ingbtn.Location = New System.Drawing.Point(48, 424)
+        Me.ingbtn.Location = New System.Drawing.Point(48, 442)
         Me.ingbtn.Name = "ingbtn"
         Me.ingbtn.Size = New System.Drawing.Size(120, 41)
         Me.ingbtn.TabIndex = 25
@@ -374,7 +388,7 @@ Partial Class PurchaseOrder
         Me.supbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.supbtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.supbtn.ForeColor = System.Drawing.Color.White
-        Me.supbtn.Location = New System.Drawing.Point(174, 424)
+        Me.supbtn.Location = New System.Drawing.Point(174, 442)
         Me.supbtn.Name = "supbtn"
         Me.supbtn.Size = New System.Drawing.Size(120, 41)
         Me.supbtn.TabIndex = 24
@@ -385,11 +399,11 @@ Partial Class PurchaseOrder
         '
         Me.dgvSelect.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvSelect.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSelect.Location = New System.Drawing.Point(48, 471)
+        Me.dgvSelect.Location = New System.Drawing.Point(48, 489)
         Me.dgvSelect.Name = "dgvSelect"
         Me.dgvSelect.RowHeadersWidth = 51
         Me.dgvSelect.RowTemplate.Height = 24
-        Me.dgvSelect.Size = New System.Drawing.Size(808, 240)
+        Me.dgvSelect.Size = New System.Drawing.Size(808, 222)
         Me.dgvSelect.TabIndex = 23
         '
         'closebtn
@@ -409,7 +423,7 @@ Partial Class PurchaseOrder
         Me.SaveBtn.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.SaveBtn.Font = New System.Drawing.Font("Malgun Gothic", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SaveBtn.ForeColor = System.Drawing.Color.White
-        Me.SaveBtn.Location = New System.Drawing.Point(1070, 395)
+        Me.SaveBtn.Location = New System.Drawing.Point(1069, 489)
         Me.SaveBtn.Name = "SaveBtn"
         Me.SaveBtn.Size = New System.Drawing.Size(96, 40)
         Me.SaveBtn.TabIndex = 21
@@ -420,7 +434,7 @@ Partial Class PurchaseOrder
         '
         Me.dgvPO.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvPO.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvPO.Location = New System.Drawing.Point(48, 88)
+        Me.dgvPO.Location = New System.Drawing.Point(48, 118)
         Me.dgvPO.Name = "dgvPO"
         Me.dgvPO.RowHeadersWidth = 51
         Me.dgvPO.RowTemplate.Height = 24
@@ -473,6 +487,75 @@ Partial Class PurchaseOrder
         Me.Label1.Size = New System.Drawing.Size(541, 70)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "PURCHASE ORDER"
+        '
+        'txtPoNum
+        '
+        Me.txtPoNum.Location = New System.Drawing.Point(175, 80)
+        Me.txtPoNum.Name = "txtPoNum"
+        Me.txtPoNum.Size = New System.Drawing.Size(187, 22)
+        Me.txtPoNum.TabIndex = 40
+        '
+        'txtSup
+        '
+        Me.txtSup.Location = New System.Drawing.Point(470, 78)
+        Me.txtSup.Name = "txtSup"
+        Me.txtSup.Size = New System.Drawing.Size(187, 22)
+        Me.txtSup.TabIndex = 41
+        '
+        'txtTotal
+        '
+        Me.txtTotal.Location = New System.Drawing.Point(743, 78)
+        Me.txtTotal.Name = "txtTotal"
+        Me.txtTotal.Size = New System.Drawing.Size(187, 22)
+        Me.txtTotal.TabIndex = 42
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
+        Me.Label2.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.Transparent
+        Me.Label2.Location = New System.Drawing.Point(53, 81)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(116, 21)
+        Me.Label2.TabIndex = 43
+        Me.Label2.Text = "P.O. Number"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
+        Me.Label3.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.Transparent
+        Me.Label3.Location = New System.Drawing.Point(390, 79)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(74, 21)
+        Me.Label3.TabIndex = 44
+        Me.Label3.Text = "Supplier"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.FromArgb(CType(CType(79, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(92, Byte), Integer))
+        Me.Label4.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.Transparent
+        Me.Label4.Location = New System.Drawing.Point(686, 79)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(51, 21)
+        Me.Label4.TabIndex = 45
+        Me.Label4.Text = "Total"
+        '
+        'SwitchBtn
+        '
+        Me.SwitchBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SwitchBtn.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SwitchBtn.ForeColor = System.Drawing.Color.White
+        Me.SwitchBtn.Location = New System.Drawing.Point(1135, 54)
+        Me.SwitchBtn.Name = "SwitchBtn"
+        Me.SwitchBtn.Size = New System.Drawing.Size(133, 58)
+        Me.SwitchBtn.TabIndex = 46
+        Me.SwitchBtn.Text = "ORDER LISTS"
+        Me.SwitchBtn.UseVisualStyleBackColor = True
         '
         'PurchaseOrder
         '
@@ -537,4 +620,11 @@ Partial Class PurchaseOrder
     Friend WithEvents SEARCHPO As Label
     Friend WithEvents txtsearch As TextBox
     Friend WithEvents Button1 As Button
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtTotal As TextBox
+    Friend WithEvents txtSup As TextBox
+    Friend WithEvents txtPoNum As TextBox
+    Friend WithEvents SwitchBtn As Button
 End Class

@@ -127,7 +127,6 @@ Public Class MainTable
         If RDR.HasRows Then
 
             Try
-
                 str = "call updatetable(?,?)"
                 cmd = New DB2Command(str, conn)
 
@@ -154,7 +153,6 @@ Public Class MainTable
 
 
                 Try
-
 
                     str = "call INSERTTABLE(?,?)"
                     cmd = New DB2Command(str, conn)

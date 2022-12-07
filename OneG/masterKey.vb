@@ -10,7 +10,8 @@ Public Class masterKey
         cmd = New DB2Command("select password from EMPLOYEE where ACCID ='admin'", conn)
         rdr = cmd.ExecuteReader
         rdr.Read()
-        If rdr.GetString(0).Equals(txtInput.Text) Then
+        Dim str = rdr.GetString(0).ToString
+        If str = txtInput.Text Then
             CONFIRM = True
         Else
             CONFIRM = False

@@ -30,24 +30,16 @@ Public Class AccountUser
 
     Private Sub AccountUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Dim cmd As DB2Command
-        Dim rdr As DB2DataReader
+
         Try
 
             CONN = New DB2Connection("server=localhost;database=oneg;" + "uid=db2admin;password=db2admin;")
             CONN.Open()
 
-            cmd = New DB2Command("select * from EMPLOYEE where ACCID ='" & Home.ACCID.ToString & "'", CONN)
-            rdr = cmd.ExecuteReader
-            If rdr.Read Then
-                TXTACCID.Text = rdr.GetString(0)
-                txtFName.Text = rdr.GetString(1)
-                txtMName.Text = rdr.GetString(2)
-                txtLName.Text = rdr.GetString(3)
-                TXTPOSITION.Text = rdr.GetString(5)
-                Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
+
+            Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
                 Call REFRESHORDERDATAGRID()
-            End If
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -80,17 +72,29 @@ Public Class AccountUser
     Private Sub REFRESHORDERDATAGRID()
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
-        cmd = New DB2Command("select * from EMPLOYEE where ACCID ='" & Home.ACCID.ToString & "'", CONN)
-        rdr = cmd.ExecuteReader
+        Dim param1 As DB2Parameter
 
-        If rdr.Read Then
-            TXTACCID.Text = rdr.GetString(0)
-            txtFName.Text = rdr.GetString(1)
-            txtMName.Text = rdr.GetString(2)
-            txtLName.Text = rdr.GetString(3)
-            txtPass.Clear()
-            TXTPOSITION.Text = rdr.GetString(5)
-        End If
+        Try
+
+
+            cmd = New DB2Command("select * from table( db2admin.SearchEmployeeAccount(?)) as udf", CONN)
+
+
+            param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+            param1.Direction = ParameterDirection.Input
+            cmd.Parameters("@1").Value = Home.ACCID.ToString
+            rdr = cmd.ExecuteReader
+            If rdr.Read Then
+                TXTACCID.Text = rdr.GetString(0)
+                txtFName.Text = rdr.GetString(1)
+                txtMName.Text = rdr.GetString(2)
+                txtLName.Text = rdr.GetString(3)
+                txtPass.Clear()
+                TXTPOSITION.Text = rdr.GetString(5)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles savebtn.Click

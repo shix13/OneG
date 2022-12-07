@@ -39,8 +39,8 @@ Public Class Home
             MsgBox(ex.ToString)
         End Try
 
-        Me.lblWelcomeHome.Text = "WELCOME, " + nameU.ToString + "!"
-        Me.lblWelcomeBar.Text = "WELCOME, " + nameU.ToString + "!"
+        'Me.lblWelcomeHome.Text = "WELCOME, " + nameU.ToString + "!"
+        'Me.lblWelcomeBar.Text = "WELCOME, " + nameU.ToString + "!"
 
     End Sub
 

@@ -37,13 +37,15 @@ Public Class MainTransLogs
 
         Try
             With Me.dgvSystemLogs
-                .ColumnCount = 2
-                .Columns(0).Name = "DATE"
-                .Columns(1).Name = "TRANSACTION HISTORY"
+                .ColumnCount = 3
+                .Columns(0).Name = "EMPLOYEE ACCOUNT"
+                .Columns(1).Name = "DATE"
+                .Columns(2).Name = "TRANSACTION HISTORY"
 
                 Call REFRESHORDERDATAGRID()
             End With
             dgvSystemLogs.Columns(0).Width = 80
+            dgvSystemLogs.Columns(1).Width = 80
             'dgvSystemLogs.RowTemplate.Height = 30
 
         Catch ex As Exception
@@ -62,12 +64,12 @@ Public Class MainTransLogs
 
 
 
-        cmd = New DB2Command("Select * from transactlog", conn)
+        cmd = New DB2Command("Select * from logs order by logdate desc", conn)
         rdr = cmd.ExecuteReader
 
         Me.dgvSystemLogs.Rows.Clear()
         While rdr.Read
-            rows = New String() {rdr.GetString(0), rdr.GetString(1)}
+            rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2)}
             Me.dgvSystemLogs.Rows.Add(rows)
         End While
     End Sub
@@ -223,23 +225,22 @@ Public Class MainTransLogs
         Dim rows As String()
 
         If cmbSystemLogs.Text = "ALL" Then
-            cmd = New DB2Command("Select * from transactlog", conn)
+            cmd = New DB2Command("Select * from logs", conn)
             rdr = cmd.ExecuteReader
 
             Me.dgvSystemLogs.Rows.Clear()
             While rdr.Read
-                rows = New String() {rdr.GetString(0), rdr.GetString(1)}
+                rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2)}
                 Me.dgvSystemLogs.Rows.Add(rows)
             End While
 
         Else
 
-            cmd = New DB2Command("Select * from transactlog where comment like '" & cmbSystemLogs.Text & "%'", conn)
+            cmd = New DB2Command("Select * from logs where transaction like '" & cmbSystemLogs.Text & "%'", conn)
             rdr = cmd.ExecuteReader
-
             Me.dgvSystemLogs.Rows.Clear()
             While rdr.Read
-                rows = New String() {rdr.GetString(0), rdr.GetString(1)}
+                rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2)}
                 Me.dgvSystemLogs.Rows.Add(rows)
             End While
         End If
@@ -252,14 +253,14 @@ Public Class MainTransLogs
 
 
 
-        cmd = New DB2Command("select * from transactlog where logdate = @d ", conn)
+        cmd = New DB2Command("select * from logs where logdate = @d ", conn)
 
         cmd.Parameters.Add("@d", DB2Type.Date).Value = DateTimePicker1.Value
         rdr = cmd.ExecuteReader
 
         Me.dgvSystemLogs.Rows.Clear()
         While rdr.Read
-            rows = New String() {rdr.GetString(0), rdr.GetString(1)}
+            rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2)}
             Me.dgvSystemLogs.Rows.Add(rows)
         End While
     End Sub

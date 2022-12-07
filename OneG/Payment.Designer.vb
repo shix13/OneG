@@ -322,6 +322,7 @@ Partial Class Payment
         '
         'txtAmountToPay
         '
+        Me.txtAmountToPay.Enabled = False
         Me.txtAmountToPay.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAmountToPay.Location = New System.Drawing.Point(175, 563)
         Me.txtAmountToPay.Name = "txtAmountToPay"
@@ -413,6 +414,7 @@ Partial Class Payment
         '
         'txtOrderNo
         '
+        Me.txtOrderNo.Enabled = False
         Me.txtOrderNo.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOrderNo.Location = New System.Drawing.Point(175, 457)
         Me.txtOrderNo.Name = "txtOrderNo"

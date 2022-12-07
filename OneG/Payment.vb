@@ -1,4 +1,6 @@
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+﻿Imports System.Net.NetworkInformation
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
 Imports IBM.Data.DB2
 
 Public Class Payment
@@ -90,7 +92,7 @@ Public Class Payment
             Dim dtadapt2 As DB2DataAdapter
             Dim ds2 As DataSet = New DataSet()
 
-            dtadapt2 = New DB2DataAdapter("select * from tables WHERE AVAILABILITY ='NOT AVAILABLE'", conn)
+            dtadapt2 = New DB2DataAdapter("select * from table(db2admin.tablelist()) as udf WHERE AVAILABILITY ='NOT AVAILABLE'", conn)
             dtadapt2.Fill(ds2, "Tables")
             cmbTableNo.DisplayMember = "tableno"
             cmbTableNo.ValueMember = "tableno"
@@ -138,7 +140,8 @@ Public Class Payment
 
         Try
 
-            cmdsearch = New DB2Command("select ORDERNO,ORDERTOTAL from ORDER where TABLENO = '" & cmbTableNo.Text & "' AND PAYMENT ='NOT PAID'", conn)
+            cmdsearch = New DB2Command("select ORDERNO,ORDERTOTAL from table(db2admin.orderlist()) as udf where TABLENO = @table AND PAYMENT ='NOT PAID'", conn)
+            cmdsearch.Parameters.Add("@table", DB2Type.Integer).Value = cmbTableNo.Text
             rdrsearch = cmdsearch.ExecuteReader
             While rdrsearch.Read
                 txtOrderNo.Text = rdrsearch.GetString(0)
@@ -156,10 +159,13 @@ Public Class Payment
     End Sub
 
     Private Sub ConfirmBtn_Click(sender As Object, e As EventArgs) Handles ConfirmBtn.Click
+        Dim PARAM1 As DB2Parameter
+        Dim PARAM2 As DB2Parameter
+        Dim PARAM3 As DB2Parameter
+        Dim PARAM4 As DB2Parameter
+        Dim PARAM5 As DB2Parameter
 
-
-        Dim cmdInsert As DB2Command
-        'dtpSideBar.Value = Now
+        Dim cmdInsert1 As DB2Command
         If txtAmountToPay.Text = "0.00" Or txtAmountToPay.Text <= 0 Then
             MsgBox("Amount to pay cannot be less than zero (0)")
         Else
@@ -168,18 +174,34 @@ Public Class Payment
             If ConfirmationBox.confirmPayment = True Then
                 Try
 
-                    cmdInsert = New DB2Command("insert into payment values (@rcpt,@date,@amt,@accid,@table)", conn)
-                    cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Text
-                    cmdInsert.Parameters.Add("@amt", DB2Type.Decimal).Value = txtAmountToPay.Text
-                    cmdInsert.Parameters.Add("@table", DB2Type.Integer).Value = cmbTableNo.Text()
-                    cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Home.ACCID.ToString
-                    cmdInsert.Parameters.Add("@rcpt", DB2Type.Integer).Value = txtReceiptNo.Text
-                    cmdInsert.ExecuteNonQuery()
+                    cmdInsert1 = New DB2Command("CALL PAYMENT_INSERT(?,?,?,?,?)", conn)
 
-                    cmdInsert = New DB2Command("update ORDER set  PAYMENT ='PAID' where orderno= '" & txtOrderNo.Text & "'", conn)
-                    cmdInsert.ExecuteNonQuery()
-                    cmdInsert = New DB2Command("update tables set  availability ='AVAILABLE' where TABLENO= '" & cmbTableNo.Text & "'", conn)
-                    cmdInsert.ExecuteNonQuery()
+                    PARAM1 = cmdInsert1.Parameters.Add("@n1", DB2Type.Integer)
+                    PARAM1.Direction = ParameterDirection.Input
+                    cmdInsert1.Parameters("@n1").Value = txtReceiptNo.Text
+
+                    PARAM2 = cmdInsert1.Parameters.Add("@n2", DB2Type.Date)
+                    PARAM2.Direction = ParameterDirection.Input
+                    cmdInsert1.Parameters("@n2").Value = dtpSideBar.Text
+
+                    PARAM3 = cmdInsert1.Parameters.Add("@n3", DB2Type.Decimal)
+                    PARAM3.Direction = ParameterDirection.Input
+                    cmdInsert1.Parameters("@n3").Value = txtAmountToPay.Text
+
+                    PARAM4 = cmdInsert1.Parameters.Add("@n4", DB2Type.VarChar)
+                    PARAM4.Direction = ParameterDirection.Input
+                    cmdInsert1.Parameters("@n4").Value = Home.ACCID.ToString
+
+                    PARAM5 = cmdInsert1.Parameters.Add("@n5", DB2Type.Integer)
+                    PARAM5.Direction = ParameterDirection.Input
+                    cmdInsert1.Parameters("@n5").Value = cmbTableNo.Text()
+
+                    cmdInsert1.ExecuteNonQuery()
+
+                    cmdInsert1 = New DB2Command("update ORDER set  PAYMENT ='PAID' where orderno= '" & txtOrderNo.Text & "'", conn)
+                    cmdInsert1.ExecuteNonQuery()
+                    cmdInsert1 = New DB2Command("update tables set  availability ='AVAILABLE' where TABLENO= '" & cmbTableNo.Text & "'", conn)
+                    cmdInsert1.ExecuteNonQuery()
                     MsgBox("payment info recorded...")
                 Catch ex As Exception
                     MsgBox(ex.ToString)

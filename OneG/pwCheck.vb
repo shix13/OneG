@@ -14,7 +14,7 @@ Public Class pwCheck
         STR = RDR.GetString(0).ToString
         If RDR.HasRows Then
 
-            MsgBox(STR)
+
             If STR = txtpw1.Text Then
                 PwCONFIRM = True
             Else

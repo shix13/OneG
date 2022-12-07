@@ -29,6 +29,7 @@ Partial Class Login
         Me.LoginBtn = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.SignUpLink = New System.Windows.Forms.LinkLabel()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -109,6 +110,17 @@ Partial Class Login
         Me.SignUpLink.TabStop = True
         Me.SignUpLink.Text = "Sign Up"
         '
+        'Button1
+        '
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button1.Font = New System.Drawing.Font("Century Gothic", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(1070, 797)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(100, 44)
+        Me.Button1.TabIndex = 7
+        Me.Button1.Text = "EXIT"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -116,6 +128,7 @@ Partial Class Login
         Me.BackgroundImage = Global.OneG.My.Resources.Resources.Background_1
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(1182, 853)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.SignUpLink)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LoginBtn)
@@ -142,4 +155,5 @@ Partial Class Login
     Friend WithEvents LoginBtn As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents SignUpLink As LinkLabel
+    Friend WithEvents Button1 As Button
 End Class

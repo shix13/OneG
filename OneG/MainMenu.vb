@@ -451,7 +451,7 @@ Public Class MainMenu
 
             If SWITCHBTN.Text = "MENU LIST" Then
 
-                REMOVEBTN.Visible = False
+
 
             Else
                 Try
@@ -677,6 +677,7 @@ Public Class MainMenu
         End If
     End Sub
 
+    Private Sub dgvIng_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvIng.CellContentClick
 
-
+    End Sub
 End Class
