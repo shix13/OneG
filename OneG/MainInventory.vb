@@ -1,4 +1,5 @@
-﻿Imports IBM.Data.DB2
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
+Imports IBM.Data.DB2
 
 Public Class MainInventory
     Dim conn As Common.DbConnection
@@ -121,7 +122,8 @@ Public Class MainInventory
         RDR = cmd.ExecuteReader
         If RDR.HasRows Then
             Try
-                str = "call UPDATEINGREDIENT(?,?,?,?)"
+                MsgBox("Only Item name can be modified.")
+                str = "call UPDATEINGREDIENT(?,?)"
                 cmd = New DB2Command(str, conn)
 
                 param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
@@ -131,14 +133,6 @@ Public Class MainInventory
                 param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
                 param2.Direction = ParameterDirection.Input
                 cmd.Parameters("@2").Value = Me.txtIngName.Text
-
-                param3 = cmd.Parameters.Add("@3", DB2Type.Decimal)
-                param3.Direction = ParameterDirection.Input
-                cmd.Parameters("@3").Value = Me.txtQty.Text
-
-                param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
-                param4.Direction = ParameterDirection.Input
-                cmd.Parameters("@4").Value = Me.cmbUnit.Text
 
                 cmd.ExecuteNonQuery()
                 MsgBox("Ingredient Information has been Updated!")
@@ -153,33 +147,28 @@ Public Class MainInventory
                 MsgBox("You have not Selected the unit of measure")
             Else
                 Try
-                str = "call insertINGREDIENT(?,?,?,?)"
-                cmd = New DB2Command(str, conn)
+                    str = "call insertINGREDIENT(?,?,?,?)"
+                    cmd = New DB2Command(str, conn)
+                    param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
+                    param1.Direction = ParameterDirection.Input
+                    cmd.Parameters("@1").Value = Me.txtIngID.Text
+                    param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
+                    param2.Direction = ParameterDirection.Input
+                    cmd.Parameters("@2").Value = Me.txtIngName.Text
 
-                param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
-                param1.Direction = ParameterDirection.Input
-                cmd.Parameters("@1").Value = Me.txtIngID.Text
+                    param3 = cmd.Parameters.Add("@3", DB2Type.Decimal)
+                    param3.Direction = ParameterDirection.Input
+                    cmd.Parameters("@3").Value = Me.txtQty.Text
 
-                param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
-                param2.Direction = ParameterDirection.Input
-                cmd.Parameters("@2").Value = Me.txtIngName.Text
-
-                param3 = cmd.Parameters.Add("@3", DB2Type.Decimal)
-                param3.Direction = ParameterDirection.Input
-                cmd.Parameters("@3").Value = Me.txtQty.Text
-
-                param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
-                param4.Direction = ParameterDirection.Input
-                cmd.Parameters("@4").Value = Me.cmbUnit.Text
-
-
-                cmd.ExecuteNonQuery()
-                MsgBox("Ingredient Information Saved Successfully!")
-                REFRESHORDERDATAGRID()
-            Catch ex As Exception
-                MsgBox("Something went wrong please try again!")
-            End Try
-
+                    param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
+                    param4.Direction = ParameterDirection.Input
+                    cmd.Parameters("@4").Value = Me.cmbUnit.Text
+                    cmd.ExecuteNonQuery()
+                    MsgBox("Ingredient Information Saved Successfully!")
+                    REFRESHORDERDATAGRID()
+                Catch ex As Exception
+                    MsgBox("Something went wrong please try again!")
+                End Try
             End If
         End If
     End Sub
@@ -231,10 +220,10 @@ Public Class MainInventory
 
         Try
             strsearchkey = Me.searchIngr.Text + "%"
-            cmdsearch = New DB2Command("select * from ingredients where ingname like '" & strsearchkey & "'", conn)
+            cmdsearch = New DB2Command("select * from table(db2admin.ingredientlist()) as udf where ingname like @n1", conn)
+            cmdsearch.Parameters.Add("@n1", DB2Type.VarChar).Value = strsearchkey
             rdr = cmdsearch.ExecuteReader
             Me.dgvIngredients.Rows.Clear()
-
             While rdr.Read
                 rows = New String() {rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetString(3)}
                 Me.dgvIngredients.Rows.Add(rows)

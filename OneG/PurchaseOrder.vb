@@ -74,10 +74,9 @@ Public Class PurchaseOrder
 
             Dim cmd As DB2Command
             Dim rdr As DB2DataReader
-            Dim poStr As String
             Dim rows As String()
             ingbtn.PerformClick()
-            cmd = New DB2Command("select * from INGREDIENTS", conn)
+            cmd = New DB2Command("select * from table(db2admin.ingredientlist()) as udf", conn)
             rdr = cmd.ExecuteReader
 
             Me.dgvSelect.Rows.Clear()
@@ -87,20 +86,13 @@ Public Class PurchaseOrder
             End While
 
             dgvPO.Rows.Clear()
-
-            cmd = New DB2Command("select po_no from purchases order by po_no asc", conn)
+            Dim param1 As DB2Parameter
+            cmd = New DB2Command("call getlast_ponum(?)", conn)
+            param1 = cmd.Parameters.Add("@n1", DB2Type.Integer)
+            param1.Direction = ParameterDirection.Output
             rdr = cmd.ExecuteReader
-            If rdr.HasRows Then
-                While rdr.Read
-                    poStr = rdr.GetString(0)
-                    Integer.TryParse(poStr, po)
-                End While
-                po += 1
-            Else
-                po = 10000 'as start
-            End If
 
-            txtPoNum.Text = po
+            txtPoNum.Text = param1.Value.ToString
             txtsearch.Clear()
             txtSup.Clear()
             txtTotal.Clear()
@@ -148,7 +140,8 @@ Public Class PurchaseOrder
         If SEARCHPO.Text = "Search Ingredients" Then
             Try
                 strsearchkey = Me.txtsearch.Text + "%"
-                cmdsearch = New DB2Command("select * from ingredients where ingname like '" & strsearchkey & "'", conn)
+                cmdsearch = New DB2Command("select * from table(db2admin.ingredientlist()) as udf where ingname like @n1", conn)
+                cmdsearch.Parameters.Add("@n1", DB2Type.VarChar).Value = strsearchkey
                 rdrsearch = cmdsearch.ExecuteReader
                 Me.dgvSelect.Rows.Clear()
                 While rdrsearch.Read
@@ -162,7 +155,8 @@ Public Class PurchaseOrder
         Else
             Try
                 strsearchkey = Me.txtsearch.Text + "%"
-                cmdsearch = New DB2Command("select * from SUPPLIER where SUPNAME like '" & strsearchkey & "'", conn)
+                cmdsearch = New DB2Command("select * from table(db2admin.supplierlist()) as udf where SUPNAME like @n1", conn)
+                cmdsearch.Parameters.Add("@n1", DB2Type.VarChar).Value = strsearchkey
                 rdrsearch = cmdsearch.ExecuteReader
                 Me.dgvSelect.Rows.Clear()
                 While rdrsearch.Read
@@ -192,7 +186,7 @@ Public Class PurchaseOrder
         supbtn.BackColor = Color.FromArgb(106, 112, 124)
         Dim rows As String()
 
-        cmd = New DB2Command("select * from INGREDIENTS", conn)
+        cmd = New DB2Command("select * from table(db2admin.ingredientlist()) as udf", conn)
         rdr = cmd.ExecuteReader
 
         Me.dgvSelect.Rows.Clear()
@@ -218,7 +212,7 @@ Public Class PurchaseOrder
 
         Dim rows As String()
 
-        cmd = New DB2Command("select * from SUPPLIER", conn)
+        cmd = New DB2Command("select * from table(db2admin.supplierlist()) as udf", conn)
         rdr = cmd.ExecuteReader
 
         Me.dgvSelect.Rows.Clear()
@@ -238,7 +232,6 @@ Public Class PurchaseOrder
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
         Dim i As Integer = 0
-        Dim poStr As String
         Dim count As Integer = 0
         Dim similar As Boolean = False
         Dim po As Integer = 0
@@ -274,23 +267,20 @@ Public Class PurchaseOrder
 
                 'get the last po_no
                 Me.dgvPO.Rows.Add()
-                cmd = New DB2Command("select po_list from po_lineitem order by po_list asc", conn)
+                Dim param1 As DB2Parameter
+                cmd = New DB2Command("call getlastnum_poLineitem(?)", conn)
+                param1 = cmd.Parameters.Add("@n1", DB2Type.Integer)
+                param1.Direction = ParameterDirection.Output
                 rdr = cmd.ExecuteReader
-                If rdr.HasRows Then
-                    While rdr.Read
-                        poStr = rdr.GetString(0)
-                        Integer.TryParse(poStr, po)
-                    End While
-                    po += 1
-                Else
-                    po = 10000 'as start
-                End If
+
+                po = param1.Value.ToString
 
 
                 'condition where if above cells are not empty then add 1 to current po
                 While count < i
                     'if has similar purchase order existing in database then move on
-                    cmd = New DB2Command("select po_list from po_lineitem where po_list='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                    cmd = New DB2Command("select po_list from TABLE(db2admin.lineitem_list()) as udf where po_list=@n1", conn)
+                    cmd.Parameters.Add("@n1", DB2Type.Integer).Value = Me.dgvPO.Rows(count).Cells(1).Value
                     rdr = cmd.ExecuteReader
                     If rdr.HasRows Then
                         count += 1
@@ -310,7 +300,8 @@ Public Class PurchaseOrder
                 Me.dgvPO.Rows(i).Cells(3).Value = 1
                 Me.dgvPO.Rows(i).Cells(6).Value = "0.00"
 
-                cmd = New DB2Command("select po_list from po_lineitem where po_list='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                cmd = New DB2Command("select po_list from TABLE(db2admin.lineitem_list()) as udf where po_list=@n1", conn)
+                cmd.Parameters.Add("@n1", DB2Type.Integer).Value = Me.dgvPO.Rows(count).Cells(1).Value
                 rdr = cmd.ExecuteReader
                 If rdr.HasRows Then
                 Else
@@ -344,44 +335,77 @@ Public Class PurchaseOrder
         Dim k As Integer = 0
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
-        Dim postr As String
         Dim j As Integer = 0
         Dim none As Boolean = True
+        Dim i As Integer = 0
+        Dim counter As Integer = 0
+        Dim total As Decimal = 0
 
         If SwitchBtn.Text = "ORDER LISTS" Then
             Try
                 k = dgvPO.Rows.Count - 1
 
-
+                Dim param1 As DB2Parameter
+                Dim param2 As DB2Parameter
                 While count < k
-
                     If dgvPO.Rows(count).Cells(0).Value = True Then
+                        cmd = New DB2Command("select * from table(DB2ADMIN.LINEITEM_LIST()) as udf where po_list=@n1", conn)
+                        cmd.Parameters.Add("@n1", DB2Type.Integer).Value = dgvPO.Rows(count).Cells(1).Value
+                        rdr = cmd.ExecuteReader
+                        If rdr.HasRows Then
+                            cmd = New DB2Command("call deletelineitem(?)", conn)
+                            param2 = cmd.Parameters.Add("@n2", DB2Type.Integer)
+                            param2.Direction = ParameterDirection.Input
+                            cmd.Parameters("@n2").Value = dgvPO.Rows(count).Cells(1).Value
+                            cmd.ExecuteNonQuery()
+                        End If
                         dgvPO.Rows(count).Cells(0).Value = False
-                        dgvPO.Rows.RemoveAt(count)
-                        k -= 1
-                        none = False
-                    Else
-                        count += 1
+                            dgvPO.Rows.RemoveAt(count)
+                            k -= 1
+                            none = False
+                        Else
+                            count += 1
                     End If
                 End While
 
                 If none = True And k > 0 Then
+                    cmd = New DB2Command("select * from table(db2admin.lineitem_list()) as udf where po_list=@n1", conn)
+                    cmd.Parameters.Add("@n1", DB2Type.Integer).Value = dgvPO.Rows(k - 1).Cells(1).Value
+                    rdr = cmd.ExecuteReader
+                    If rdr.HasRows Then
+                        cmd = New DB2Command("call deletelineitem(?)", conn)
+                        param2 = cmd.Parameters.Add("@n2", DB2Type.Integer)
+                        param2.Direction = ParameterDirection.Input
+                        cmd.Parameters("@n2").Value = dgvPO.Rows(k - 1).Cells(1).Value
+                        cmd.ExecuteNonQuery()
+                    End If
                     dgvPO.Rows.RemoveAt(k - 1)
                 End If
 
-                cmd = New DB2Command("select po_list from po_lineitem order by po_list asc", conn)
+                While Me.dgvPO.Rows(i).Cells(1).Value IsNot Nothing
+                    i += 1
+                End While
+
+                While counter < i
+                    total += Me.dgvPO.Rows(counter).Cells(6).Value
+                    counter += 1
+                End While
+                txtTotal.Text = total
+
+                cmd = New DB2Command("call update_purchaseTotal(?)", conn)
+                param1 = cmd.Parameters.Add("@1", DB2Type.Decimal)
+                param1.Direction = ParameterDirection.Input
+                cmd.Parameters("@1").Value = txtTotal.Text
+                cmd.ExecuteNonQuery()
+
+
+                cmd = New DB2Command("call getlastnum_poLineitem(?)", conn)
+                param1 = cmd.Parameters.Add("@n1", DB2Type.Integer)
+                param1.Direction = ParameterDirection.Output
                 rdr = cmd.ExecuteReader
-                If rdr.HasRows Then
-                    While rdr.Read
-                        postr = rdr.GetString(0)
-                        Integer.TryParse(postr, po)
-                    End While
-                Else
-                    po = 9999 'as start
-                End If
 
                 'increment last po_no 
-                po += 1
+                po = param1.Value.ToString
                 k = 0
                 While Me.dgvPO.Rows(k).Cells(1).Value IsNot Nothing
                     k += 1
@@ -390,7 +414,8 @@ Public Class PurchaseOrder
 
                 While j < k
                     'if has similar purchase order existing inside db then move on and dont change po_no 
-                    cmd = New DB2Command("select po_list from po_lineitem where po_list='" & Me.dgvPO.Rows(j).Cells(1).Value & "'", conn)
+                    cmd = New DB2Command("select po_list from TABLE(db2admin.lineitem_list()) as udf where po_list=@n1", conn)
+                    cmd.Parameters.Add("@n1", DB2Type.Integer).Value = Me.dgvPO.Rows(j).Cells(1).Value
                     rdr = cmd.ExecuteReader
                     If rdr.HasRows Then
                         j += 1
@@ -454,62 +479,157 @@ Public Class PurchaseOrder
                         If answer = vbYes Then
 
                             While count < i
-
-                                cmdInsert = New DB2Command("select po_no from purchases where po_no ='" & txtPoNum.Text & "'", conn)
-                                rdrInsert = cmdInsert.ExecuteReader
+                            Dim param1 As DB2Parameter
+                            Dim param2 As DB2Parameter
+                            Dim param3 As DB2Parameter
+                            Dim param4 As DB2Parameter
+                            Dim param5 As DB2Parameter
+                            Dim param6 As DB2Parameter
+                            Dim param7 As DB2Parameter
+                            cmdInsert = New DB2Command("select po_no from table(db2admin.PURCHASELIST()) as udf where po_no =@n1", conn)
+                            cmdInsert.Parameters.Add("@n1", DB2Type.VarChar).Value = txtPoNum.Text
+                            rdrInsert = cmdInsert.ExecuteReader
                             If rdrInsert.HasRows Then
 
-                                cmdInsert = New DB2Command("update purchases set po_total=@total,po_date=@date,accid=@accid where po_no ='" & txtPoNum.Text & "'", conn)
-                                cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Home.ACCID.ToString
-                                cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
-                                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Value
+                                cmdInsert = New DB2Command("call update_purchases(?,?,?,?)", conn)
+
+                                param1 = cmdInsert.Parameters.Add("@1", DB2Type.VarChar)
+                                param1.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@1").Value = Home.ACCID.ToString
+                                param2 = cmdInsert.Parameters.Add("@2", DB2Type.VarChar)
+                                param2.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@2").Value = txtTotal.Text
+                                param3 = cmdInsert.Parameters.Add("@3", DB2Type.VarChar)
+                                param3.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@3").Value = dtpSideBar.Value
+                                param4 = cmdInsert.Parameters.Add("@4", DB2Type.VarChar)
+                                param4.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@4").Value = txtPoNum.Text
+
                                 cmdInsert.ExecuteNonQuery()
 
-                                cmdInsert = New DB2Command("select po_list from po_lineitem where po_list ='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
+                                cmdInsert = New DB2Command("select po_list from table(db2admin.lineitem_list()) as udf where po_list =@n1", conn)
+                                cmdInsert.Parameters.Add("@n1", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(1).Value
                                 rdrInsert = cmdInsert.ExecuteReader
                                 If rdrInsert.HasRows Then
-                                    cmdInsert = New DB2Command("update po_lineitem set purqty=@qty ,unit=@unit,price=@price,subtotal=@sub where po_list ='" & Me.dgvPO.Rows(count).Cells(1).Value & "'", conn)
-                                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(3).Value
-                                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(4).Value
-                                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(6).Value
+                                    cmdInsert = New DB2Command("call update_po_lineitem(?,?,?,?,?)", conn)
+
+                                    param1 = cmdInsert.Parameters.Add("@1", DB2Type.VarChar)
+                                    param1.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@1").Value = Me.dgvPO.Rows(count).Cells(3).Value
+                                    param2 = cmdInsert.Parameters.Add("@2", DB2Type.VarChar)
+                                    param2.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@2").Value = Me.dgvPO.Rows(count).Cells(4).Value
+                                    param3 = cmdInsert.Parameters.Add("@3", DB2Type.VarChar)
+                                    param3.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@3").Value = Me.dgvPO.Rows(count).Cells(5).Value
+                                    param4 = cmdInsert.Parameters.Add("@4", DB2Type.VarChar)
+                                    param4.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@4").Value = Me.dgvPO.Rows(count).Cells(6).Value
+                                    param5 = cmdInsert.Parameters.Add("@5", DB2Type.VarChar)
+                                    param5.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@5").Value = Me.dgvPO.Rows(count).Cells(1).Value
+
                                     cmdInsert.ExecuteNonQuery()
                                 Else
-                                    cmdInsert = New DB2Command("insert into po_lineitem(po_list,po_no,ing_id,purqty ,unit,price,subtotal) values(@list,@po,@ing,@qty,@unit,@price,@sub)", conn)
-                                    cmdInsert.Parameters.Add("@list", DB2Type.Integer).Value = Me.dgvPO.Rows(count).Cells(1).Value
-                                    cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = txtPoNum.Text
-                                    cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(7).Value
-                                    cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(3).Value
-                                    cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(4).Value
-                                    cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                                    cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(6).Value
+                                    cmdInsert = New DB2Command("call insert_polineitem(?,?,?,?,?,?,?)", conn)
+
+                                    param1 = cmdInsert.Parameters.Add("@n1", DB2Type.Integer)
+                                    param1.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@n1").Value = Me.dgvPO.Rows(count).Cells(1).Value
+
+                                    param2 = cmdInsert.Parameters.Add("@n2", DB2Type.VarChar)
+                                    param2.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@n2").Value = txtPoNum.Text
+
+                                    param3 = cmdInsert.Parameters.Add("@n3", DB2Type.VarChar)
+                                    param3.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@n3").Value = Me.dgvPO.Rows(count).Cells(7).Value
+
+                                    param4 = cmdInsert.Parameters.Add("@n4", DB2Type.Decimal)
+                                    param4.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@n4").Value = Me.dgvPO.Rows(count).Cells(3).Value
+
+                                    param5 = cmdInsert.Parameters.Add("@n5", DB2Type.VarChar)
+                                    param5.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@n5").Value = Me.dgvPO.Rows(count).Cells(4).Value
+
+                                    param6 = cmdInsert.Parameters.Add("@n6", DB2Type.Double)
+                                    param6.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@n6").Value = Me.dgvPO.Rows(count).Cells(5).Value
+
+                                    param7 = cmdInsert.Parameters.Add("@n7", DB2Type.Decimal)
+                                    param7.Direction = ParameterDirection.Input
+                                    cmdInsert.Parameters("@n7").Value = Me.dgvPO.Rows(count).Cells(6).Value
+
                                     cmdInsert.ExecuteNonQuery()
                                 End If
 
                             Else
 
-                                    cmdInsert = New DB2Command("insert into purchases(po_no,supid,po_total,po_date ,accid,delvstat) values(@po,@supid,@total,@date,@accid,@delv)", conn)
-                                    cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = txtPoNum.Text
-                                    cmdInsert.Parameters.Add("@accid", DB2Type.VarChar).Value = Home.ACCID.ToString
-                                    cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = txtSup.Text
-                                    cmdInsert.Parameters.Add("@total", DB2Type.Decimal).Value = txtTotal.Text
-                                    cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = "NOT DELIVERED"
-                                cmdInsert.Parameters.Add("@date", DB2Type.Date).Value = dtpSideBar.Value
+                                cmdInsert = New DB2Command("call insert_purchases(?,?,?,?,?,?)", conn)
+
+                                param1 = cmdInsert.Parameters.Add("@n1", DB2Type.VarChar)
+                                param1.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n1").Value = txtPoNum.Text
+
+                                param2 = cmdInsert.Parameters.Add("@n2", DB2Type.VarChar)
+                                param2.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n2").Value = Home.ACCID
+
+                                param3 = cmdInsert.Parameters.Add("@n3", DB2Type.VarChar)
+                                param3.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n3").Value = txtSup.Text
+
+                                param4 = cmdInsert.Parameters.Add("@n4", DB2Type.Decimal)
+                                param4.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n4").Value = txtTotal.Text
+
+                                param5 = cmdInsert.Parameters.Add("@n5", DB2Type.VarChar)
+                                param5.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n5").Value = "NOT DELIVERED"
+
+                                param6 = cmdInsert.Parameters.Add("@n6", DB2Type.Date)
+                                param6.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n6").Value = dtpSideBar.Value
+
                                 cmdInsert.ExecuteNonQuery()
 
-                                    cmdInsert = New DB2Command("insert into po_lineitem(po_list,po_no,ing_id,purqty ,unit,price,subtotal) values(@list,@po,@ing,@qty,@unit,@price,@sub)", conn)
-                                    cmdInsert.Parameters.Add("@list", DB2Type.Integer).Value = Me.dgvPO.Rows(count).Cells(1).Value
-                                    cmdInsert.Parameters.Add("@po", DB2Type.VarChar).Value = txtPoNum.Text
-                                cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(7).Value
-                                cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(3).Value
-                                cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPO.Rows(count).Cells(4).Value
-                                cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(5).Value
-                                cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPO.Rows(count).Cells(6).Value
+                                cmdInsert = New DB2Command("call insert_polineitem(?,?,?,?,?,?,?)", conn)
+
+                                param1 = cmdInsert.Parameters.Add("@n1", DB2Type.Integer)
+                                param1.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n1").Value = Me.dgvPO.Rows(count).Cells(1).Value
+
+                                param2 = cmdInsert.Parameters.Add("@n2", DB2Type.VarChar)
+                                param2.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n2").Value = txtPoNum.Text
+
+                                param3 = cmdInsert.Parameters.Add("@n3", DB2Type.VarChar)
+                                param3.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n3").Value = Me.dgvPO.Rows(count).Cells(7).Value
+
+                                param4 = cmdInsert.Parameters.Add("@n4", DB2Type.Decimal)
+                                param4.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n4").Value = Me.dgvPO.Rows(count).Cells(3).Value
+
+                                param5 = cmdInsert.Parameters.Add("@n5", DB2Type.VarChar)
+                                param5.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n5").Value = Me.dgvPO.Rows(count).Cells(4).Value
+
+                                param6 = cmdInsert.Parameters.Add("@n6", DB2Type.Double)
+                                param6.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n6").Value = Me.dgvPO.Rows(count).Cells(5).Value
+
+                                param7 = cmdInsert.Parameters.Add("@n7", DB2Type.Decimal)
+                                param7.Direction = ParameterDirection.Input
+                                cmdInsert.Parameters("@n7").Value = Me.dgvPO.Rows(count).Cells(6).Value
 
                                 cmdInsert.ExecuteNonQuery()
-                                End If
 
-                                count += 1
+                            End If
+
+                            count += 1
                             End While
                             MsgBox("Purchase Order Saved Succesfully")
                         Call RefreshorderDataGrid()
@@ -526,20 +646,23 @@ Public Class PurchaseOrder
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs)
-        Dim StrDelete As String
+
         Dim CmdDelete As DB2Command
         Dim i As Integer = 0
         Dim k As Integer = 0
-
+        Dim param1 As DB2Parameter
         While Me.dgvPO.Rows(k).Cells(1).Value IsNot Nothing
             k += 1
         End While
 
         While i < k
             Try
-                StrDelete = "delete from purchases where po_no= '" & Me.dgvPO.Rows(i).Cells(1).Value & "'"
-                CmdDelete = New DB2Command(StrDelete, conn)
+                CmdDelete = New DB2Command("call deletePurchases(?)", conn)
+                param1 = CmdDelete.Parameters.Add("@n1", DB2Type.Integer)
+                param1.Direction = ParameterDirection.Input
+                CmdDelete.Parameters("@n1").Value = Me.dgvPO.Rows(i).Cells(1).Value
                 CmdDelete.ExecuteNonQuery()
+
             Catch ex As Exception
                 MsgBox(ex.ToString)
             End Try
@@ -709,7 +832,7 @@ Public Class PurchaseOrder
                 .Columns(4).Name = "ORDER DATE"
             End With
 
-            cmd = New DB2Command("select * from PURCHASES where delvstat='NOT DELIVERED'", conn)
+            cmd = New DB2Command("select * from table(db2admin.purchaselist()) as udf where delvstat='NOT DELIVERED'", conn)
             rdr = cmd.ExecuteReader
             Dim i As Integer = 0
             While rdr.Read

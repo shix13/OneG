@@ -179,6 +179,7 @@ Public Class PurchasesAll
         Dim i As Integer = 0
         Dim cmdInsert As DB2Command
         Dim updated As Boolean = False
+
         Try
             Dim answer As DialogResult
             answer = MessageBox.Show("Purchase Order has Changes, Save?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -188,17 +189,15 @@ Public Class PurchasesAll
                     If Me.dgvPurchases.Rows(i).Cells(5).Value = "DELIVERED" Then
 
                     Else
+                        Dim param1 As DB2Parameter
 
-                        cmdInsert = New DB2Command("update purchases set qtypur = @qty,ing_id = @ing,supid =@supid,empid=@emp ,pricepur=@price,subtotal=@sub,delvstat=@delv,purunit=@unit where po_no= '" & Me.dgvPurchases.Rows(i).Cells(0).Value & "'", conn)
-                        cmdInsert.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(11).Value
-                        cmdInsert.Parameters.Add("@supid", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(10).Value
-                        cmdInsert.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(4).Value
-                        cmdInsert.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(5).Value
-                        cmdInsert.Parameters.Add("@price", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(6).Value
-                        cmdInsert.Parameters.Add("@sub", DB2Type.Double).Value = Me.dgvPurchases.Rows(i).Cells(7).Value
-                        cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(8).Value
-                        cmdInsert.Parameters.Add("@emp", DB2Type.VarChar).Value = Me.dgvPurchases.Rows(i).Cells(1).Value
+                        cmdInsert = New DB2Command("call update_purchaseStat(?)", conn)
+
+                        param1 = cmdInsert.Parameters.Add("@1", DB2Type.VarChar)
+                        param1.Direction = ParameterDirection.Input
+                        cmdInsert.Parameters("@1").Value = Me.dgvPurchases.Rows(i).Cells(0).Value
                         cmdInsert.ExecuteNonQuery()
+
                         updated = True
                     End If
                     i += 1
@@ -241,7 +240,8 @@ Public Class PurchasesAll
                 Try
 
                     '--------------------------------SELECT ALL LINE ITEM FROM DATABASE-------------------------------------------------
-                    cmdInsert = New DB2Command("select * from po_lineitem where po_no = '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'", conn)
+                    cmdInsert = New DB2Command("select * from TABLE(DB2ADMIN.lineitem_list()) AS UDF where po_no = @N1", conn)
+                    cmdInsert.Parameters.Add("@N1", DB2Type.VarChar).Value = Me.dgvPurchases.CurrentRow.Cells(0).Value
                     rdr = cmdInsert.ExecuteReader
                     While rdr.Read
 
@@ -250,7 +250,8 @@ Public Class PurchasesAll
                         Dim pounit As String = rdr.GetString(4).ToString
                         Dim ing As String = rdr.GetString(2).ToString
                         Dim qty As Decimal = rdr.GetString(3).ToString
-                        Cmdunit = New DB2Command("select ingunit from ingredients where ing_ID= '" & ing & "'", conn)
+                        Cmdunit = New DB2Command("select ingunit from TABLE(DB2ADMIN.INGREDIENTLIST()) AS udf where ing_ID= @n2", conn)
+                        Cmdunit.Parameters.Add("@N2", DB2Type.VarChar).Value = ing
                         rdrunit = Cmdunit.ExecuteReader
                         rdrunit.Read()
 
@@ -285,13 +286,14 @@ Public Class PurchasesAll
                     End While
 
                     '-------------------------UPDATE DELIVERY STATUS--------------------------------------------------------
-                    cmdInsert = New DB2Command("update purchases set delvstat=@delv where po_no= '" & Me.dgvPurchases.CurrentRow.Cells(0).Value & "'", conn)
-                    cmdInsert.Parameters.Add("@delv", DB2Type.VarChar).Value = "DELIVERED"
+                    Dim param1 As DB2Parameter
+                    cmdInsert = New DB2Command("call update_purchaseStat(?)", conn)
+
+                    param1 = cmdInsert.Parameters.Add("@1", DB2Type.VarChar)
+                    param1.Direction = ParameterDirection.Input
+                    cmdInsert.Parameters("@1").Value = Me.dgvPurchases.CurrentRow.Cells(0).Value
                     cmdInsert.ExecuteNonQuery()
-
                     '---------------------------------------------------------------------------------
-
-
 
                     MsgBox("Purchase Order Updated Succesfully")
 
@@ -407,7 +409,7 @@ Public Class PurchasesAll
 
         Try
 
-            cmd = New DB2Command("select * from PURCHASES where po_date =@d", conn)
+            cmd = New DB2Command("select * from TABLE(DB2ADMIN.PURCHASELIST()) AS UDF where po_date =@d", conn)
             cmd.Parameters.Add("@d", DB2Type.Date).Value = DateTimePicker1.Value
             rdr = cmd.ExecuteReader
             Me.dgvPurchases.Rows.Clear()

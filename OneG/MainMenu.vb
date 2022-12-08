@@ -1,4 +1,5 @@
 ﻿Imports System.Data.Common
+Imports System.Drawing.Imaging
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
 Imports IBM.Data.DB2
 
@@ -142,7 +143,9 @@ Public Class MainMenu
             Try
                 strsearchkey = Me.searchAll.Text + "%"
                 strsearchkey1 = Me.txtMenuNo.Text + "%"
-                cmdsearch = New DB2Command("select MENU_NO,ING_ID,QTYUSED,QTYUNIT from ingredients_used where  ING_ID like '" & strsearchkey & "' AND MENU_NO LIKE '" & strsearchkey1 & "'", conn)
+                cmdsearch = New DB2Command("select MENU_NO,ING_ID,QTYUSED,QTYUNIT from table(db2admin.ing_used_list()) as udf where  ING_ID like @n2 AND MENU_NO LIKE @n1", conn)
+                cmdsearch.Parameters.Add("@n1", DB2Type.Integer).Value = strsearchkey1
+                cmdsearch.Parameters.Add("@n2", DB2Type.VarChar).Value = strsearchkey
                 rdrsearch = cmdsearch.ExecuteReader
                 Me.dgvMENUANDUSED.Rows.Clear()
                 While rdrsearch.Read
@@ -156,7 +159,8 @@ Public Class MainMenu
         Else
             Try
                 strsearchkey = Me.searchAll.Text + "%"
-                cmdsearch = New DB2Command("select * from menu where MENUITEMNAME Like '" & strsearchkey & "' ", conn)
+                cmdsearch = New DB2Command("select * from table(db2admin.menulist()) as udf where MENUITEMNAME Like @n1", conn)
+                cmdsearch.Parameters.Add("@n1", DB2Type.VarChar).Value = strsearchkey
                 rdrsearch = cmdsearch.ExecuteReader
                 Me.dgvMENUANDUSED.Rows.Clear()
                 While rdrsearch.Read
@@ -167,6 +171,8 @@ Public Class MainMenu
             Catch ex As Exception
                 MsgBox(ex.ToString)
             End Try
+
+
         End If
 
 
@@ -181,6 +187,7 @@ Public Class MainMenu
         Dim count As Integer = 0
         Dim param2 As DB2Parameter
         Dim param3 As DB2Parameter
+        Dim param4 As DB2Parameter
         Dim save As Boolean = False
         If txtMenuItemName.Text = "" Then
             MsgBox("Set Meal Name")
@@ -190,15 +197,15 @@ Public Class MainMenu
 
 
             While count < dgvMENUANDUSED.Rows.Count - 1
-            If dgvMENUANDUSED.Rows(count).Cells(3).Value Is Nothing Then
+                If dgvMENUANDUSED.Rows(count).Cells(3).Value Is Nothing Then
                     MsgBox("Row: " & count + 1 & " has lacking information.")
 
                 Else
-                cmd = New DB2Command("select * from menu where menu_no= '" & txtMenuNo.Text & "'", conn)
-                rdr = cmd.ExecuteReader()
-                If rdr.HasRows Then
+                    cmd = New DB2Command("select * from TABLE(db2admin.menulist()) as udf where menu_no= '" & txtMenuNo.Text & "'", conn)
+                    rdr = cmd.ExecuteReader()
+                    If rdr.HasRows Then
 
-                    Try
+                        Try
                         str = "call updatemenu(?,?,?)"
                         cmd = New DB2Command(str, conn)
                         PARAM1 = cmd.Parameters.Add("@1", DB2Type.Integer)
@@ -214,22 +221,50 @@ Public Class MainMenu
                         cmd.Parameters("@3").Value = Me.txtPrice.Text
                         cmd.ExecuteNonQuery()
 
-
-                        cmd = New DB2Command("select menu_no,ing_id from ingredients_used where menu_no ='" & dgvMENUANDUSED.Rows(count).Cells(1).Value & "' and ing_id ='" & dgvMENUANDUSED.Rows(count).Cells(2).Value & "' ", conn)
-                        rdr = cmd.ExecuteReader
+                            cmd = New DB2Command("select menu_no,ing_id from table(db2admin.ing_used_list()) as udf where menu_no = @n1 and ing_id =@n2", conn)
+                            cmd.Parameters.Add("@n1", DB2Type.Integer).Value = dgvMENUANDUSED.Rows(count).Cells(1).Value
+                            cmd.Parameters.Add("@n2", DB2Type.VarChar).Value = dgvMENUANDUSED.Rows(count).Cells(2).Value
+                            rdr = cmd.ExecuteReader
                             If rdr.HasRows Then
 
-                                cmd = New DB2Command("update ingredients_used set qtyused= @used,qtyunit=@unit where menu_no ='" & Me.dgvMENUANDUSED.Rows(count).Cells(1).Value & "' and ing_id='" & Me.dgvMENUANDUSED.Rows(count).Cells(2).Value & "'", conn)
-                                cmd.Parameters.Add("@used", DB2Type.Double).Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
-                                cmd.Parameters.Add("@unit", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
+                                cmd = New DB2Command("CALL update_ingused(?,?,?,?)", conn)
+
+                                PARAM1 = cmd.Parameters.Add("@n1", DB2Type.Decimal)
+                                PARAM1.Direction = ParameterDirection.Input
+                                cmd.Parameters("@n1").Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
+
+                                param2 = cmd.Parameters.Add("@n2", DB2Type.VarChar)
+                                param2.Direction = ParameterDirection.Input
+                                cmd.Parameters("@n2").Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
+
+                                param3 = cmd.Parameters.Add("@n3", DB2Type.Integer)
+                                param3.Direction = ParameterDirection.Input
+                                cmd.Parameters("@n3").Value = txtMenuNo.Text
+
+                                param4 = cmd.Parameters.Add("@n4", DB2Type.VarChar)
+                                param4.Direction = ParameterDirection.Input
+                                cmd.Parameters("@n4").Value = Me.dgvMENUANDUSED.Rows(count).Cells(2).Value
                                 cmd.ExecuteNonQuery()
                             Else
 
-                                cmd = New DB2Command("insert into ingredients_used values (@qty,@un,@menu,@ing)", conn)
-                                cmd.Parameters.Add("@menu", DB2Type.Integer).Value = Me.dgvMENUANDUSED.Rows(count).Cells(1).Value
-                                cmd.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(2).Value
-                                cmd.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
-                                cmd.Parameters.Add("@un", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
+                                cmd = New DB2Command("CALL Insert_IngUsed(?,?,?,?)", conn)
+
+                                PARAM1 = cmd.Parameters.Add("@n1", DB2Type.Decimal)
+                                PARAM1.Direction = ParameterDirection.Input
+                                cmd.Parameters("@n1").Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
+
+                                param2 = cmd.Parameters.Add("@n2", DB2Type.VarChar)
+                                param2.Direction = ParameterDirection.Input
+                                cmd.Parameters("@n2").Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
+
+                                param3 = cmd.Parameters.Add("@n3", DB2Type.Integer)
+                                param3.Direction = ParameterDirection.Input
+                                cmd.Parameters("@n3").Value = txtMenuNo.Text
+
+                                param4 = cmd.Parameters.Add("@n4", DB2Type.VarChar)
+                                param4.Direction = ParameterDirection.Input
+                                cmd.Parameters("@n4").Value = Me.dgvMENUANDUSED.Rows(count).Cells(2).Value
+
                                 cmd.ExecuteNonQuery()
                             End If
                             save = True
@@ -256,12 +291,25 @@ Public Class MainMenu
                         cmd.ExecuteNonQuery()
 
 
-                        cmd = New DB2Command("insert into ingredients_used values (@qty,@un,@menu,@ing)", conn)
-                        cmd.Parameters.Add("@menu", DB2Type.Integer).Value = Me.dgvMENUANDUSED.Rows(count).Cells(1).Value
-                        cmd.Parameters.Add("@ing", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(2).Value
-                        cmd.Parameters.Add("@qty", DB2Type.Double).Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
-                        cmd.Parameters.Add("@un", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
-                        cmd.ExecuteNonQuery()
+                            cmd = New DB2Command("CALL Insert_IngUsed(?,?,?,?)", conn)
+
+                            PARAM1 = cmd.Parameters.Add("@n1", DB2Type.Decimal)
+                            PARAM1.Direction = ParameterDirection.Input
+                            cmd.Parameters("@n1").Value = Me.dgvMENUANDUSED.Rows(count).Cells(3).Value
+
+                            param2 = cmd.Parameters.Add("@n2", DB2Type.VarChar)
+                            param2.Direction = ParameterDirection.Input
+                            cmd.Parameters("@n2").Value = Me.dgvMENUANDUSED.Rows(count).Cells(4).Value
+
+                            param3 = cmd.Parameters.Add("@n3", DB2Type.Integer)
+                            param3.Direction = ParameterDirection.Input
+                            cmd.Parameters("@n3").Value = txtMenuNo.Text
+
+                            param4 = cmd.Parameters.Add("@n4", DB2Type.VarChar)
+                            param4.Direction = ParameterDirection.Input
+                            cmd.Parameters("@n4").Value = Me.dgvMENUANDUSED.Rows(count).Cells(2).Value
+
+                            cmd.ExecuteNonQuery()
                             save = True
                         Catch ex As Exception
                         MsgBox("Fill all details")
@@ -328,7 +376,9 @@ Public Class MainMenu
                 Dim cmd As DB2Command
                 Dim rdr As DB2DataReader
 
-                cmd = New DB2Command("select * from ingredients_used where menu_no ='" & Me.txtMenuNo.Text & "' and ing_id = '" & Me.dgvMENUANDUSED.Rows(i).Cells(2).Value & "'", conn)
+                cmd = New DB2Command("select * from table (db2admin.ing_used_list()) as udf where menu_no =@n1 and ing_id = @n2", conn)
+                cmd.Parameters.Add("@n1", DB2Type.Integer).Value = Me.txtMenuNo.Text
+                cmd.Parameters.Add("@n2", DB2Type.VarChar).Value = Me.dgvMENUANDUSED.Rows(i).Cells(2).Value
                 rdr = cmd.ExecuteReader
                 rdr.Read()
                 If rdr.HasRows Then
@@ -354,7 +404,7 @@ Public Class MainMenu
         Dim CmdDelete As DB2Command
         Dim count As Integer = 0
         Dim i As Integer
-
+        Dim param1 As DB2Parameter
         Dim answer As DialogResult
         answer = MessageBox.Show("Menu info will be deleted?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If answer = vbYes Then
@@ -366,12 +416,19 @@ Public Class MainMenu
                 End While
 
                 Try
-                    StrDelete = "delete from menu where menu_no = '" & Me.txtMenuNo.Text & "'"
+
+                    StrDelete = "call delete_menuitem(?)"
                     CmdDelete = New DB2Command(StrDelete, conn)
+                    param1 = CmdDelete.Parameters.Add("@n1", DB2Type.Decimal)
+                    param1.Direction = ParameterDirection.Input
+                    CmdDelete.Parameters("@n1").Value = Me.txtMenuNo.Text
                     CmdDelete.ExecuteNonQuery()
 
-                    StrDelete = "delete from INGREDIENTS_USED where menu_no = '" & Me.txtMenuNo.Text & "'"
+                    StrDelete = "call delete_ing_used(?)"
                     CmdDelete = New DB2Command(StrDelete, conn)
+                    param1 = CmdDelete.Parameters.Add("@n1", DB2Type.Decimal)
+                    param1.Direction = ParameterDirection.Input
+                    CmdDelete.Parameters("@n1").Value = Me.txtMenuNo.Text
                     CmdDelete.ExecuteNonQuery()
 
                     MsgBox("Menu item has been remove.")
@@ -407,7 +464,7 @@ Public Class MainMenu
                 End With
 
 
-                str = "select * from menu"
+                str = "select * from table(db2admin.menulist()) as udf"
                 cmd = New DB2Command(str, conn)
                 rdr = cmd.ExecuteReader
 
@@ -473,8 +530,9 @@ Public Class MainMenu
                         .Columns(4).Name = "UNIT"
                     End With
 
-                    str = "select MENU_no, ing_id, qtyused,qtyunit from ingredients_used where menu_no ='" & txtMenuNo.Text & "'"
-                    cmd = New DB2Command(Str, conn)
+                    str = "select MENU_no, ing_id, qtyused,qtyunit from table(db2admin.ing_used_list()) as udf where menu_no=@n1"
+                    cmd = New DB2Command(str, conn)
+                    cmd.Parameters.Add("@n1", DB2Type.VarChar).Value = txtMenuNo.Text
                     rdr = cmd.ExecuteReader
                     dgvMENUANDUSED.Rows.Clear()
                     While rdr.Read
@@ -496,7 +554,9 @@ Public Class MainMenu
         Dim count As Integer = 0
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
-
+        Dim str As String
+        Dim param1 As DB2Parameter
+        Dim param2 As DB2Parameter
         Try
             While Me.dgvMENUANDUSED.Rows(k).Cells(1).Value IsNot Nothing And Me.dgvMENUANDUSED.Rows(k).Cells(2).Value IsNot Nothing
                 k += 1
@@ -505,11 +565,23 @@ Public Class MainMenu
             While count < k
 
                 If dgvMENUANDUSED.Rows(count).Cells(0).Value = True Then
-                    cmd = New DB2Command("select * from ingredients_used where menu_no ='" & dgvMENUANDUSED.Rows(count).Cells(0).Value.ToString & "' and ing_id ='" & dgvMENUANDUSED.Rows(count).Cells(1).Value.ToString & "'", conn)
+                    cmd = New DB2Command("select * from table(db2admin.ing_used_list()) as udf where menu_no =@n1 and ing_id =@n2", conn)
+                    cmd.Parameters.Add("@n1", DB2Type.Integer).Value = dgvMENUANDUSED.Rows(count).Cells(1).Value
+                    cmd.Parameters.Add("@n2", DB2Type.VarChar).Value = dgvMENUANDUSED.Rows(count).Cells(2).Value
                     rdr = cmd.ExecuteReader
                     If rdr.HasRows Then
-                        cmd = New DB2Command("delete from ingredients_used where menu_no = '" & Me.dgvMENUANDUSED.Rows(count).Cells(0).Value.ToString & "' and ing_id='" & Me.dgvMENUANDUSED.Rows(count).Cells(1).Value.ToString & "' ", conn)
+                        str = "call delete_ing_used_specified(?,?)"
+                        cmd = New DB2Command(str, conn)
+                        param1 = cmd.Parameters.Add("@n1", DB2Type.Integer)
+                        param1.Direction = ParameterDirection.Input
+                        cmd.Parameters("@n1").Value = dgvMENUANDUSED.Rows(count).Cells(1).Value
+
+                        param2 = cmd.Parameters.Add("@n2", DB2Type.VarChar)
+                        param2.Direction = ParameterDirection.Input
+                        cmd.Parameters("@n2").Value = Me.dgvMENUANDUSED.Rows(count).Cells(2).Value
+
                         cmd.ExecuteNonQuery()
+
                     End If
                     dgvMENUANDUSED.Rows(count).Cells(4).Value = False
                     dgvMENUANDUSED.Rows.RemoveAt(count)
@@ -533,7 +605,8 @@ Public Class MainMenu
 
         Try
             strsearchkey = TextBox1.Text + "%"
-            cmdsearch = New DB2Command("select * from ingredients where ingname like '" & strsearchkey & "'", conn)
+            cmdsearch = New DB2Command("select * from table(db2admin.ingredientlist()) as udf where ingname like @n1", conn)
+            cmdsearch.Parameters.Add("@n1", DB2Type.VarChar).Value = strsearchkey
             rdrsearch = cmdsearch.ExecuteReader
             Me.dgvIng.Rows.Clear()
             While rdrsearch.Read

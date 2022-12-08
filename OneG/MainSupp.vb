@@ -1,4 +1,5 @@
-﻿Imports IBM.Data.DB2
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
+Imports IBM.Data.DB2
 
 Public Class MainSupp
     Private conn As Common.DbConnection
@@ -110,7 +111,8 @@ Public Class MainSupp
         Dim RDR As DB2DataReader
 
 
-        cmd = New DB2Command("select SUPID from SUPPLIER where SUPID ='" & txtSupID.Text & "'", conn)
+        cmd = New DB2Command("select SUPID from table(db2admin.supplierlist()) as udf where SUPID =@sup", conn)
+        cmd.Parameters.Add("@sup", DB2Type.VarChar).Value = txtSupID.Text
         RDR = cmd.ExecuteReader
         If RDR.HasRows Then
             Try
@@ -178,7 +180,8 @@ Public Class MainSupp
 
         Try
             strsearchkey = Me.searchSupp.Text + "%"
-            cmdsearch = New DB2Command("select * from supplier where supname like '" & strsearchkey & "'", conn)
+            cmdsearch = New DB2Command("select * from table(db2admin.supplierlist()) as udf where supname like @n1", conn)
+            cmdsearch.Parameters.Add("@n1", DB2Type.VarChar).Value = strsearchkey
             rdr = cmdsearch.ExecuteReader
             Me.dgvSupplier.Rows.Clear()
 
@@ -343,7 +346,7 @@ Public Class MainSupp
         End If
     End Sub
 
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
 
-
-
+    End Sub
 End Class

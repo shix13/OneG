@@ -1,4 +1,5 @@
-﻿Imports IBM.Data.DB2
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
+Imports IBM.Data.DB2
 
 Public Class pwCheck
     Private CONN As DB2Connection
@@ -8,7 +9,8 @@ Public Class pwCheck
         Dim CMD As DB2Command
         Dim RDR As DB2DataReader
         Dim STR As String
-        CMD = New DB2Command("select PASSWORD from EMPLOYEE where ACCID ='" & Home.ACCID.ToString & "'", CONN)
+        CMD = New DB2Command("select PASSWORD from TABLE(DB2ADMIN.EMPLOYEELIST()) AS UDF where ACCID =@N1", CONN)
+        CMD.Parameters.Add("@N1", DB2Type.VarChar).Value = Home.ACCID.ToString
         RDR = CMD.ExecuteReader
         RDR.Read()
         STR = RDR.GetString(0).ToString
