@@ -198,9 +198,18 @@ Public Class Payment
 
                     cmdInsert1.ExecuteNonQuery()
 
-                    cmdInsert1 = New DB2Command("update ORDER set  PAYMENT ='PAID' where orderno= '" & txtOrderNo.Text & "'", conn)
+                    cmdInsert1 = New DB2Command("call UPDATE_ORDER_STAT(?)", conn)
+                    PARAM1 = cmdInsert1.Parameters.Add("@n1", DB2Type.Integer)
+                    PARAM1.Direction = ParameterDirection.Input
+                    cmdInsert1.Parameters("@n1").Value = txtOrderNo.Text
+
                     cmdInsert1.ExecuteNonQuery()
-                    cmdInsert1 = New DB2Command("update tables set  availability ='AVAILABLE' where TABLENO= '" & cmbTableNo.Text & "'", conn)
+
+                    cmdInsert1 = New DB2Command("call update_table_stat(?)", conn)
+                    PARAM1 = cmdInsert1.Parameters.Add("@n1", DB2Type.Integer)
+                    PARAM1.Direction = ParameterDirection.Input
+                    cmdInsert1.Parameters("@n1").Value = cmbTableNo.Text
+
                     cmdInsert1.ExecuteNonQuery()
                     MsgBox("payment info recorded...")
                 Catch ex As Exception

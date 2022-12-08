@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
 Imports IBM.Data.DB2
 
 Public Class MainEmp
@@ -126,46 +127,43 @@ Public Class MainEmp
         Dim PW As String = Me.txtPass.Text
 
         cmd = New DB2Command("select ACCID from EMPLOYEE where ACCID ='" & txtAccID.Text & "'", conn)
-            RDR = cmd.ExecuteReader
-            If RDR.HasRows Then
-                Try
+        RDR = cmd.ExecuteReader
+        If RDR.HasRows Then
+            Try
 
 
-                    If (PW = "") Then
+                If (PW = "") Then
                         str = "call updateemployee_WO_PW(?,?,?,?,?)"
                         cmd = New DB2Command(str, conn)
-
                         param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
                         param1.Direction = ParameterDirection.Input
                         cmd.Parameters("@1").Value = Me.txtAccID.Text
-
                         param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
                         param2.Direction = ParameterDirection.Input
                         cmd.Parameters("@2").Value = Me.txtFName.Text
-
                         param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
                         param3.Direction = ParameterDirection.Input
                         cmd.Parameters("@3").Value = Me.txtMName.Text
-
                         param4 = cmd.Parameters.Add("@4", DB2Type.VarChar)
                         param4.Direction = ParameterDirection.Input
                         cmd.Parameters("@4").Value = Me.txtLName.Text
 
-                        param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
-                        param6.Direction = ParameterDirection.Input
-                        cmd.Parameters("@6").Value = Me.cmbPosition.Text.ToUpper
+                        param5 = cmd.Parameters.Add("@5", DB2Type.VarChar)
+                        param5.Direction = ParameterDirection.Input
+                    cmd.Parameters("@5").Value = Me.cmbPosition.Text
 
 
-                        cmd.ExecuteNonQuery()
+
+                    cmd.ExecuteNonQuery()
                         MsgBox("Employee Information has been Updated!")
                         Call REFRESHORDERDATAGRID()
 
                     Else
-                    If (PW.Length < 8) Then
-                        MsgBox("Password Length requires 8 or more characters")
-                    Else
+                        If (PW.Length < 8) Then
+                            MsgBox("Password Length requires 8 or more characters")
+                        Else
 
-                        str = "call updateemployee(?,?,?,?,?,?)"
+                            str = "call updateemployee(?,?,?,?,?,?)"
                             cmd = New DB2Command(str, conn)
 
                             param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
@@ -190,39 +188,33 @@ Public Class MainEmp
 
                             param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
                             param6.Direction = ParameterDirection.Input
-                            cmd.Parameters("@6").Value = Me.cmbPosition.Text.ToUpper
+                        cmd.Parameters("@6").Value = Me.cmbPosition.Text
 
-                            cmd.ExecuteNonQuery()
+                        cmd.ExecuteNonQuery()
                             MsgBox("Employee Information has been Updated!")
                             Call REFRESHORDERDATAGRID()
-                       
+
+                        End If
                     End If
-                End If
                 Catch ex As Exception
-                    MsgBox("Something went wrong please try again!")
-
-                End Try
+                MsgBox("Something went wrong please try again!")
+            End Try
+        Else
+            If cmbPosition.Text = "SELECT" Or cmbPosition.Text = "" Then
+                MsgBox("Select an Organizational Role")
+            ElseIf txtPass.Text = "" Then
+                MsgBox("Please Provide an Account Password")
             Else
-                If cmbPosition.Text = "SELECT" Or cmbPosition.Text = "" Then
-                    MsgBox("Select an Organizational Role")
+                Try
 
-                ElseIf txtPass.Text = "" Then
-                    MsgBox("Please Provide an Account Password")
-                Else
-
-
-                    Try
-                        str = "call insertEmployee(?,?,?,?,?,?)"
+                    str = "call insertEmployee(?,?,?,?,?,?)"
                         cmd = New DB2Command(str, conn)
-
                         param1 = cmd.Parameters.Add("@1", DB2Type.VarChar)
                         param1.Direction = ParameterDirection.Input
                         cmd.Parameters("@1").Value = Me.txtAccID.Text
-
                         param2 = cmd.Parameters.Add("@2", DB2Type.VarChar)
                         param2.Direction = ParameterDirection.Input
                         cmd.Parameters("@2").Value = Me.txtLName.Text
-
                         param3 = cmd.Parameters.Add("@3", DB2Type.VarChar)
                         param3.Direction = ParameterDirection.Input
                         cmd.Parameters("@3").Value = Me.txtFName.Text
@@ -238,7 +230,6 @@ Public Class MainEmp
                         param6 = cmd.Parameters.Add("@6", DB2Type.VarChar)
                         param6.Direction = ParameterDirection.Input
                         cmd.Parameters("@6").Value = Me.txtPass.Text
-
                         cmd.ExecuteNonQuery()
                         MsgBox("Account Saved Successfully!")
                         REFRESHORDERDATAGRID()
@@ -246,16 +237,15 @@ Public Class MainEmp
                         MsgBox("Something went wrong please try again!")
                     End Try
                 End If
-            End If
+        End If
+
 
     End Sub
 
 
 
     Private Sub dgvEmployeeAcc_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployeeAcc.CellContentClick
-
     End Sub
-
     Private Sub dgvEmployeeAcc_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvEmployeeAcc.MouseUp
         Try
             Me.txtAccID.Text = Me.dgvEmployeeAcc.CurrentRow.Cells(0).Value
@@ -307,7 +297,8 @@ Public Class MainEmp
 
         Try
             strsearchkey = Me.searchAccID.Text + "%"
-            cmdsearch = New DB2Command("select * from employee where lname like '" & strsearchkey & "'", conn)
+            cmdsearch = New DB2Command("select * from table(db2admin.employeelist()) as udf where lname like @name", conn)
+            cmdsearch.Parameters.Add("@name", DB2Type.VarChar).Value = strsearchkey
             rdr = cmdsearch.ExecuteReader
 
             Me.dgvEmployeeAcc.Rows.Clear()
