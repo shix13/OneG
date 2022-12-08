@@ -57,7 +57,7 @@ Public Class MainTransLogs
 
     Private Sub REFRESHORDERDATAGRID()
         Me.cmbSystemLogs.Text = "SELECT"
-        Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + " !"
+        Me.lblWelcomeBar.Text = "WELCOME, " + Home.nameU.ToString + "!"
         Dim cmd As DB2Command
         Dim rdr As DB2DataReader
         Dim rows As String()
@@ -225,7 +225,7 @@ Public Class MainTransLogs
         Dim rows As String()
 
         If cmbSystemLogs.Text = "ALL" Then
-            cmd = New DB2Command("Select * from logs", conn)
+            cmd = New DB2Command("Select * from logs order by logdate desc", conn)
             rdr = cmd.ExecuteReader
 
             Me.dgvSystemLogs.Rows.Clear()
@@ -236,7 +236,7 @@ Public Class MainTransLogs
 
         Else
 
-            cmd = New DB2Command("Select * from logs where transaction like '" & cmbSystemLogs.Text & "%'", conn)
+            cmd = New DB2Command("Select * from logs where transaction like '" & cmbSystemLogs.Text & "%' order by logdate desc", conn)
             rdr = cmd.ExecuteReader
             Me.dgvSystemLogs.Rows.Clear()
             While rdr.Read
@@ -253,7 +253,7 @@ Public Class MainTransLogs
 
 
 
-        cmd = New DB2Command("select * from logs where logdate = @d ", conn)
+        cmd = New DB2Command("select * from logs where logdate = @d order by logdate desc", conn)
 
         cmd.Parameters.Add("@d", DB2Type.Date).Value = DateTimePicker1.Value
         rdr = cmd.ExecuteReader

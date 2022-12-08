@@ -90,7 +90,7 @@ Public Class Order
                 REMOVEBTN.Visible = True
             End If
 
-            cmd = New DB2Command("select * from table(db2admin.MenuStillAvailable()) as udf where ingqty>1", conn)
+            cmd = New DB2Command("select * from table(db2admin.menulist()) as udf ", conn)
             rdr = cmd.ExecuteReader
 
             Me.dgvMenu.Rows.Clear()
